@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D3F03FBC-6656-48B5-B598-93D99A67F52E"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "675D2042-C126-438E-8C24-90676BB2D87C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Img Gallery/model/collections/TableOfContents.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "init(rootFolder:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D9BB6C0B-A483-458E-963C-B0F6BB0A4B34"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Img Gallery/model/collections/TableOfContents.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "TableOfContents"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "D9BB6C0B-A483-458E-963C-B0F6BB0A4B34 - f251d9056a715594"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Img_Gallery.TableOfContents.__allocating_init() -&gt; Img_Gallery.TableOfContents"
+                  moduleName = "Img Gallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gardner/code/repos_home/Img%20Gallery/Img%20Gallery/model/collections/TableOfContents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "D9BB6C0B-A483-458E-963C-B0F6BB0A4B34 - 31132319b9df5b91"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Img_Gallery.TableOfContents.() -&gt; Img_Gallery.TableOfContents.init() -&gt; Img_Gallery.TableOfContents"
+                  moduleName = "Img Gallery"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gardner/code/repos_home/Img%20Gallery/Img%20Gallery/model/collections/TableOfContents.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

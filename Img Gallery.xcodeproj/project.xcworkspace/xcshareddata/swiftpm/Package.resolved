@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "wvhextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gvh/WvhExtensions",
+      "state" : {
+        "revision" : "48b95677c3fa1b3649c3f4a7b6dd9f224c7f956f",
+        "version" : "1.0.10"
+      }
+    }
+  ],
+  "version" : 2
+}
