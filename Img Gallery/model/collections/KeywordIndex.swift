@@ -23,7 +23,7 @@ class KeywordIndex {
     }
 
     private func add(folder: ImageFolder) {
-        if folder.subFolders.isEmpty {
+        if folder.subFolderValues.isEmpty {
             let tokenStrings = getTokens(folder: folder).sorted()
             for tokenString in tokenStrings where tokenString.count > 2 {
                 var keywordElement = keywords[tokenString]
@@ -34,7 +34,7 @@ class KeywordIndex {
                 keywordElement!.add(folder: folder)
             }
         } else {
-            for folder in folder.subFolders.values {
+            for folder in folder.subFolderValues {
                 add(folder: folder)
             }
         }

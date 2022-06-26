@@ -10,12 +10,12 @@ import Combine
 
 class ImageLoader {
 
-    func readImage(fileDataSource: FileDataSource, completionHandler : @escaping ((_ file: ImageFile?) -> Void)) {
+    static func readImage(fileDataSource: FileDataSource, completionHandler : @escaping ((_ file: ImageFile?) -> Void)) {
         let file = fileDataSource.getCurrentFile()
         readImage(file: file, completionHandler: completionHandler)
     }
 
-    func readImage(file: ImageFile, completionHandler: @escaping ((_ file: ImageFile?) -> Void)) {
+    static func readImage(file: ImageFile, completionHandler: @escaping ((_ file: ImageFile?) -> Void)) {
         if file.imageReady {
             completionHandler(file)
             return
@@ -49,7 +49,6 @@ class ImageLoader {
                 let uiImage = UIImage(data: data)
                 if uiImage != nil {
                     file.setImage(uiImage!)
-                    file.setImageReady()
                     completionHandler(file)
                 } else {
                     let imageMissingForFile = "imageMissing.forFile".localizedWithComment(comment: "message in image loader")

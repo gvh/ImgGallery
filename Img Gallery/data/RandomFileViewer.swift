@@ -140,7 +140,7 @@ extension RandomFileViewer: FileDataSource {
     func goForwards() -> ImageFile {
         file = randomDataSource.getRandomFile()
         withAnimation(.default) {
-            imageLoader.readImage(file: file!) { _ in }
+            ImageLoader.readImage(file: file!) { _ in }
         }
 
         if file != nil {

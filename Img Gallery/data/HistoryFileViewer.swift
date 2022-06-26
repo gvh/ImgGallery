@@ -78,7 +78,7 @@ extension HistoryFileViewer: FileDataSource {
         }
         let file = AppData.sharedInstance.histories.items[currentPosition].file
         withAnimation(.default) {
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         }
         return file
     }
@@ -91,7 +91,7 @@ extension HistoryFileViewer: FileDataSource {
         }
         let file = AppData.sharedInstance.histories.items[currentPosition].file
         withAnimation(.default) {
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         }
         return file
     }

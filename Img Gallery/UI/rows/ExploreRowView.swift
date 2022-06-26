@@ -8,13 +8,25 @@
 import SwiftUI
 
 struct ExploreRowView: View {
-    @State var folder: ImageFolder
+    @ObservedObject var subFolder: ImageFolder
 
     var body: some View {
-        HStack {
-            Text(folder.noPrefixName)
-            Spacer()
-            Image(uiImage: folder.getImage())
+        if subFolder.files.count > 0 {
+            HStack {
+                NavigationLink {
+                    ImageMenuView(folder: subFolder)
+                } label : {
+                    Label("images: \(subFolder.noPrefixName)", systemImage: "photo.fill.on.rectangle.fill")
+                }
+            }
+        } else {
+            HStack {
+                NavigationLink {
+                    ExploreView(folder: subFolder)
+                } label : {
+                    Label("folders: \(subFolder.noPrefixName)", systemImage: "folder.fill")
+                }
+            }
         }
     }
 }

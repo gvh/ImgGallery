@@ -75,7 +75,7 @@ extension FavoriteFileViewer: FileDataSource {
             currentPosition = AppData.sharedInstance.favorites.items.count - 1
         }
         let file = AppData.sharedInstance.favorites.items[currentPosition].file
-        imageLoader.readImage(file: file) { _ in }
+        ImageLoader.readImage(file: file) { _ in }
         return file
     }
 
@@ -86,7 +86,7 @@ extension FavoriteFileViewer: FileDataSource {
             currentPosition = 0
         }
         let file = AppData.sharedInstance.favorites.items[currentPosition].file
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         return file
     }
 

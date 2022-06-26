@@ -7,65 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "675D2042-C126-438E-8C24-90676BB2D87C"
-            shouldBeEnabled = "Yes"
+            uuid = "1232509C-95A2-44DF-844A-77886C3F3005"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Img Gallery/model/collections/TableOfContents.swift"
+            filePath = "Img Gallery/model/objects/ImageFolder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "init(rootFolder:)"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "addSubFolder(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D9BB6C0B-A483-458E-963C-B0F6BB0A4B34"
-            shouldBeEnabled = "Yes"
+            uuid = "A60B9E48-68CF-4B91-9C85-C79C2353305C"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Img Gallery/model/collections/TableOfContents.swift"
+            filePath = "Img Gallery/model/objects/ImageFolder.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "TableOfContents"
-            landmarkType = "3">
-            <Locations>
-               <Location
-                  uuid = "D9BB6C0B-A483-458E-963C-B0F6BB0A4B34 - f251d9056a715594"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Img_Gallery.TableOfContents.__allocating_init() -&gt; Img_Gallery.TableOfContents"
-                  moduleName = "Img Gallery"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gardner/code/repos_home/Img%20Gallery/Img%20Gallery/model/collections/TableOfContents.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  uuid = "D9BB6C0B-A483-458E-963C-B0F6BB0A4B34 - 31132319b9df5b91"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Img_Gallery.TableOfContents.() -&gt; Img_Gallery.TableOfContents.init() -&gt; Img_Gallery.TableOfContents"
-                  moduleName = "Img Gallery"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gardner/code/repos_home/Img%20Gallery/Img%20Gallery/model/collections/TableOfContents.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "12"
-                  endingLineNumber = "12"
-                  offsetFromSymbolStart = "108">
-               </Location>
-            </Locations>
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "addSubFolder(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "24862F4A-85C2-4794-8F24-E81947B1488A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Img Gallery/model/objects/ImageFolder.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "94"
+            endingLineNumber = "94"
+            landmarkName = "addSubFolder(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -18,48 +18,23 @@ enum FolderContents: Int {
 }
 
 class ImageFolder: ObservableObject {
-    @Published private(set) var name: String
+    private(set) var name: String
 
     private(set) var parentFolder: ImageFolder?
-    private(set) var subFolders: [String: ImageFolder] = [:]
-    private(set) var subFolderKeys: [String] = []
-    private(set) var subFolderBrowsableKeys: [String] = []
 
     @Published private(set) var subFolderValues: [ImageFolder] = []
     @Published private(set) var files: [ImageFile] = []
 
-    @Published private(set) var folderCount: Int = 0
-    @Published private(set) var fileCount: Int = 0
-    @Published private(set) var folderLevel: Int = 0
-    @Published var filesInTree: Int = 0
+    private(set) var folderLevel: Int = 0
+    private(set) var filesInTree: Int = 0
 
     private(set) var isRoot: Bool = false
 
-    var subFolderCount: Int {
-        return subFolders.count
-    }
-
     static let folderImage = UIImage(named: "folder.png")
-
-    func getFirstFile() -> ImageFile {
-        if filesInTree == 0 {
-            return ImageFile(name: "noFiles")
-        }
-        var file: ImageFile?
-        if files.isEmpty {
-            for subFolder in subFolders.values where subFolder.filesInTree > 0 {
-                file = subFolder.getFirstFile()
-                return file!
-            }
-        } else {
-            return files[0]
-        }
-        return ImageFile(name: "subfolderError")
-    }
 
     func getContentType() -> FolderContents {
         var contentCode: Int = 0
-        if !subFolders.isEmpty { contentCode += 2 }
+        if !subFolderValues.isEmpty { contentCode += 2 }
         if !files.isEmpty { contentCode += 1 }
         let folderContents = FolderContents.init(rawValue: contentCode)!
         return folderContents
@@ -92,15 +67,13 @@ class ImageFolder: ObservableObject {
 
     func positionForFolder(folder: ImageFolder) -> Int {
         var i: Int = 0
-        for testFolderKey in subFolderKeys {
-            let testFolder = subFolders[testFolderKey]
-            if testFolder?.name == folder.name {
+        for testFolder in subFolderValues {
+            if testFolder.name == folder.name {
                 return i
             }
             i += 1
         }
         return -1
-
     }
 
     func positionForFile(file: ImageFile) -> Int {
@@ -116,19 +89,23 @@ class ImageFolder: ObservableObject {
 
     fileprivate func addSubFolder(_ childFolder: ImageFolder) {
         childFolder.folderLevel = self.folderLevel + 1
-            self.subFolders[childFolder.name] = childFolder
-        subFolderKeys = subFolders.keys.sorted()
-        subFolderBrowsableKeys = subFolders.keys.sorted().filter { $0.endsWith("norandom") == false }
-        subFolderValues = Array(subFolders.values)
+        DispatchQueue.main.sync {
+            self.subFolderValues.append(childFolder)
+            self.subFolderValues.sort()
+        }
     }
 
     func subFolder(_ key: String) -> ImageFolder? {
-        return subFolders[key]
+        let folders = subFolderValues.filter {$0.name == key}
+//        print("\(subFolderValues.count) subfoldervalues   \(folders.count) selected")
+        return folders.first
     }
 
     func addFile(_ file: ImageFile) {
-        files.append(file)
-        incrementCounter()
+        DispatchQueue.main.async {
+            self.files.append(file)
+            self.incrementCounter()
+        }
     }
 
     func incrementCounter() {
@@ -149,11 +126,8 @@ class ImageFolder: ObservableObject {
         }
 
         if targetFullName.beginsWith(self.getFullPath()) {
-            for subfolder in subFolders.values {
-                if targetFullName.beginsWith(subfolder.getFullPath()) {
-                    return subfolder.navigateTo(targetFullName)
-                }
-            }
+            let firstMatching = subFolderValues.filter { targetFullName.beginsWith($0.getFullPath()) }.first
+            return firstMatching!.navigateTo(targetFullName)
         }
 
         return self
@@ -246,7 +220,7 @@ class ImageFolder: ObservableObject {
     }
 
     func getImage() -> UIImage {
-        let image = ImageFolder.folderImage ?? UIImage(named: "DefaultMovie")!
+        let image = ImageFolder.folderImage ?? UIImage(systemName: "folder.fill")!
         return image
     }
 
@@ -258,15 +232,6 @@ class ImageFolder: ObservableObject {
     func getFullPath() -> String {
         let parentPath: String = parentFolder == nil ? "/" : ( (parentFolder?.getFullPath())! + name + "/")
         return parentPath
-    }
-
-    func getSubfolder(_ seq: Int) -> ImageFolder? {
-        if seq < 0 || seq >= subFolderKeys.count {
-            return nil
-        }
-
-        let key = subFolderKeys[seq]
-        return subFolders[key]
     }
 
     func getFile(atSequence: Int) -> ImageFile {
@@ -285,8 +250,7 @@ class ImageFolder: ObservableObject {
 
         nextSequence -= self.files.count
 
-        for subFolderKey in self.subFolderKeys {
-            let subFolder = self.subFolders[subFolderKey]!
+        for subFolder in self.subFolderValues {
             let filesInTree = subFolder.filesInTree
 
             if nextSequence < filesInTree {
@@ -300,7 +264,6 @@ class ImageFolder: ObservableObject {
         print("unable to find item \(nextSequence) in folder \(currentFolderName)")
 
         return ImageFile(name: "default")
-
     }
 
     func getFiles(beginsWith: String, endingWith: String) -> [ImageFile] {
@@ -334,9 +297,6 @@ class ImageFolder: ObservableObject {
     }
 
     static func clearSearchCounts() {
-        for folder in AppData.sharedInstance.downloadAllFolders {
-            folder.searchRanking = 0
-        }
     }
 
     var noPrefixName: String {
@@ -346,8 +306,30 @@ class ImageFolder: ObservableObject {
             return name
         }
     }
+
+    func reduceFileCountRecurively(count: Int, level: Int) {
+        if level > 100 {
+            print("Infinite recursion reducing file count, stopped")
+            return
+        }
+        self.filesInTree -= count
+        let newLevel = level + 1
+        let higherFolder = self.parentFolder
+        if higherFolder != nil {
+            higherFolder!.reduceFileCountRecurively(count: count, level: newLevel)
+        }
+    }
 }
 
 extension ImageFolder: Identifiable {
+}
 
+extension ImageFolder: Comparable {
+    static func < (lhs: ImageFolder, rhs: ImageFolder) -> Bool {
+        return lhs.name.lowercased() < rhs.name.lowercased()
+    }
+
+    static func == (lhs: ImageFolder, rhs: ImageFolder) -> Bool {
+        return lhs.name.caseInsensitiveCompare(rhs.name) == .orderedSame
+    }
 }

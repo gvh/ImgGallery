@@ -41,7 +41,7 @@ class DataLoader {
 
         let downloadURL = makeURL(baseURL!, rootName)
         downloadInventory.getInventory(url: downloadURL, rootFolder: AppData.sharedInstance.downloadTOC.rootFolder) { (rootFolder) in
-            self.scanAndRemoveIgnoredFolders()
+//            self.scanAndRemoveIgnoredFolders()
             self.readDownloadIndex()
             completionHandler(rootFolder)
         }
@@ -65,44 +65,10 @@ class DataLoader {
     func readDownloadIndex() {
         AppData.sharedInstance.keywordIndex = KeywordIndex.load(folder: AppData.sharedInstance.downloadTOC.rootFolder)
     }
-
+/*
     func scanAndRemoveIgnoredFolders() {
         let folder = AppData.sharedInstance.downloadTOC.rootFolder
-        if folder != nil {
-            scanAndRemoveFolders(folder: folder!)
-        }
+        folder?.scanAndRemoveFolders()
     }
-
-    func reduceFileCountRecurively(folder: ImageFolder?, count: Int, level: Int) {
-        if folder == nil {
-            return
-        }
-        if level > 100 {
-            print("Infinite recursion reducing file count, stopped")
-            return
-        }
-        folder?.filesInTree -= count
-        let newLevel = level + 1
-        reduceFileCountRecurively(folder: folder?.parentFolder, count: count, level: newLevel)
-    }
-
-    func scanAndRemoveFolders(folder: ImageFolder) {
-        let ignorePhrases = AppData.sharedInstance.configInfo.ignoreFoldersContainingSet
-        for ignorePhrase in ignorePhrases {
-            let removeList = folder.subFolderKeys.filter({ $0.lowercased().contains(ignorePhrase) })
-            for key in removeList {
-                let removeIndex = folder.subFolderKeys.firstIndex(of: key)
-                if removeIndex != nil {
-                    let removeFolder: ImageFolder = folder.subFolders[key]!
-                    reduceFileCountRecurively(folder: removeFolder.parentFolder, count: removeFolder.filesInTree, level: 0)
-                    folder.subFolderKeys.remove(at: removeIndex!)
-                }
-                folder.subFolders.removeValue(forKey: key)
-            }
-        }
-
-        for subFolder in folder.subFolders.values {
-            scanAndRemoveFolders(folder: subFolder)
-        }
-    }
+*/
 }

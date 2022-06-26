@@ -57,7 +57,7 @@ extension SequentialFileViewer: FileDataSource {
             file = goForwards()
             let file = sequentialDataSource.getCurrentFolder().getFile(atSequence: currentPosition)
             withAnimation(.default) {
-                imageLoader.readImage(file: file) { _ in }
+                ImageLoader.readImage(file: file) { _ in }
             }
             imageSelectionDelegate?.onImageSelected()
             needsInitialized = false
@@ -153,7 +153,7 @@ extension SequentialFileViewer: FileDataSource {
         }
         file = sequentialDataSource.getCurrentFolder().getFile(atSequence: currentPosition)
         withAnimation(.default) {
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         }
         if file != nil {
             imageSelectionDelegate?.onImageSelected()

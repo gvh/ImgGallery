@@ -82,7 +82,7 @@ extension FolderFileViewer: FileDataSource {
         }
         let file = folder.files[currentPosition]
         withAnimation(.default) {
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         }
         return file
     }
@@ -95,7 +95,7 @@ extension FolderFileViewer: FileDataSource {
         }
         let file = folder.files[currentPosition]
         withAnimation(.default) {
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         }
         return file
     }

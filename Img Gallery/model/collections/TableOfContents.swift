@@ -44,7 +44,7 @@ class TableOfContents: ObservableObject {
     }
 
     func scanFolder(folder: ImageFolder) {
-        for subFolder in folder.subFolders.values {
+        for subFolder in folder.subFolderValues {
             scanFolder(folder: subFolder)
         }
 

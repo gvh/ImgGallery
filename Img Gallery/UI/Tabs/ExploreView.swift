@@ -8,27 +8,27 @@
 import SwiftUI
 
 struct ExploreView: View {
-    @State var rootFolder: ImageFolder?
-
-    init() {
-        rootFolder = AppData.sharedInstance.downloadTOC?.rootFolder
-    }
+    @ObservedObject var folder: ImageFolder
 
     var body: some View {
         VStack {
+            HStack {
+                Text(folder.noPrefixName)
+                Spacer()
+                Text("Sub: \(folder.subFolderValues.count) Fies: \(folder.files.count)")
+            }
             List {
-                if rootFolder != nil {
-                    ForEach(rootFolder!.subFolderValues) { folder in
-                        ExploreRowView(folder: folder)
-                    }
+                ForEach(folder.subFolderValues) { subFolder in
+                    ExploreRowView(subFolder: subFolder)
                 }
             }
         }
+        .navigationTitle(folder.noPrefixName)
     }
 }
 
-struct ExploreView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExploreView()
-    }
-}
+//struct ExploreView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ExploreView()
+//    }
+//}

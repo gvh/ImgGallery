@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -64,6 +64,10 @@
 		5F16A64228660446000E6817 /* RefreshableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64128660446000E6817 /* RefreshableDelegate.swift */; };
 		5F16A64428664BC1000E6817 /* ExploreRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64328664BC1000E6817 /* ExploreRowView.swift */; };
 		5F16A64728664DB3000E6817 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F16A64628664DB3000E6817 /* CloudKit.framework */; };
+		5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */; };
+		5F4B1A4C28684D8800E2EEA0 /* FileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* FileImageView.swift */; };
+		5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */; };
+		5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,6 +129,10 @@
 		5F16A64128660446000E6817 /* RefreshableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableDelegate.swift; sourceTree = "<group>"; };
 		5F16A64328664BC1000E6817 /* ExploreRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRowView.swift; sourceTree = "<group>"; };
 		5F16A64628664DB3000E6817 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootExplorerView.swift; sourceTree = "<group>"; };
+		5F4B1A4B28684D8800E2EEA0 /* FileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageView.swift; sourceTree = "<group>"; };
+		5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuDisplayRowView.swift; sourceTree = "<group>"; };
+		5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +221,8 @@
 				5F16A5D028654DEC000E6817 /* FavoritesView.swift */,
 				5F16A5D228654E14000E6817 /* HistoryView.swift */,
 				5F16A5D428654E33000E6817 /* SearchView.swift */,
+				5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */,
+				5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -247,6 +257,8 @@
 			isa = PBXGroup;
 			children = (
 				5F16A64328664BC1000E6817 /* ExploreRowView.swift */,
+				5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */,
+				5F4B1A4B28684D8800E2EEA0 /* FileImageView.swift */,
 			);
 			path = rows;
 			sourceTree = "<group>";
@@ -380,6 +392,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
+				ORGANIZATIONNAME = Wvh;
 				TargetAttributes = {
 					5F16A5B92865467D000E6817 = {
 						CreatedOnToolsVersion = 14.0;
@@ -387,7 +400,7 @@
 				};
 			};
 			buildConfigurationList = 5F16A5B52865467D000E6817 /* Build configuration list for PBXProject "Img Gallery" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -445,6 +458,7 @@
 				5F16A64228660446000E6817 /* RefreshableDelegate.swift in Sources */,
 				5F16A630286591FC000E6817 /* URLSessionFactory.swift in Sources */,
 				5F16A5D328654E14000E6817 /* HistoryView.swift in Sources */,
+				5F4B1A4C28684D8800E2EEA0 /* FileImageView.swift in Sources */,
 				5F16A64028660408000E6817 /* Utility.swift in Sources */,
 				5F16A63E2865C5D1000E6817 /* MessageDisplayer.swift in Sources */,
 				5F16A638286591FC000E6817 /* DataLoader.swift in Sources */,
@@ -458,6 +472,7 @@
 				5F16A5D528654E33000E6817 /* SearchView.swift in Sources */,
 				5F16A622286591E0000E6817 /* SearchFileViewer.swift in Sources */,
 				5F16A60328658E07000E6817 /* ConfigurationInfo.swift in Sources */,
+				5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */,
 				5F16A5F528658B84000E6817 /* KeywordUsage.swift in Sources */,
 				5F16A5BE2865467D000E6817 /* Img_GalleryApp.swift in Sources */,
 				5F16A60C28658FFE000E6817 /* ConfigChangedDelegate.swift in Sources */,
@@ -471,6 +486,8 @@
 				5F16A61128658FFE000E6817 /* FileDataSource.swift in Sources */,
 				5F16A64428664BC1000E6817 /* ExploreRowView.swift in Sources */,
 				5F16A5F928658B84000E6817 /* CustomDate.swift in Sources */,
+				5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */,
+				5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */,
 				5F16A62F286591FC000E6817 /* ImageLoader.swift in Sources */,
 				5F16A60D28658FFE000E6817 /* ImageReadDelegate.swift in Sources */,
 				5F16A5F728658B84000E6817 /* TableOfContents.swift in Sources */,

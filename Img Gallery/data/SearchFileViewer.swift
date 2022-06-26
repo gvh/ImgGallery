@@ -76,7 +76,7 @@ extension SearchFileViewer: FileDataSource {
         }
         let file = searchUsage.getFile(position: currentPosition)
         withAnimation(.default) {
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         }
         return file
     }
@@ -89,7 +89,7 @@ extension SearchFileViewer: FileDataSource {
         }
         let file = searchUsage.getFile(position: currentPosition)
         withAnimation(.default) {
-            imageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: file) { _ in }
         }
         return file
     }

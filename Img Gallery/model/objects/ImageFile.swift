@@ -23,15 +23,16 @@ final class ImageFile: ObservableObject {
 
     let id = UUID()
 
+    static var defaultImage:UIImage = UIImage(systemName: "photo")!
+
     var parentFolder: ImageFolder
     private(set) var name: String
     private(set) var key: String
 
-    private(set) var image: UIImage?
+    @Published private(set) var image: UIImage
     private(set) var fileContents: FileContents
-    var videoUrl: URL?
     private(set) var isDummyEntry: Bool = false
-    private(set) var imageReady = false
+    @Published private(set) var imageReady = false
 
     var isFavorite: Bool = false
     var favorite: Favorite?
@@ -43,12 +44,6 @@ final class ImageFile: ObservableObject {
 
     func setSavedThisSession() {
         savedThisSession = true
-    }
-
-    func setImageReady() {
-        self.imageReady = true
-        let imageReadDelegate = AppData.sharedInstance.imageReadDelegate
-        imageReadDelegate?.onReadComplete(file: self)
     }
 
     static func create(name: String) -> ImageFile {
@@ -64,6 +59,7 @@ final class ImageFile: ObservableObject {
         let folder2 = ImageFolder.create(folder: folder, name: "ccc")
         self.parentFolder = folder2
         self.fileContents = FileContents(rawValue: 1)!
+        self.image = ImageFile.defaultImage
     }
 
     private init(name: String, key: String, parentFolder: ImageFolder, fileContents: FileContents) {
@@ -71,6 +67,7 @@ final class ImageFile: ObservableObject {
         self.key = key
         self.parentFolder = parentFolder
         self.fileContents = fileContents
+        self.image = ImageFile.defaultImage
     }
 
     static func create(key: String, rootFolder: ImageFolder) {
@@ -98,6 +95,8 @@ final class ImageFile: ObservableObject {
 
     func setImage(_ image: UIImage) {
         self.image = image
+        self.imageReady = true
+        AppData.sharedInstance.imageReadDelegate?.onReadComplete(file: self)
     }
 
     var imageUrl: URL {
@@ -109,13 +108,7 @@ final class ImageFile: ObservableObject {
     let exifUserCommentPath = "\(kCGImageMetadataPrefixExif):\(kCGImagePropertyExifUserComment)" as CFString
 
     func writeJPEGFile(_ fileUrl: URL) -> Bool {
-        guard image != nil else {
-            let message = "generateThumbnail.createfailed".localizedWithComment(comment: "error in file access")
-            print(message)
-            return false
-        }
-
-        if let data = image!.jpegData(compressionQuality: 1.0) {
+        if let data = image.jpegData(compressionQuality: 1.0) {
             try? data.write(to: fileUrl)
             return true
         }
@@ -143,6 +136,13 @@ final class ImageFile: ObservableObject {
         } catch {
             let message = "generateThumbnail.createfailed".localizedWithComment(comment: "error in file access") + error.localizedDescription
             print(message)
+        }
+    }
+
+    func getDisplayImage() {
+        if !self.imageReady {
+            ImageLoader.readImage(file: self) { _ in
+            }
         }
     }
 
@@ -201,7 +201,7 @@ final class ImageFile: ObservableObject {
         if parentParentFolder == nil {
             return 0
         } else {
-            return parentParentFolder!.subFolders.count
+            return parentParentFolder!.subFolderValues.count
         }
     }
 
