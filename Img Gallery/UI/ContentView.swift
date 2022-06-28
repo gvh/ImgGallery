@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var imageDisplay: ImageDisplay = AppData.sharedInstance.imageDisplay;
+
     var body: some View {
         TabView {
             RootExplorerView()
@@ -35,6 +37,7 @@ struct ContentView: View {
             }
             .tag(4)
         }
+        .environmentObject(imageDisplay)
     }
 }
 

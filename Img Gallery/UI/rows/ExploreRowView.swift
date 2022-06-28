@@ -16,15 +16,16 @@ struct ExploreRowView: View {
                 NavigationLink {
                     ImageMenuView(folder: subFolder)
                 } label : {
-                    Label("images: \(subFolder.noPrefixName)", systemImage: "photo.fill.on.rectangle.fill")
+                    Label("\(subFolder.noPrefixName)", systemImage: "photo.fill.on.rectangle.fill")
                 }
             }
-        } else {
+        }
+        if subFolder.subFolderValues.count > 0 {
             HStack {
                 NavigationLink {
                     ExploreView(folder: subFolder)
                 } label : {
-                    Label("folders: \(subFolder.noPrefixName)", systemImage: "folder.fill")
+                    Label("\(subFolder.noPrefixName)", systemImage: "folder.fill")
                 }
             }
         }

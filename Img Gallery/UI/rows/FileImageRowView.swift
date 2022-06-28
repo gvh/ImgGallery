@@ -8,17 +8,19 @@
 
 import SwiftUI
 
-struct FileImageView: View {
+struct FileImageRowView: View {
     @ObservedObject var file: ImageFile
 
     var body: some View {
         //                        file.getDisplayImage()
         VStack {
-            Text("Image: \(file.name)")
-            Image(uiImage: file.image)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 250.0, height: 250.0)
+            NavigationLink{
+                ImageDisplayView(fileDataSource: FolderFileViewer(folder: file.parentFolder, position: file.subs))
+            } label : {
+                Image(uiImage: file.image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+            }
         }
         .onAppear() {
             file.getDisplayImage()

@@ -65,9 +65,12 @@
 		5F16A64428664BC1000E6817 /* ExploreRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64328664BC1000E6817 /* ExploreRowView.swift */; };
 		5F16A64728664DB3000E6817 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F16A64628664DB3000E6817 /* CloudKit.framework */; };
 		5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */; };
-		5F4B1A4C28684D8800E2EEA0 /* FileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* FileImageView.swift */; };
+		5F4B1A4C28684D8800E2EEA0 /* FileImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */; };
+		5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */; };
 		5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */; };
 		5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */; };
+		5F5DF03E286A8596001FA059 /* FullScreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5DF03D286A8596001FA059 /* FullScreenImageView.swift */; };
+		5FE7A8E5286AE62C007BA234 /* ImageDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7A8E4286AE62C007BA234 /* ImageDisplay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -130,9 +133,12 @@
 		5F16A64328664BC1000E6817 /* ExploreRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRowView.swift; sourceTree = "<group>"; };
 		5F16A64628664DB3000E6817 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootExplorerView.swift; sourceTree = "<group>"; };
-		5F4B1A4B28684D8800E2EEA0 /* FileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageView.swift; sourceTree = "<group>"; };
+		5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageRowView.swift; sourceTree = "<group>"; };
+		5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplayView.swift; path = "img Gallery/UI/Tabs/ImageDisplayView.swift"; sourceTree = SOURCE_ROOT; };
 		5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuDisplayRowView.swift; sourceTree = "<group>"; };
 		5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuView.swift; sourceTree = "<group>"; };
+		5F5DF03D286A8596001FA059 /* FullScreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FullScreenImageView.swift; path = "img Gallery/UI/Tabs/FullScreenImageView.swift"; sourceTree = SOURCE_ROOT; };
+		5FE7A8E4286AE62C007BA234 /* ImageDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplay.swift; path = "img Gallery/model/objects/ImageDisplay.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +229,8 @@
 				5F16A5D428654E33000E6817 /* SearchView.swift */,
 				5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */,
 				5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */,
+				5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */,
+				5F5DF03D286A8596001FA059 /* FullScreenImageView.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -258,7 +266,7 @@
 			children = (
 				5F16A64328664BC1000E6817 /* ExploreRowView.swift */,
 				5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */,
-				5F4B1A4B28684D8800E2EEA0 /* FileImageView.swift */,
+				5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */,
 			);
 			path = rows;
 			sourceTree = "<group>";
@@ -295,6 +303,7 @@
 				5F16A5EF28658B84000E6817 /* ImageFile.swift */,
 				5F16A5F028658B84000E6817 /* Favorite.swift */,
 				5F16A5F128658B84000E6817 /* History.swift */,
+				5FE7A8E4286AE62C007BA234 /* ImageDisplay.swift */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -442,6 +451,7 @@
 				5F16A5FD28658B84000E6817 /* SearchResult.swift in Sources */,
 				5F16A632286591FC000E6817 /* Logging.swift in Sources */,
 				5F16A5D728658843000E6817 /* ConsoleLogger.swift in Sources */,
+				5F5DF03E286A8596001FA059 /* FullScreenImageView.swift in Sources */,
 				5F16A633286591FC000E6817 /* InventoryReader.swift in Sources */,
 				5F16A5D128654DEC000E6817 /* FavoritesView.swift in Sources */,
 				5F16A5C02865467D000E6817 /* ContentView.swift in Sources */,
@@ -458,7 +468,7 @@
 				5F16A64228660446000E6817 /* RefreshableDelegate.swift in Sources */,
 				5F16A630286591FC000E6817 /* URLSessionFactory.swift in Sources */,
 				5F16A5D328654E14000E6817 /* HistoryView.swift in Sources */,
-				5F4B1A4C28684D8800E2EEA0 /* FileImageView.swift in Sources */,
+				5F4B1A4C28684D8800E2EEA0 /* FileImageRowView.swift in Sources */,
 				5F16A64028660408000E6817 /* Utility.swift in Sources */,
 				5F16A63E2865C5D1000E6817 /* MessageDisplayer.swift in Sources */,
 				5F16A638286591FC000E6817 /* DataLoader.swift in Sources */,
@@ -474,6 +484,7 @@
 				5F16A60328658E07000E6817 /* ConfigurationInfo.swift in Sources */,
 				5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */,
 				5F16A5F528658B84000E6817 /* KeywordUsage.swift in Sources */,
+				5FE7A8E5286AE62C007BA234 /* ImageDisplay.swift in Sources */,
 				5F16A5BE2865467D000E6817 /* Img_GalleryApp.swift in Sources */,
 				5F16A60C28658FFE000E6817 /* ConfigChangedDelegate.swift in Sources */,
 				5F16A60E28658FFE000E6817 /* DataLoaderDelegate.swift in Sources */,
@@ -485,6 +496,7 @@
 				5F16A5FE28658B84000E6817 /* ImageFile.swift in Sources */,
 				5F16A61128658FFE000E6817 /* FileDataSource.swift in Sources */,
 				5F16A64428664BC1000E6817 /* ExploreRowView.swift in Sources */,
+				5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */,
 				5F16A5F928658B84000E6817 /* CustomDate.swift in Sources */,
 				5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */,
 				5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */,
@@ -550,7 +562,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -604,7 +616,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -633,6 +645,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -665,6 +678,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

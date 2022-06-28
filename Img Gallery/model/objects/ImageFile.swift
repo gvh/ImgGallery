@@ -38,6 +38,8 @@ final class ImageFile: ObservableObject {
     var favorite: Favorite?
     var savedThisSession: Bool = false
 
+    var subs: Int = -1
+
     var favoriteID: String? {
         return favorite == nil ? nil : favorite?.favoriteID
     }
@@ -153,6 +155,15 @@ final class ImageFile: ObservableObject {
         } catch {
             let message = "cleartemp.createfailed".localizedWithComment(comment: "error in file access") + error.localizedDescription
             print(message)
+        }
+    }
+
+    func toggleFavorite() {
+        if self.isFavorite {
+            AppData.sharedInstance.favorites.remove(favorite: self.favorite!)
+        } else {
+            let favorite = Favorite(file: self)
+            AppData.sharedInstance.favorites.add(favorite: favorite)
         }
     }
 

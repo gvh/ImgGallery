@@ -9,9 +9,17 @@ import Foundation
 import SwiftUI
 import Combine
 
-class FolderFileViewer {
-    var folder: ImageFolder
-    var currentPosition = 0
+class FolderFileViewer : ObservableObject {
+    @Published var hasBackButtonVar: Bool = true
+    @Published var hasNextButtonVar: Bool = true
+    @Published var hasGoToButtonVar: Bool = false
+    @Published var hasSaveButtonVar: Bool = true
+    @Published var hasPlayPauseButtonVar: Bool = false
+
+    @Published var currentFile: ImageFile
+
+    @Published var folder: ImageFolder
+    @Published var currentPosition = 0
     let imageLoader = ImageLoader()
     var lastRandomNumber: Int = -1
 
@@ -22,6 +30,13 @@ class FolderFileViewer {
 
     init(folder: ImageFolder) {
         self.folder = folder
+        self.currentFile = folder.files[0]
+    }
+
+    init(folder: ImageFolder, position: Int) {
+        self.folder = folder
+        self.currentPosition = position
+        self.currentFile = folder.files[position]
     }
 
 }
@@ -80,11 +95,11 @@ extension FolderFileViewer: FileDataSource {
         } else {
             currentPosition = folder.files.count - 1
         }
-        let file = folder.files[currentPosition]
+        self.currentFile = folder.files[currentPosition]
         withAnimation(.default) {
-            ImageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: self.currentFile) { _ in }
         }
-        return file
+        return self.currentFile
     }
 
     func goForwards() -> ImageFile {
@@ -93,31 +108,35 @@ extension FolderFileViewer: FileDataSource {
         } else {
             currentPosition = 0
         }
-        let file = folder.files[currentPosition]
+        self.currentFile = folder.files[currentPosition]
         withAnimation(.default) {
-            ImageLoader.readImage(file: file) { _ in }
+            ImageLoader.readImage(file: self.currentFile) { _ in }
         }
-        return file
+        return self.currentFile
     }
 
     func hasBackButton() -> Bool {
-        return true
+        return hasBackButtonVar
     }
 
     func hasNextButton() -> Bool {
-        return true
+        return hasNextButtonVar
     }
 
     func hasGoToButton() -> Bool {
-        return false
+        return hasGoToButtonVar
+    }
+
+    func hasSaveButton() -> Bool {
+        return hasSaveButtonVar
     }
 
     func hasPlayPauseButton() -> Bool {
-        return false
+        return hasPlayPauseButtonVar
     }
 
     func getCurrentFile() -> ImageFile {
-        return folder.files[currentPosition]
+        return self.currentFile
     }
 
     func getCurrentFolder() -> ImageFolder {
@@ -126,6 +145,7 @@ extension FolderFileViewer: FileDataSource {
 
     func setCurrentPosition(_ position: Int) {
         currentPosition = position
+        self.currentFile = folder.files[currentPosition]
     }
 
     func getCurrentPosition() -> Int {

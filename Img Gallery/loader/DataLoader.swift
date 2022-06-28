@@ -42,8 +42,22 @@ class DataLoader {
         let downloadURL = makeURL(baseURL!, rootName)
         downloadInventory.getInventory(url: downloadURL, rootFolder: AppData.sharedInstance.downloadTOC.rootFolder) { (rootFolder) in
 //            self.scanAndRemoveIgnoredFolders()
+            self.sortAllFolders()
             self.readDownloadIndex()
             completionHandler(rootFolder)
+        }
+    }
+
+    func sortAllFolders() {
+        for idx in AppData.sharedInstance.downloadAllFolders.indices {
+            let folder = AppData.sharedInstance.downloadAllFolders[idx]
+            // folder.files.sort { $0.name < $1.name }
+            if folder.files.count > 0 {
+                let maxSubs = folder.files.count - 1
+                for i in 0...maxSubs {
+                    folder.files[i].subs = i
+                }
+            }
         }
     }
 
