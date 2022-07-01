@@ -114,6 +114,9 @@ extension KeywordFileViewer: FileDataSource {
         return keywordUsage!.getFile(position: currentPosition)
     }
 
+    func setCurrentFile(file: ImageFile) {
+    }
+
     func getCurrentFolder() -> ImageFolder {
         return getCurrentFile().parentFolder
     }

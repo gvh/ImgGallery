@@ -226,7 +226,7 @@ final class ImageFile: ObservableObject {
         let string1 = String(urlString[..<end1])
         let string2 = String(urlString[end1...])
 
-        let passwordString = string1 + AppData.sharedInstance.configInfo.username + ":" + AppData.sharedInstance.configInfo.password + "@" + string2
+        let passwordString = "\(string1)\(AppData.sharedInstance.settingsStore.userName):\(AppData.sharedInstance.settingsStore.passWord)@\(string2)"
         return URL(string: passwordString)!
     }
 

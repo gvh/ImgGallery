@@ -33,6 +33,9 @@ class SequentialFileViewer {
 
 extension SequentialFileViewer: FileDataSource {
 
+    func setCurrentFile(file: ImageFile) {
+    }
+
    func getSequentialFile() -> ImageFile {
         sequentialDataSource.doNext()
         return sequentialDataSource.getCurrentFile()

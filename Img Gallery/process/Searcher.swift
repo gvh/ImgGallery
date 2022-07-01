@@ -49,8 +49,8 @@ class Searcher: NSObject {
         searchFolders.append(contentsOf: mergedFoldersArray.sorted(by: { $0.hitCount > $1.hitCount }) )
 
         // Remove all folders matching the words on the ignore list
-        if !appData.configInfo.ignoreFoldersContainingSet.isEmpty {
-            for ignoreFolder in appData.configInfo.ignoreFoldersContainingSet {
+        if !appData.settingsStore.ignoreFoldersContainingSet.isEmpty {
+            for ignoreFolder in appData.settingsStore.ignoreFoldersContainingSet {
                 searchFolders.removeAll { $0.folder.getTokens().contains(ignoreFolder) }
             }
         }

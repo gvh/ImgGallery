@@ -16,8 +16,7 @@ struct ImageMenuView: View {
     var body: some View {
         VStack {
             ScrollView(.vertical) {
-                Text("Images")
-                Text(folder.getName())
+                Text(folder.noPrefixName)
                 LazyVGrid(columns: columns) {
                     ForEach(folder.files, id: \.self) { file in
                         FileImageRowView(file: file)

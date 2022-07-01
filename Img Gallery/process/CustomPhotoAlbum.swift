@@ -24,7 +24,7 @@ open class CustomPhotoAlbum: NSObject {
     private func createAlbum() {
 
         if assetCollection == nil {
-            if AppData.sharedInstance.configInfo.photosAccess {
+            if AppData.sharedInstance.photosAccess {
                 let fetchOptions = PHFetchOptions()
                 fetchOptions.predicate = NSPredicate(format: "title = %@", self.albumName)
 
@@ -57,41 +57,41 @@ open class CustomPhotoAlbum: NSObject {
         switch status {
         case .limited:
             print("photos already limited")
-            AppData.sharedInstance.configInfo.photosAccess = false
+            AppData.sharedInstance.photosAccess = false
 
         case .authorized:
-            AppData.sharedInstance.configInfo.photosAccess = true
+            AppData.sharedInstance.photosAccess = true
             createAlbum()
 
         case .denied, .restricted :
             print("photos already denied")
-            AppData.sharedInstance.configInfo.photosAccess = false
+            AppData.sharedInstance.photosAccess = false
 
         case .notDetermined:
             // ask for permissions
             PHPhotoLibrary.requestAuthorization { status2 in
                 switch status2 {
                 case .authorized:
-                    AppData.sharedInstance.configInfo.photosAccess = true
+                    AppData.sharedInstance.photosAccess = true
                     self.createAlbum()
 
                 case .denied, .restricted:
                     print("photos newly denied or restricted")
-                    AppData.sharedInstance.configInfo.photosAccess = false
+                    AppData.sharedInstance.photosAccess = false
 
                 case .notDetermined, .limited:
                     print("photos newly undetermined or limited")
-                    AppData.sharedInstance.configInfo.photosAccess = false
+                    AppData.sharedInstance.photosAccess = false
 
                 @unknown default:
-                    AppData.sharedInstance.configInfo.photosAccess = false
+                    AppData.sharedInstance.photosAccess = false
 
                 }
             }
 
         @unknown default:
             print("photos already default")
-            AppData.sharedInstance.configInfo.photosAccess = false
+            AppData.sharedInstance.photosAccess = false
         }
     }
 

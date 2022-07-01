@@ -34,6 +34,8 @@ protocol FileDataSource {
     func setCurrentPosition(_ position: Int)
 
     func getCurrentFile() -> ImageFile
+    func setCurrentFile(file: ImageFile)
+    
     func getCurrentFolder() -> ImageFolder
 
     func getName() -> String

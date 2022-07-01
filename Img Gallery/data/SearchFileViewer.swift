@@ -26,6 +26,9 @@ extension SearchFileViewer: FileDataSource {
         return goForwards()
     }
 
+    func setCurrentFile(file: ImageFile) {
+    }
+
     func getAllFiles() -> [ImageFile] {
         return []
     }

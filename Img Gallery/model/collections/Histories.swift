@@ -76,7 +76,7 @@ class Histories {
             }
         } else {
             var inIgnoreList: Bool = false
-            AppData.sharedInstance.configInfo.ignoreFoldersContainingSet.forEach({
+            AppData.sharedInstance.settingsStore.ignoreFoldersContainingSet.forEach({
                 let token = $0.lowercased()
                 if folderNameLower.contains(token) {
                     inIgnoreList = true

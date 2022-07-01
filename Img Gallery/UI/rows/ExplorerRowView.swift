@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ExploreRowView: View {
+struct ExplorerRowView: View {
     @ObservedObject var subFolder: ImageFolder
 
     var body: some View {
@@ -23,7 +23,7 @@ struct ExploreRowView: View {
         if subFolder.subFolderValues.count > 0 {
             HStack {
                 NavigationLink {
-                    ExploreView(folder: subFolder)
+                    ExplorerView(folder: subFolder)
                 } label : {
                     Label("\(subFolder.noPrefixName)", systemImage: "folder.fill")
                 }

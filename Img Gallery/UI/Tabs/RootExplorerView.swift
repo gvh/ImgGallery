@@ -11,14 +11,8 @@ import SwiftUI
 struct RootExplorerView: View {
     var body: some View {
         NavigationView {
-            ExploreView(folder: (AppData.sharedInstance.downloadTOC?.rootFolder)!)
+            ExplorerView(folder: (AppData.sharedInstance.downloadTOC?.rootFolder)!)
         }
         .navigationViewStyle(.stack)
-    }
-}
-
-struct RootExplorerView_Previews: PreviewProvider {
-    static var previews: some View {
-        RootExplorerView()
     }
 }

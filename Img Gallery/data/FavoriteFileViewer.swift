@@ -20,6 +20,9 @@ class FavoriteFileViewer {
 
 extension FavoriteFileViewer: FileDataSource {
 
+    func setCurrentFile(file: ImageFile) {
+    }
+
     func getSequentialFile() -> ImageFile {
         return goForwards()
     }

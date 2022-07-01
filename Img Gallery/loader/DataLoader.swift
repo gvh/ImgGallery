@@ -27,7 +27,7 @@ class DataLoader {
 
     func load(completionHandler : @escaping ((_ rootFolder: ImageFolder?) -> Void)) {
         let downloadInventory = InventoryReader()
-        let baseURLString = AppData.sharedInstance.configInfo.baseURL
+        let baseURLString = AppData.sharedInstance.settingsStore.baseURL
         let rootName = AppData.sharedInstance.downloadTOC.rootFolder.getName()
         guard baseURLString.isNotEmpty && rootName.isNotEmpty else {
             print("error building download URL")

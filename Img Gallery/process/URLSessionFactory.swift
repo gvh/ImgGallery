@@ -19,8 +19,8 @@ class URLSessionFactory {
     }
 
     private static func getLoginCredentials() -> String {
-        let username: String = AppData.sharedInstance.configInfo.username
-        let password: String = AppData.sharedInstance.configInfo.password
+        let username: String = AppData.sharedInstance.settingsStore.userName
+        let password: String = AppData.sharedInstance.settingsStore.passWord
         let userPasswordString = "\(username):\(password)"
         let userPasswordData = userPasswordString.data(using: String.Encoding.utf8, allowLossyConversion: false)
 

@@ -36,7 +36,7 @@ class RefreshTimer {
     }
 
     func createSubscriptionTimer() {
-        self.subscription = Timer.publish(every: Double(AppData.sharedInstance.configInfo.secondsBetweenChanges), on: .main, in: .default)
+        self.subscription = Timer.publish(every: Double(AppData.sharedInstance.settingsStore.secondsBetweenChanges)!, on: .main, in: .default)
             .autoconnect()
             .sink { _ in
                 if self.stopRequested {
@@ -44,7 +44,7 @@ class RefreshTimer {
                     return
                 }
 
-                if AppData.sharedInstance.configInfo.secondsBetweenChanges == 0 {
+                if Int(AppData.sharedInstance.settingsStore.secondsBetweenChanges) == 0 {
                     _ = self.viewer!.onSubscriptionTimer()
                 } else {
                     self.removeProgressTimer()
@@ -62,9 +62,9 @@ class RefreshTimer {
     }
 
     func createProgressTimer() {
-        if AppData.sharedInstance.configInfo.secondsBetweenChanges > 0 {
-            self.remainingSecondsBeforeExpire = AppData.sharedInstance.configInfo.secondsBetweenChanges
-            self.progress = Timer.publish(every: Double(AppData.sharedInstance.configInfo.countdown), on: .main, in: .default)
+        if Int(AppData.sharedInstance.settingsStore.secondsBetweenChanges)! > 0 {
+            self.remainingSecondsBeforeExpire = Int(AppData.sharedInstance.settingsStore.secondsBetweenChanges)!
+            self.progress = Timer.publish(every: Double(AppData.sharedInstance.settingsStore.secondsBetweenCountdown)!, on: .main, in: .default)
                 .autoconnect()
                 .sink { _ in
                     if self.stopRequested {
@@ -72,7 +72,7 @@ class RefreshTimer {
                         return
                     }
 
-                    self.remainingSecondsBeforeExpire -= AppData.sharedInstance.configInfo.countdown
+                    self.remainingSecondsBeforeExpire -= Int(AppData.sharedInstance.settingsStore.secondsBetweenCountdown)!
                     _ = self.viewer!.onProgress(timer: self)
                     if self.remainingSecondsBeforeExpire <= 0 {
                         self.removeProgressTimer()

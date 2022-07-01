@@ -26,6 +26,9 @@ extension HistoryFileViewer: FileDataSource {
         return goForwards()
     }
 
+    func setCurrentFile(file: ImageFile) {
+    }
+
     func getAllFiles() -> [ImageFile] {
         return AppData.sharedInstance.histories.items.map { $0.file }
     }

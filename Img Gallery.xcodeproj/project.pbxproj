@@ -32,8 +32,6 @@
 		5F16A5FE28658B84000E6817 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5EF28658B84000E6817 /* ImageFile.swift */; };
 		5F16A5FF28658B84000E6817 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5F028658B84000E6817 /* Favorite.swift */; };
 		5F16A60028658B84000E6817 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5F128658B84000E6817 /* History.swift */; };
-		5F16A60328658E07000E6817 /* ConfigurationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60128658E07000E6817 /* ConfigurationInfo.swift */; };
-		5F16A60428658E07000E6817 /* Configurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60228658E07000E6817 /* Configurator.swift */; };
 		5F16A60C28658FFE000E6817 /* ConfigChangedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60628658FFE000E6817 /* ConfigChangedDelegate.swift */; };
 		5F16A60D28658FFE000E6817 /* ImageReadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60728658FFE000E6817 /* ImageReadDelegate.swift */; };
 		5F16A60E28658FFE000E6817 /* DataLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60828658FFE000E6817 /* DataLoaderDelegate.swift */; };
@@ -43,7 +41,7 @@
 		5F16A6142865901D000E6817 /* FileViewerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A6132865901D000E6817 /* FileViewerType.swift */; };
 		5F16A61D286591E0000E6817 /* HistoryFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A616286591E0000E6817 /* HistoryFileViewer.swift */; };
 		5F16A61E286591E0000E6817 /* KeywordFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A617286591E0000E6817 /* KeywordFileViewer.swift */; };
-		5F16A61F286591E0000E6817 /* FolderFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A618286591E0000E6817 /* FolderFileViewer.swift */; };
+		5F16A61F286591E0000E6817 /* ExplorerFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A618286591E0000E6817 /* ExplorerFileViewer.swift */; };
 		5F16A620286591E0000E6817 /* SequentialFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A619286591E0000E6817 /* SequentialFileViewer.swift */; };
 		5F16A621286591E0000E6817 /* RandomFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A61A286591E0000E6817 /* RandomFileViewer.swift */; };
 		5F16A622286591E0000E6817 /* SearchFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A61B286591E0000E6817 /* SearchFileViewer.swift */; };
@@ -62,7 +60,7 @@
 		5F16A63E2865C5D1000E6817 /* MessageDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A63D2865C5D1000E6817 /* MessageDisplayer.swift */; };
 		5F16A64028660408000E6817 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A63F28660408000E6817 /* Utility.swift */; };
 		5F16A64228660446000E6817 /* RefreshableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64128660446000E6817 /* RefreshableDelegate.swift */; };
-		5F16A64428664BC1000E6817 /* ExploreRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64328664BC1000E6817 /* ExploreRowView.swift */; };
+		5F16A64428664BC1000E6817 /* ExplorerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64328664BC1000E6817 /* ExplorerRowView.swift */; };
 		5F16A64728664DB3000E6817 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F16A64628664DB3000E6817 /* CloudKit.framework */; };
 		5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */; };
 		5F4B1A4C28684D8800E2EEA0 /* FileImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */; };
@@ -70,6 +68,8 @@
 		5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */; };
 		5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */; };
 		5F5DF03E286A8596001FA059 /* FullScreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5DF03D286A8596001FA059 /* FullScreenImageView.swift */; };
+		5F88720E286D824F0023FAEA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720D286D824F0023FAEA /* SettingsView.swift */; };
+		5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720F286DE1FC0023FAEA /* SettingsStore.swift */; };
 		5FE7A8E5286AE62C007BA234 /* ImageDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE7A8E4286AE62C007BA234 /* ImageDisplay.swift */; };
 /* End PBXBuildFile section */
 
@@ -100,8 +100,6 @@
 		5F16A5EF28658B84000E6817 /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		5F16A5F028658B84000E6817 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		5F16A5F128658B84000E6817 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		5F16A60128658E07000E6817 /* ConfigurationInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurationInfo.swift; sourceTree = "<group>"; };
-		5F16A60228658E07000E6817 /* Configurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configurator.swift; sourceTree = "<group>"; };
 		5F16A60628658FFE000E6817 /* ConfigChangedDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigChangedDelegate.swift; sourceTree = "<group>"; };
 		5F16A60728658FFE000E6817 /* ImageReadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageReadDelegate.swift; sourceTree = "<group>"; };
 		5F16A60828658FFE000E6817 /* DataLoaderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoaderDelegate.swift; sourceTree = "<group>"; };
@@ -111,7 +109,7 @@
 		5F16A6132865901D000E6817 /* FileViewerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewerType.swift; sourceTree = "<group>"; };
 		5F16A616286591E0000E6817 /* HistoryFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryFileViewer.swift; sourceTree = "<group>"; };
 		5F16A617286591E0000E6817 /* KeywordFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeywordFileViewer.swift; sourceTree = "<group>"; };
-		5F16A618286591E0000E6817 /* FolderFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderFileViewer.swift; sourceTree = "<group>"; };
+		5F16A618286591E0000E6817 /* ExplorerFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplorerFileViewer.swift; sourceTree = "<group>"; };
 		5F16A619286591E0000E6817 /* SequentialFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequentialFileViewer.swift; sourceTree = "<group>"; };
 		5F16A61A286591E0000E6817 /* RandomFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomFileViewer.swift; sourceTree = "<group>"; };
 		5F16A61B286591E0000E6817 /* SearchFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFileViewer.swift; sourceTree = "<group>"; };
@@ -130,7 +128,7 @@
 		5F16A63D2865C5D1000E6817 /* MessageDisplayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageDisplayer.swift; sourceTree = "<group>"; };
 		5F16A63F28660408000E6817 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		5F16A64128660446000E6817 /* RefreshableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableDelegate.swift; sourceTree = "<group>"; };
-		5F16A64328664BC1000E6817 /* ExploreRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreRowView.swift; sourceTree = "<group>"; };
+		5F16A64328664BC1000E6817 /* ExplorerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerRowView.swift; sourceTree = "<group>"; };
 		5F16A64628664DB3000E6817 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootExplorerView.swift; sourceTree = "<group>"; };
 		5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageRowView.swift; sourceTree = "<group>"; };
@@ -138,6 +136,8 @@
 		5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuDisplayRowView.swift; sourceTree = "<group>"; };
 		5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuView.swift; sourceTree = "<group>"; };
 		5F5DF03D286A8596001FA059 /* FullScreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FullScreenImageView.swift; path = "img Gallery/UI/Tabs/FullScreenImageView.swift"; sourceTree = SOURCE_ROOT; };
+		5F88720D286D824F0023FAEA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = "img Gallery/UI/Tabs/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
+		5F88720F286DE1FC0023FAEA /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsStore.swift; path = "img Gallery/model/reference/SettingsStore.swift"; sourceTree = SOURCE_ROOT; };
 		5FE7A8E4286AE62C007BA234 /* ImageDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplay.swift; path = "img Gallery/model/objects/ImageDisplay.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -214,8 +214,6 @@
 				5F16A5BD2865467D000E6817 /* Img_GalleryApp.swift */,
 				5F16A5D828658863000E6817 /* AppData.swift */,
 				5F16A5D628658843000E6817 /* ConsoleLogger.swift */,
-				5F16A60128658E07000E6817 /* ConfigurationInfo.swift */,
-				5F16A60228658E07000E6817 /* Configurator.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -231,6 +229,7 @@
 				5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */,
 				5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */,
 				5F5DF03D286A8596001FA059 /* FullScreenImageView.swift */,
+				5F88720D286D824F0023FAEA /* SettingsView.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -264,7 +263,7 @@
 		5F16A5DF28658944000E6817 /* rows */ = {
 			isa = PBXGroup;
 			children = (
-				5F16A64328664BC1000E6817 /* ExploreRowView.swift */,
+				5F16A64328664BC1000E6817 /* ExplorerRowView.swift */,
 				5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */,
 				5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */,
 			);
@@ -291,6 +290,7 @@
 				5F16A5E928658B83000E6817 /* CustomDate.swift */,
 				5F16A5EA28658B83000E6817 /* StopWords.swift */,
 				5F16A5EB28658B83000E6817 /* SimpleDateFormat.swift */,
+				5F88720F286DE1FC0023FAEA /* SettingsStore.swift */,
 			);
 			path = reference;
 			sourceTree = "<group>";
@@ -336,7 +336,7 @@
 			children = (
 				5F16A616286591E0000E6817 /* HistoryFileViewer.swift */,
 				5F16A617286591E0000E6817 /* KeywordFileViewer.swift */,
-				5F16A618286591E0000E6817 /* FolderFileViewer.swift */,
+				5F16A618286591E0000E6817 /* ExplorerFileViewer.swift */,
 				5F16A619286591E0000E6817 /* SequentialFileViewer.swift */,
 				5F16A61A286591E0000E6817 /* RandomFileViewer.swift */,
 				5F16A61B286591E0000E6817 /* SearchFileViewer.swift */,
@@ -473,20 +473,20 @@
 				5F16A63E2865C5D1000E6817 /* MessageDisplayer.swift in Sources */,
 				5F16A638286591FC000E6817 /* DataLoader.swift in Sources */,
 				5F16A631286591FC000E6817 /* HttpReader.swift in Sources */,
-				5F16A60428658E07000E6817 /* Configurator.swift in Sources */,
-				5F16A61F286591E0000E6817 /* FolderFileViewer.swift in Sources */,
+				5F88720E286D824F0023FAEA /* SettingsView.swift in Sources */,
+				5F16A61F286591E0000E6817 /* ExplorerFileViewer.swift in Sources */,
 				5F16A61D286591E0000E6817 /* HistoryFileViewer.swift in Sources */,
 				5F16A634286591FC000E6817 /* CustomPhotoAlbum.swift in Sources */,
 				5F16A5CE28654DB4000E6817 /* ExploreView.swift in Sources */,
 				5F16A61028658FFE000E6817 /* HasDateFormatter.swift in Sources */,
 				5F16A5D528654E33000E6817 /* SearchView.swift in Sources */,
 				5F16A622286591E0000E6817 /* SearchFileViewer.swift in Sources */,
-				5F16A60328658E07000E6817 /* ConfigurationInfo.swift in Sources */,
 				5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */,
 				5F16A5F528658B84000E6817 /* KeywordUsage.swift in Sources */,
 				5FE7A8E5286AE62C007BA234 /* ImageDisplay.swift in Sources */,
 				5F16A5BE2865467D000E6817 /* Img_GalleryApp.swift in Sources */,
 				5F16A60C28658FFE000E6817 /* ConfigChangedDelegate.swift in Sources */,
+				5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */,
 				5F16A60E28658FFE000E6817 /* DataLoaderDelegate.swift in Sources */,
 				5F16A5F328658B84000E6817 /* SearchUsage.swift in Sources */,
 				5F16A5F428658B84000E6817 /* MainMenuItem.swift in Sources */,
@@ -495,7 +495,7 @@
 				5F16A60028658B84000E6817 /* History.swift in Sources */,
 				5F16A5FE28658B84000E6817 /* ImageFile.swift in Sources */,
 				5F16A61128658FFE000E6817 /* FileDataSource.swift in Sources */,
-				5F16A64428664BC1000E6817 /* ExploreRowView.swift in Sources */,
+				5F16A64428664BC1000E6817 /* ExplorerRowView.swift in Sources */,
 				5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */,
 				5F16A5F928658B84000E6817 /* CustomDate.swift in Sources */,
 				5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */,

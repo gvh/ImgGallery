@@ -190,7 +190,7 @@ class ImageFolder: ObservableObject {
         if parentFolder != nil {
             return (parentFolder?.getURL().appendingPathComponent(name))!
         } else {
-            return URL(string: AppData.sharedInstance.configInfo.baseURL)!.appendingPathComponent(name)
+            return URL(string: AppData.sharedInstance.settingsStore.baseURL)!.appendingPathComponent(name)
         }
     }
 
@@ -198,7 +198,7 @@ class ImageFolder: ObservableObject {
         if parentFolder != nil {
             return (parentFolder?.getURLWithCredentials().appendingPathComponent(name))!
         } else {
-            return URL(string: AppData.sharedInstance.configInfo.baseURL)!.appendingPathComponent(name)
+            return URL(string: AppData.sharedInstance.settingsStore.baseURL)!.appendingPathComponent(name)
         }
     }
 

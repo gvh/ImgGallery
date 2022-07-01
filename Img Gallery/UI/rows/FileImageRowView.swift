@@ -12,10 +12,9 @@ struct FileImageRowView: View {
     @ObservedObject var file: ImageFile
 
     var body: some View {
-        //                        file.getDisplayImage()
         VStack {
             NavigationLink{
-                ImageDisplayView(fileDataSource: FolderFileViewer(folder: file.parentFolder, position: file.subs))
+                ImageDisplayView(file: file)
             } label : {
                 Image(uiImage: file.image)
                     .resizable()

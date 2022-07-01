@@ -25,8 +25,7 @@ final class AppData {
     var catalogDescription: String = ""
     var storyboard: UIStoryboard!
 
-    var configInfo: ConfigurationInfo!
-
+    var photosAccess: Bool = false
     var downloadTOC: TableOfContents!
     var downloadAllFolders: [ImageFolder] = []
 
@@ -43,12 +42,14 @@ final class AppData {
     let isIPhone: Bool = UIDevice.current.userInterfaceIdiom == .phone
     let isTV: Bool = UIDevice.current.userInterfaceIdiom == .tv
 
-    var isConfigured: Bool {
-        guard configInfo != nil else { return false }
+    var settingsStore = SettingsStore()
 
-        return configInfo.username.isNotEmpty && configInfo.password.isNotEmpty && configInfo.baseURL.isNotEmpty
+    var isConfigured: Bool {
+        return settingsStore.userName.isNotEmpty && settingsStore.passWord.isNotEmpty && settingsStore.baseURL.isNotEmpty
     }
 
+    var serverReachable: Bool = false
+    
     static let themeColor = UIColor(red: 27.0/255.0, green: 65.0/255.0, blue: 93.0/255.0, alpha: 1.0)
 
     weak var imageReadDelegate: ImageReadDelegate?

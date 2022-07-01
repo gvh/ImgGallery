@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class FolderFileViewer : ObservableObject {
+class ExplorerFileViewer : ObservableObject {
     @Published var hasBackButtonVar: Bool = true
     @Published var hasNextButtonVar: Bool = true
     @Published var hasGoToButtonVar: Bool = false
@@ -17,9 +17,9 @@ class FolderFileViewer : ObservableObject {
     @Published var hasPlayPauseButtonVar: Bool = false
 
     @Published var currentFile: ImageFile
-
     @Published var folder: ImageFolder
     @Published var currentPosition = 0
+
     let imageLoader = ImageLoader()
     var lastRandomNumber: Int = -1
 
@@ -28,20 +28,36 @@ class FolderFileViewer : ObservableObject {
     var rootName: String!
     var rootCurrentPosition: Int!
 
-    init(folder: ImageFolder) {
+    private init(folder: ImageFolder) {
         self.folder = folder
         self.currentFile = folder.files[0]
     }
 
-    init(folder: ImageFolder, position: Int) {
+    private init(folder: ImageFolder, position: Int) {
         self.folder = folder
         self.currentPosition = position
         self.currentFile = folder.files[position]
     }
 
+    static func create(folder: ImageFolder, position: Int) -> ExplorerFileViewer {
+        let explorerFileViewer = ExplorerFileViewer(folder: folder, position: position)
+        AppData.sharedInstance.imageDisplay.setDataSource(fileDataSource: explorerFileViewer)
+        return explorerFileViewer
+    }
+
+    static func create(file: ImageFile) -> ExplorerFileViewer {
+        let explorerFileViewer = ExplorerFileViewer(folder: file.parentFolder, position: file.subs)
+        AppData.sharedInstance.imageDisplay.setDataSource(fileDataSource: explorerFileViewer)
+        return explorerFileViewer
+    }
 }
 
-extension FolderFileViewer: FileDataSource {
+extension ExplorerFileViewer: FileDataSource {
+
+    func setCurrentFile(file: ImageFile) {
+        self.currentPosition = file.subs
+        AppData.sharedInstance.imageDisplay.setVaues(name: file.name, image: file.image, directoryName: file.parentFolder.noPrefixName, fileSequence: file.subs, fileCount: file.parentFolder.files.count)
+    }
 
     func getSequentialFile() -> ImageFile {
         return goForwards()
@@ -99,6 +115,7 @@ extension FolderFileViewer: FileDataSource {
         withAnimation(.default) {
             ImageLoader.readImage(file: self.currentFile) { _ in }
         }
+        AppData.sharedInstance.imageDisplay.setVaues(name: currentFile.textDirectoryName, image: currentFile.image, directoryName: currentFile.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: currentFile.parentFolder.files.count)
         return self.currentFile
     }
 
@@ -112,6 +129,7 @@ extension FolderFileViewer: FileDataSource {
         withAnimation(.default) {
             ImageLoader.readImage(file: self.currentFile) { _ in }
         }
+        AppData.sharedInstance.imageDisplay.setVaues(name: currentFile.textDirectoryName, image: currentFile.image, directoryName: currentFile.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: currentFile.parentFolder.files.count)
         return self.currentFile
     }
 

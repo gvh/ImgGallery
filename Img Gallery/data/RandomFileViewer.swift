@@ -29,6 +29,9 @@ class RandomFileViewer {
 
 extension RandomFileViewer: FileDataSource {
 
+    func setCurrentFile(file: ImageFile) {
+    }
+
     func getSequentialFile() -> ImageFile {
         return goForwards()
     }

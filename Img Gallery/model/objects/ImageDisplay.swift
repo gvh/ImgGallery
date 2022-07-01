@@ -20,8 +20,34 @@ class ImageDisplay : ObservableObject {
 
     @Published var hasBackButtonVar: Bool = false
     @Published var hasNextButtonVar: Bool = false
-    @Published var asSaveButtonVar: Bool = false
+    @Published var hasSaveButtonVar: Bool = false
     @Published var hasGoToButtonVar: Bool = false
     @Published var hasPlayPauseButtonVar: Bool = false
-    
+
+    var fileDataSource: FileDataSource?
+
+    func setValues(name: String, image: UIImage, directoryName: String, fileSequence: Int, fileCount: Int, hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
+        self.name = name
+        self.image = image
+        self.directoryName = directoryName
+        self.fileSequence = fileSequence
+        self.fileCount = fileCount
+        self.hasBackButtonVar = hasBackButton
+        self.hasNextButtonVar = hasNextButton
+        self.hasSaveButtonVar = hasSaveButton
+        self.hasGoToButtonVar = hasGoToButton
+        self.hasPlayPauseButtonVar = hasPlayPauseButton
+    }
+
+    func setVaues(name: String, image: UIImage, directoryName: String, fileSequence: Int, fileCount: Int) {
+        self.name = name
+        self.image = image
+        self.directoryName = directoryName
+        self.fileSequence = fileSequence
+        self.fileCount = fileCount
+    }
+
+    func setDataSource(fileDataSource: FileDataSource) {
+        self.fileDataSource = fileDataSource
+    }
 }

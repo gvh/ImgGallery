@@ -17,11 +17,10 @@ struct Img_GalleryApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(selectedTab: 1)
         }
     }
 }
-
 
 private extension Img_GalleryApp {
     func setup() {
@@ -30,11 +29,25 @@ private extension Img_GalleryApp {
         Utility.registerSettingsBundle()
         Utility.updateFromDefaults()
 
-        Configurator.configureLoad()
+        //Configurator.configureLoad()
         AppData.sharedInstance.session = URLSessionFactory.create()
-        AppData.sharedInstance.configInfo.setServerReachable()
-        Configurator.configureData {
+        AppData.sharedInstance.settingsStore.setServerReachable()
+        Img_GalleryApp.configureData {
             print("done with set server reachable")
         }
+    }
+
+    static func configureData(completionHandler: @escaping () -> Void) {
+        Img_GalleryApp.createRoots()
+        CustomPhotoAlbum.sharedInstance.checkPhotoLibraryPermission()
+        let dataLoader = DataLoader()
+        dataLoader.create {
+            completionHandler()
+        }
+    }
+
+    static func createRoots() {
+        let rootFolder = ImageFolder.createRoot(rootName: "download")
+        AppData.sharedInstance.downloadTOC = TableOfContents(rootFolder: rootFolder)
     }
 }
