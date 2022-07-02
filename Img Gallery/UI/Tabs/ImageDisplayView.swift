@@ -70,7 +70,8 @@ struct ImageDisplayView: View {
                     .disabled(!imageDisplay.hasPlayPauseButtonVar )
                 }
             }
-//            .frame(maxWidth: .infinity)
+            .fixedSize(horizontal: true, vertical: false)
+            .frame(maxWidth: .infinity)
             .padding(.bottom, 5)
         }
         .onAppear() {
