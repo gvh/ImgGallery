@@ -14,6 +14,7 @@ class ImageDisplay : ObservableObject {
     @Published var name: String = ""
     @Published var image: UIImage = UIImage(systemName: "film")!
 
+    @Published var parentDirectoryName: String = ""
     @Published var directoryName: String = ""
     @Published var fileSequence: Int = -1
     @Published var fileCount: Int = -2
@@ -26,9 +27,10 @@ class ImageDisplay : ObservableObject {
 
     var fileDataSource: FileDataSource?
 
-    func setValues(name: String, image: UIImage, directoryName: String, fileSequence: Int, fileCount: Int, hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
+    func setValues(name: String, image: UIImage, parentDirectoryName: String, directoryName: String, fileSequence: Int, fileCount: Int, hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
         self.name = name
         self.image = image
+        self.parentDirectoryName = parentDirectoryName
         self.directoryName = directoryName
         self.fileSequence = fileSequence
         self.fileCount = fileCount
@@ -39,7 +41,7 @@ class ImageDisplay : ObservableObject {
         self.hasPlayPauseButtonVar = hasPlayPauseButton
     }
 
-    func setVaues(name: String, image: UIImage, directoryName: String, fileSequence: Int, fileCount: Int) {
+    func setValues(name: String, image: UIImage, directoryName: String, fileSequence: Int, fileCount: Int) {
         self.name = name
         self.image = image
         self.directoryName = directoryName

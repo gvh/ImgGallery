@@ -9,55 +9,69 @@
 import SwiftUI
 
 struct ImageDisplayView: View {
+    @EnvironmentObject var settings: SettingsStore
     @EnvironmentObject var imageDisplay: ImageDisplay
     @ObservedObject var file: ImageFile
 
     var body: some View {
         VStack {
-            HStack {
-                Text(imageDisplay.directoryName)
-                Spacer()
-                Text("\(imageDisplay.fileSequence) of \(imageDisplay.fileCount)")
-            }
             Image(uiImage: imageDisplay.image)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-            
+                .overlay(NameOverlayView(), alignment: SettingsStore.alignmentDecode(alignmentChoice: settings.alignment))
+                .padding(.bottom, 5)
+
             HStack {
-                NavigationLink(destination: FullScreenImageView()) {
-                    Text("Full")
-                }
+                Group {
+                    NavigationLink(destination: FullScreenImageView()) {
+                        Text("Full")
+                    }
 
-                Button("Back") {
-                    imageDisplay.fileDataSource?.doPrev()
-                }
-                .disabled(!imageDisplay.hasBackButtonVar)
+                    Spacer()
 
-                Button("Next") {
-                    imageDisplay.fileDataSource?.doNext()
-                }
-                .disabled(!imageDisplay.hasNextButtonVar)
+                    Button("Back") {
+                        imageDisplay.fileDataSource?.doPrev()
+                    }
+                    .disabled(!imageDisplay.hasBackButtonVar)
 
-                Button("Fav") {
-                    imageDisplay.fileDataSource?.getCurrentFile().toggleFavorite()
-                }
+                    Spacer()
 
-                Button("Save") {
-                    imageDisplay.fileDataSource?.doSave(file: (imageDisplay.fileDataSource?.getCurrentFile())!)
-                }
-                .disabled(!imageDisplay.hasSaveButtonVar)
+                    Button("Next") {
+                        imageDisplay.fileDataSource?.doNext()
+                    }
+                    .disabled(!imageDisplay.hasNextButtonVar)
 
-                Button("GoTo") {
-                    imageDisplay.fileDataSource?.doPrev()
-                }
-                .disabled(!imageDisplay.hasGoToButtonVar)
+                    Spacer()
 
-                Button("Pause") {
-                    imageDisplay.fileDataSource?.togglePlayPause()
+                    Button("Fav") {
+                        imageDisplay.fileDataSource?.getCurrentFile().toggleFavorite()
+                    }
                 }
-                .disabled(!imageDisplay.hasPlayPauseButtonVar )
+                Group {
+                    Spacer()
+
+                    Button("Save") {
+                        imageDisplay.fileDataSource?.doSave(file: (imageDisplay.fileDataSource?.getCurrentFile())!)
+                    }
+                    .disabled(!imageDisplay.hasSaveButtonVar)
+
+                    Spacer()
+
+                    Button("GoTo") {
+                        imageDisplay.fileDataSource?.doPrev()
+                    }
+                    .disabled(!imageDisplay.hasGoToButtonVar)
+
+                    Spacer()
+
+                    Button("Pause") {
+                        imageDisplay.fileDataSource?.togglePlayPause()
+                    }
+                    .disabled(!imageDisplay.hasPlayPauseButtonVar )
+                }
             }
-            .frame(maxWidth: .infinity)
+//            .frame(maxWidth: .infinity)
+            .padding(.bottom, 5)
         }
         .onAppear() {
             let explorerFileViewer = ExplorerFileViewer.create(file: file)

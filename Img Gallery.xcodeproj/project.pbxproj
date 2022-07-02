@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F0E27D72870DD11008BFB4A /* NameOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F0E27D62870DD11008BFB4A /* NameOverlayView.swift */; };
 		5F16A5BE2865467D000E6817 /* Img_GalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5BD2865467D000E6817 /* Img_GalleryApp.swift */; };
 		5F16A5C02865467D000E6817 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5BF2865467D000E6817 /* ContentView.swift */; };
 		5F16A5C22865467F000E6817 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F16A5C12865467F000E6817 /* Assets.xcassets */; };
@@ -74,6 +75,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F0E27D62870DD11008BFB4A /* NameOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NameOverlayView.swift; path = "img Gallery/UI/Tabs/NameOverlayView.swift"; sourceTree = SOURCE_ROOT; };
 		5F16A5BA2865467D000E6817 /* Img Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Img Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F16A5BD2865467D000E6817 /* Img_GalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Img_GalleryApp.swift; sourceTree = "<group>"; };
 		5F16A5BF2865467D000E6817 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */,
 				5F5DF03D286A8596001FA059 /* FullScreenImageView.swift */,
 				5F88720D286D824F0023FAEA /* SettingsView.swift */,
+				5F0E27D62870DD11008BFB4A /* NameOverlayView.swift */,
 			);
 			path = Tabs;
 			sourceTree = "<group>";
@@ -452,6 +455,7 @@
 				5F16A632286591FC000E6817 /* Logging.swift in Sources */,
 				5F16A5D728658843000E6817 /* ConsoleLogger.swift in Sources */,
 				5F5DF03E286A8596001FA059 /* FullScreenImageView.swift in Sources */,
+				5F0E27D72870DD11008BFB4A /* NameOverlayView.swift in Sources */,
 				5F16A633286591FC000E6817 /* InventoryReader.swift in Sources */,
 				5F16A5D128654DEC000E6817 /* FavoritesView.swift in Sources */,
 				5F16A5C02865467D000E6817 /* ContentView.swift in Sources */,

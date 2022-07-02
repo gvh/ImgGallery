@@ -56,7 +56,7 @@ extension ExplorerFileViewer: FileDataSource {
 
     func setCurrentFile(file: ImageFile) {
         self.currentPosition = file.subs
-        AppData.sharedInstance.imageDisplay.setVaues(name: file.name, image: file.image, directoryName: file.parentFolder.noPrefixName, fileSequence: file.subs, fileCount: file.parentFolder.files.count)
+        AppData.sharedInstance.imageDisplay.setValues(name: file.name, image: file.image, parentDirectoryName: file.parentFolder.parentFolder?.getFullPath() ?? "", directoryName: file.parentFolder.noPrefixName, fileSequence: file.subs, fileCount: file.parentFolder.files.count, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
     }
 
     func getSequentialFile() -> ImageFile {
@@ -115,7 +115,7 @@ extension ExplorerFileViewer: FileDataSource {
         withAnimation(.default) {
             ImageLoader.readImage(file: self.currentFile) { _ in }
         }
-        AppData.sharedInstance.imageDisplay.setVaues(name: currentFile.textDirectoryName, image: currentFile.image, directoryName: currentFile.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: currentFile.parentFolder.files.count)
+        AppData.sharedInstance.imageDisplay.setValues(name: currentFile.textDirectoryName, image: currentFile.image, directoryName: currentFile.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: currentFile.parentFolder.files.count)
         return self.currentFile
     }
 
@@ -129,7 +129,7 @@ extension ExplorerFileViewer: FileDataSource {
         withAnimation(.default) {
             ImageLoader.readImage(file: self.currentFile) { _ in }
         }
-        AppData.sharedInstance.imageDisplay.setVaues(name: currentFile.textDirectoryName, image: currentFile.image, directoryName: currentFile.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: currentFile.parentFolder.files.count)
+        AppData.sharedInstance.imageDisplay.setValues(name: currentFile.textDirectoryName, image: currentFile.image, directoryName: currentFile.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: currentFile.parentFolder.files.count)
         return self.currentFile
     }
 

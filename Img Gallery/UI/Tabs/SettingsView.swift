@@ -24,6 +24,16 @@ struct SettingsView: View {
                         TextField("Seconds Between Countdown", text: $settings.secondsBetweenCountdown)
                     }
                 }
+                Section(header: Text("Display Settings")) {
+                    Picker(
+                        selection: $settings.alignment,
+                        label: Text("Label Alignment")
+                    ) {
+                        ForEach(SettingsStore.AlignmentChoice.allCases, id: \.self) {
+                            Text($0.rawValue).tag($0)
+                        }
+                    }
+                }
                 Section(header: Text("Website Settings")) {
                     HStack {
                         Text("UserName")
@@ -46,6 +56,7 @@ struct SettingsView: View {
                 }
             }
         }
+        .navigationViewStyle(.stack)
         .navigationBarTitle(Text("Settings"))
     }
 }

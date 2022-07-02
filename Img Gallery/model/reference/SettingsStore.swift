@@ -8,15 +8,20 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 final class SettingsStore: ObservableObject {
     private enum Keys {
-        static let IgnoreFoldersContaining = "IgnoreFoldersContaining"
-        static let SecondsBetweenChanges = "SecondsBetweenChanges"
-        static let SecondsBetweenCountdown = "SecondsBetweenCountdown"
-        static let UserName = "UserName"
-        static let PassWord = "PassWord"
-        static let BaseURL = "BaseURL"
+
+        static let labelAlignment = "LabelAlignment"
+
+        static let ignoreFoldersContaining = "IgnoreFoldersContaining"
+        static let secondsBetweenChanges = "SecondsBetweenChanges"
+        static let secondsBetweenCountdown = "SecondsBetweenCountdown"
+
+        static let userName = "UserName"
+        static let passWord = "PassWord"
+        static let baseURL = "BaseURL"
     }
 
     private let cancellable: Cancellable
@@ -28,12 +33,13 @@ final class SettingsStore: ObservableObject {
         self.defaults = defaults
 
         defaults.register(defaults: [
-            Keys.SecondsBetweenChanges: "30",
-            Keys.SecondsBetweenCountdown: "10",
-            Keys.IgnoreFoldersContaining: "xxx",
-            Keys.UserName: "kittie",
-            Keys.PassWord: "boobies",
-            Keys.BaseURL: "https://bubis.kittycris.com/kittycris"
+            Keys.labelAlignment: 1,
+            Keys.secondsBetweenChanges: "30",
+            Keys.secondsBetweenCountdown: "10",
+            Keys.ignoreFoldersContaining: "xxx",
+            Keys.userName: "kittie",
+            Keys.passWord: "boobies",
+            Keys.baseURL: "https://bubis.kittycris.com/kittycris"
         ])
 
         cancellable = NotificationCenter.default
@@ -42,42 +48,64 @@ final class SettingsStore: ObservableObject {
             .subscribe(objectWillChange)
     }
 
+    public enum AlignmentChoice: String, CaseIterable {
+        case topLeading
+        case top
+        case topTrailing
+        case leading
+        case center
+        case trailing
+        case bottomLeading
+        case bottom
+        case bottomTrailing
+    }
+
+    var alignment: AlignmentChoice {
+        set {
+            defaults.set(newValue.rawValue, forKey: Keys.labelAlignment)
+        }
+        get {
+            return defaults.string(forKey: Keys.labelAlignment)
+                .flatMap { AlignmentChoice(rawValue: $0) } ?? .topLeading
+        }
+    }
+
     var secondsBetweenChanges: String {
-        set { defaults.set(newValue, forKey: Keys.SecondsBetweenChanges) }
-        get { defaults.string(forKey: Keys.SecondsBetweenChanges)! }
+        set { defaults.set(newValue, forKey: Keys.secondsBetweenChanges) }
+        get { defaults.string(forKey: Keys.secondsBetweenChanges)! }
     }
 
     var secondsBetweenCountdown: String {
-        set { defaults.set(newValue, forKey: Keys.SecondsBetweenCountdown) }
-        get { defaults.string(forKey: Keys.SecondsBetweenCountdown)! }
+        set { defaults.set(newValue, forKey: Keys.secondsBetweenCountdown) }
+        get { defaults.string(forKey: Keys.secondsBetweenCountdown)! }
     }
 
     var ignoreFoldersContainingSet: Set<String> = Set<String>()
     var ignoreFoldersContaining: String {
         set {
-            defaults.set(newValue, forKey: Keys.IgnoreFoldersContaining)
+            defaults.set(newValue, forKey: Keys.ignoreFoldersContaining)
             self.ignoreFoldersContainingSet.removeAll()
             let ignoreFoldersContainingWork = newValue.split(separator: " ")
             for ignoreFolderContaining in ignoreFoldersContainingWork {
                 self.ignoreFoldersContainingSet.insert(String(ignoreFolderContaining.trimmingCharacters(in: .whitespaces)))
             }
         }
-        get { defaults.string(forKey: Keys.IgnoreFoldersContaining)! }
+        get { defaults.string(forKey: Keys.ignoreFoldersContaining)! }
     }
 
     var userName: String {
-        set { defaults.set(newValue, forKey: Keys.UserName) }
-        get { defaults.string(forKey: Keys.UserName)! }
+        set { defaults.set(newValue, forKey: Keys.userName) }
+        get { defaults.string(forKey: Keys.userName)! }
     }
 
     var passWord: String {
-        set { defaults.set(newValue, forKey: Keys.PassWord) }
-        get { defaults.string(forKey: Keys.PassWord)! }
+        set { defaults.set(newValue, forKey: Keys.passWord) }
+        get { defaults.string(forKey: Keys.passWord)! }
     }
 
     var baseURL: String {
-        set { defaults.set(newValue, forKey: Keys.BaseURL) }
-        get { defaults.string(forKey: Keys.BaseURL)! }
+        set { defaults.set(newValue, forKey: Keys.baseURL) }
+        get { defaults.string(forKey: Keys.baseURL)! }
     }
 
     func setServerReachable() {
@@ -87,17 +115,32 @@ final class SettingsStore: ObservableObject {
                 return
             }
             AppData.sharedInstance.catalogDescription = ""
-            let url = getBaseUrlWithCredentials().appendingPathComponent("description.txt")
-            DispatchQueue.global().sync {
-                do {
-                    AppData.sharedInstance.catalogDescription = try String(contentsOf: url)
-                } catch {
-                    AppData.sharedInstance.serverReachable = false
-                    print("unable to read description URL")
-                    AppData.sharedInstance.catalogDescription = ""
+            let requestURL = getBaseUrlWithCredentials().appendingPathComponent("description.txt")
+            let datatask = URLSession.shared.dataTask(with: requestURL) { data, response, error in
+                if response != nil {
+                    if error != nil {
+                        print("error path")
+                        AppData.sharedInstance.serverReachable = false
+                        print("unable to read description URL")
+                        AppData.sharedInstance.catalogDescription = ""
+                        return
+                    }
+                    guard let httpResponse = response as? HTTPURLResponse,
+                          (200...299).contains(httpResponse.statusCode) else {
+                        print("server response \((response as? HTTPURLResponse)!.statusCode)")
+                        AppData.sharedInstance.serverReachable = false
+                        print("unable to read description URL")
+                        AppData.sharedInstance.catalogDescription = ""
+                        return
+                    }
+                    AppData.sharedInstance.catalogDescription = String(data:data!, encoding: .utf8) ?? ""
+                    AppData.sharedInstance.serverReachable = true
+
                 }
             }
-            AppData.sharedInstance.serverReachable = true
+            datatask.resume()
+
+
     }
 
     func getBaseUrlWithCredentials() -> URL {
@@ -112,6 +155,14 @@ final class SettingsStore: ObservableObject {
 
         let passwordString = string1 + AppData.sharedInstance.settingsStore.userName + ":" + AppData.sharedInstance.settingsStore.passWord + "@" + string2
         return URL(string: passwordString)!
+    }
+
+    static let alignments: [SettingsStore.AlignmentChoice: Alignment] = [.topLeading: .topLeading, .top: .top, .topTrailing: .topTrailing,
+                                                                         .leading: .leading, .center: .center, .trailing: .trailing,
+                                                                         .bottomLeading: .bottomLeading, .bottom: .bottom, .bottomTrailing: .bottomTrailing]
+
+    static func alignmentDecode(alignmentChoice: SettingsStore.AlignmentChoice) -> Alignment {
+        return SettingsStore.alignments[alignmentChoice] ?? .topLeading
     }
 
 }
