@@ -54,9 +54,6 @@ extension SearchFileViewer: FileDataSource {
     func onProgress(timer: RefreshTimer) {
     }
 
-    func setImageSelectionDelegate(delegate: ImageSelectionDelegate?) {
-    }
-
     func hasFullScreenButton() -> Bool {
         return true
     }

@@ -12,15 +12,13 @@ import Combine
 class SequentialFileViewer {
     var file: ImageFile!
     var sequentialDataSource: FileDataSource
-    weak var imageSelectionDelegate: ImageSelectionDelegate?
     var currentPosition: Int
     var rowCount: Int
     var needsInitialized: Bool
     let imageLoader = ImageLoader()
 
-    init(sequentialDataSource: FileDataSource, imageSelectionDelegate: ImageSelectionDelegate?) {
+    init(sequentialDataSource: FileDataSource) {
         self.sequentialDataSource = sequentialDataSource
-        self.imageSelectionDelegate = imageSelectionDelegate
         needsInitialized = true
         currentPosition = 0
         rowCount = sequentialDataSource.getCurrentFolder().filesInTree
@@ -59,7 +57,6 @@ extension SequentialFileViewer: FileDataSource {
             withAnimation(.default) {
                 ImageLoader.readImage(file: file) { _ in }
             }
-            imageSelectionDelegate?.onImageSelected()
             needsInitialized = false
         }
 
@@ -77,10 +74,6 @@ extension SequentialFileViewer: FileDataSource {
 
     func onSubscriptionTimer() {
         _ = goForwards()
-    }
-
-   func setImageSelectionDelegate(delegate: ImageSelectionDelegate?) {
-        self.imageSelectionDelegate = delegate
     }
 
     func hasFullScreenButton() -> Bool {
@@ -151,9 +144,7 @@ extension SequentialFileViewer: FileDataSource {
         withAnimation(.default) {
             ImageLoader.readImage(file: file) { _ in }
         }
-        if file != nil {
-            imageSelectionDelegate?.onImageSelected()
-        }
+
         return file
     }
 

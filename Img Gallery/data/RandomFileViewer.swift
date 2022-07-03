@@ -12,14 +12,12 @@ import Combine
 class RandomFileViewer {
     var file: ImageFile?
     var randomDataSource: FileDataSource
-    weak var imageSelectionDelegate: ImageSelectionDelegate?
     var needsRandom: Bool = true
 
     let imageLoader = ImageLoader()
 
-    init(randomDataSource: FileDataSource, imageSelectionDelegate: ImageSelectionDelegate?) {
+    init(randomDataSource: FileDataSource) {
         self.randomDataSource = randomDataSource
-        self.imageSelectionDelegate = imageSelectionDelegate
     }
 }
 
@@ -47,7 +45,6 @@ extension RandomFileViewer: FileDataSource {
     func onAppear() {
         if needsRandom {
             file = goForwards()
-            imageSelectionDelegate?.onImageSelected()
             needsRandom = false
         }
 
@@ -69,10 +66,6 @@ extension RandomFileViewer: FileDataSource {
 
     func onSubscriptionTimer() {
         _ = goForwards()
-    }
-
-   func setImageSelectionDelegate(delegate: ImageSelectionDelegate?) {
-        self.imageSelectionDelegate = delegate
     }
 
     func hasFullScreenButton() -> Bool {
@@ -136,10 +129,6 @@ extension RandomFileViewer: FileDataSource {
         file = randomDataSource.getRandomFile()
         withAnimation(.default) {
             ImageLoader.readImage(file: file!) { _ in }
-        }
-
-        if file != nil {
-            imageSelectionDelegate?.onImageSelected()
         }
         return file!
     }

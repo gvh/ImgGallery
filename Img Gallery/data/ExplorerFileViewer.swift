@@ -41,13 +41,13 @@ class ExplorerFileViewer : ObservableObject {
 
     static func create(folder: ImageFolder, position: Int) -> ExplorerFileViewer {
         let explorerFileViewer = ExplorerFileViewer(folder: folder, position: position)
-        AppData.sharedInstance.imageDisplay.setDataSource(fileDataSource: explorerFileViewer)
+//        AppData.sharedInstance.imageDisplay.setDataSource(fileDataSource: explorerFileViewer)
         return explorerFileViewer
     }
 
     static func create(file: ImageFile) -> ExplorerFileViewer {
         let explorerFileViewer = ExplorerFileViewer(folder: file.parentFolder, position: file.subs)
-        AppData.sharedInstance.imageDisplay.setDataSource(fileDataSource: explorerFileViewer)
+//        AppData.sharedInstance.imageDisplay.setDataSource(fileDataSource: explorerFileViewer)
         return explorerFileViewer
     }
 }
@@ -86,9 +86,6 @@ extension ExplorerFileViewer: FileDataSource {
     }
 
     func onProgress(timer: RefreshTimer) {
-    }
-
-    func setImageSelectionDelegate(delegate: ImageSelectionDelegate?) {
     }
 
     func hasFullScreenButton() -> Bool {

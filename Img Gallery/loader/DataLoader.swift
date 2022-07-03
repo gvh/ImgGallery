@@ -64,7 +64,9 @@ class DataLoader {
     func populate() {
         AppData.sharedInstance.downloadTOC.populateIndex()
         Favorites.loadCloud {
+            print("\(AppData.sharedInstance.favorites.items.count) favorites added")
             Histories.loadCloud {
+                print("\(AppData.sharedInstance.histories.items.count) histories added")
                 AppData.sharedInstance.dataLoadComplete = true
             }
         }

@@ -51,9 +51,6 @@ extension KeywordFileViewer: FileDataSource {
     func onProgress(timer: RefreshTimer) {
     }
 
-    func setImageSelectionDelegate(delegate: ImageSelectionDelegate?) {
-    }
-
     func hasFullScreenButton() -> Bool {
         return true
     }

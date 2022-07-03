@@ -52,8 +52,6 @@ protocol FileDataSource {
 
     func getScreenLabel(row: Int) -> String
 
-    func setImageSelectionDelegate(delegate: ImageSelectionDelegate?)
-
     func getCurrentLocation() -> (Int, Int)
 
     func getRandomFile() -> ImageFile

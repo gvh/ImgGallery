@@ -8,7 +8,25 @@
 import SwiftUI
 
 struct HistoryView: View {
+
+    @ObservedObject var histories: Histories = AppData.sharedInstance.histories
+
+    let columns = [GridItem(.adaptive(minimum: 100, maximum: 300))]
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                ScrollView(.vertical) {
+                    Text("Browsing History")
+                    LazyVGrid(columns: columns) {
+                        ForEach(histories.items, id: \.self) { history in
+                            HistoriesImageRowView(file: history.file)
+                        }
+                    }
+                }
+                .padding()
+            }
+        }
+        .navigationViewStyle(.stack)
     }
 }

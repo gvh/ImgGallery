@@ -8,10 +8,10 @@
 import Foundation
 import CloudKit
 
-class Histories {
+class Histories: ObservableObject {
 
-    var currentPosition: Int = -1
-    var items: [History] = []
+    @Published var currentPosition: Int = -1
+    @Published var items: [History] = []
 
     static var ids: Set<UUID> = []
     static var recordIDsToDelete: [CKRecord.ID] = []
@@ -33,7 +33,9 @@ class Histories {
     }
 
     static func loadCloud(completionHandler : @escaping (() -> Void) ) {
-        AppData.sharedInstance.histories.items.removeAll()
+        DispatchQueue.main.sync {
+            AppData.sharedInstance.histories.items.removeAll()
+        }
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "History", predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -72,7 +74,9 @@ class Histories {
             } else {
                 ids.insert(key)
                 let history = History(file: file!, dateAdded: dateAdded, historyID: recordID.recordName, record: record)
-                AppData.sharedInstance.histories.items.append(history)
+                DispatchQueue.main.sync {
+                    AppData.sharedInstance.histories.items.append(history)
+                }
             }
         } else {
             var inIgnoreList: Bool = false
@@ -109,7 +113,9 @@ class Histories {
         if items.contains(newHistory) {
 
         } else {
-            items.insert(newHistory, at: items.startIndex)
+            DispatchQueue.main.sync {
+                items.insert(newHistory, at: items.startIndex)
+            }
             currentPosition = items.count - 1
         }
         removeExcessHistory()
@@ -127,7 +133,9 @@ class Histories {
             while items.count > 200 {
                 let item = items.last
                 item?.deleteCloudRecord()
-                items.removeLast()
+                DispatchQueue.main.sync {
+                    items.removeLast()
+                }
             }
         }
     }

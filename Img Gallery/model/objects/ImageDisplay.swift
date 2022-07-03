@@ -26,8 +26,10 @@ class ImageDisplay : ObservableObject {
     @Published var hasPlayPauseButtonVar: Bool = false
 
     @Published var countDownSeconds: Int = 0
-    
-    var fileDataSource: FileDataSource?
+
+    var navigator: Navigator?
+
+//    var fileDataSource: FileDataSource?
 
     func setValues(name: String, image: UIImage, parentDirectoryName: String, directoryName: String, fileSequence: Int, fileCount: Int, hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
         self.name = name
@@ -51,7 +53,11 @@ class ImageDisplay : ObservableObject {
         self.fileCount = fileCount
     }
 
-    func setDataSource(fileDataSource: FileDataSource) {
-        self.fileDataSource = fileDataSource
+    func setNavigator(navigator: Navigator) {
+        self.navigator = navigator
     }
+
+//    func setDataSource(fileDataSource: FileDataSource) {
+//        self.fileDataSource = fileDataSource
+//    }
 }

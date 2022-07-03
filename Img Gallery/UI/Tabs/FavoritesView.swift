@@ -8,7 +8,25 @@
 import SwiftUI
 
 struct FavoritesView: View {
+
+    @ObservedObject var favorites: Favorites = AppData.sharedInstance.favorites
+
+    let columns = [GridItem(.adaptive(minimum: 100, maximum: 300))]
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                ScrollView(.vertical) {
+                    Text("Favorites")
+                    LazyVGrid(columns: columns) {
+                        ForEach(favorites.items, id: \.self) { favorite in
+                            FavoritesImageRowView(file: favorite.file)
+                        }
+                    }
+                }
+                .padding()
+            }
+        }
+        .navigationViewStyle(.stack)
     }
 }

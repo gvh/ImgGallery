@@ -10,12 +10,12 @@ import CloudKit
 import Combine
 import simd
 
-final class Favorites {
+final class Favorites: ObservableObject {
 
     let favoritesSizeLimit: Int = 1000
 
-    var items: [Favorite] = []
-    var currentPosition: Int = 0
+    @Published var items: [Favorite] = []
+    @Published var currentPosition: Int = 0
 
     static var ids: Set<UUID> = []
     static var recordIDsToDelete: [CKRecord.ID] = []
@@ -29,7 +29,9 @@ final class Favorites {
     }
 
     static func loadCloud(completionHandler : @escaping (() -> Void) ) {
-        AppData.sharedInstance.favorites.items.removeAll()
+        DispatchQueue.main.sync {
+            AppData.sharedInstance.favorites.items.removeAll()
+        }
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Favorite", predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -41,7 +43,9 @@ final class Favorites {
         operation.queryResultBlock = { _ in
             if !recordIDsToDelete.isEmpty {
                 // clean up any duplicates removed during load
-                Favorites.remove(recordIDs: recordIDsToDelete)
+                DispatchQueue.main.sync {
+                    Favorites.remove(recordIDs: recordIDsToDelete)
+                }
             }
 
             completionHandler()
@@ -77,7 +81,9 @@ final class Favorites {
             } else {
                 ids.insert(key)
                 let favorite = Favorite(file: file!, dateAdded: dateAdded, favoriteID: recordID.recordName)
-                AppData.sharedInstance.favorites.add(favorite: favorite)
+                DispatchQueue.main.async {
+                    AppData.sharedInstance.favorites.add(favorite: favorite)
+                }
             }
         } else {
             var inIgnoreList: Bool = false

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FullScreenImageView: View {
+struct ImageDisplayFullScreenView: View {
     @EnvironmentObject var imageDisplay: ImageDisplay
     @EnvironmentObject var settings: SettingsStore
 

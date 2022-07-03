@@ -13,6 +13,11 @@ struct ContentView: View {
 
     @State var selectedTab: Int
 
+    var explorerNavigator = ExplorerNavigator()
+    var favoritesNavigator = FavoritesNavigator()
+    var historyNavigator = HistoryNavigator()
+    var searchNavigator = SearchNavigator()
+
     var body: some View {
         TabView(selection: $selectedTab) {
 
@@ -52,11 +57,27 @@ struct ContentView: View {
         }
         .environmentObject(imageDisplay)
         .environmentObject(settingsStore)
-    }
-}
+        .onChange(of: selectedTab) { newValue in
+            switch newValue {
+            case 1:
+                AppData.sharedInstance.imageDisplay.navigator = self.explorerNavigator
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(selectedTab: 1)
+            case 2:
+                AppData.sharedInstance.imageDisplay.navigator = self.favoritesNavigator
+
+            case 3:
+                AppData.sharedInstance.imageDisplay.navigator = self.historyNavigator
+
+            case 4:
+                AppData.sharedInstance.imageDisplay.navigator = self.searchNavigator
+
+            case 5:
+                AppData.sharedInstance.imageDisplay.navigator = nil
+
+            default:
+                AppData.sharedInstance.imageDisplay.navigator = nil
+
+            }
+        }
     }
 }

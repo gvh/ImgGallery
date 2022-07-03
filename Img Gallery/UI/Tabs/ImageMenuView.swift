@@ -11,7 +11,7 @@ import SwiftUI
 struct ImageMenuView: View {
     @ObservedObject var folder: ImageFolder
 
-    let columns = [GridItem(.adaptive(minimum: 200, maximum: 250))]
+    let columns = [GridItem(.adaptive(minimum: 150, maximum: 250))]
 
     var body: some View {
         VStack {

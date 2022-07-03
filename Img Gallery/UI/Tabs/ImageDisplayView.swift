@@ -34,7 +34,7 @@ struct ImageDisplayView: View {
                 )
             HStack {
                 Group {
-                    NavigationLink(destination: FullScreenImageView()) {
+                    NavigationLink(destination: ImageDisplayFullScreenView()) {
                         Text("Full")
                     }
 

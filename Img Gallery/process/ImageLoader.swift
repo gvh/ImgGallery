@@ -10,11 +10,6 @@ import Combine
 
 class ImageLoader {
 
-    static func readImage(fileDataSource: FileDataSource, completionHandler : @escaping ((_ file: ImageFile?) -> Void)) {
-        let file = fileDataSource.getCurrentFile()
-        readImage(file: file, completionHandler: completionHandler)
-    }
-
     static func readImage(file: ImageFile, completionHandler: @escaping ((_ file: ImageFile?) -> Void)) {
         if file.imageReady {
             completionHandler(file)

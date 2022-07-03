@@ -66,12 +66,8 @@ final class AppData {
 
     var dataLoadComplete: Bool = false
 
-    var refreshDelegate: RefreshableDelegate?
-
-    var messageDisplayer: MessageDisplayer = ConsoleLogger()
-
     init() {
-        self.privateDb = CKContainer(identifier: "iCloud.com.gardnervh.imggallery").privateCloudDatabase
+        self.privateDb = CKContainer(identifier: "iCloud.com.gardnervh.MediaBrowser").privateCloudDatabase
     }
 
     func startTimer(fileDataSource: FileDataSource) {

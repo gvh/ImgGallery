@@ -16,7 +16,6 @@ open class Utility: NSObject, URLSessionDelegate, URLSessionDownloadDelegate {
                          errorHandler: @escaping (_ statusCode: Int, _ response: HTTPURLResponse?, _ error: Error?) -> Void,
                          completionHandler: @escaping (_ data: Data?) -> Void) {
         let requestURL = makeUrl(command, subcommand: subcommand, parameters: parameters)
-        //        print("URL: \(requestURL.absoluteString)")
         let datatask = URLSession.shared.dataTask(with: requestURL) { data, response, error in
             if response != nil {
                 if let error = error {

@@ -8,8 +8,8 @@
 import Foundation
 import CloudKit
 
-class Favorite {
-    var file: ImageFile
+class Favorite: ObservableObject {
+    @Published var file: ImageFile
     var dateAdded: Date
     var favoriteID: String
     var dirty: Bool

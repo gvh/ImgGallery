@@ -24,8 +24,6 @@ struct Img_GalleryApp: App {
 
 private extension Img_GalleryApp {
     func setup() {
-        let consoleLogger = ConsoleLogger()
-        AppData.sharedInstance.messageDisplayer = consoleLogger
         Utility.registerSettingsBundle()
         Utility.updateFromDefaults()
 
