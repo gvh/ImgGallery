@@ -9,5 +9,4 @@ import Foundation
 
 protocol ImageSelectionDelegate: AnyObject {
     func onImageSelected()
-    func onImageCountdown(timer: RefreshTimer)
 }

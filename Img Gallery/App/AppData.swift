@@ -52,7 +52,7 @@ final class AppData {
     
     static let themeColor = UIColor(red: 27.0/255.0, green: 65.0/255.0, blue: 93.0/255.0, alpha: 1.0)
 
-    weak var imageReadDelegate: ImageReadDelegate?
+//    weak var imageReadDelegate: ImageReadDelegate?
     var timer: RefreshTimer = RefreshTimer()
 
     var isTimerActive: Bool = false

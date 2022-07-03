@@ -20,7 +20,18 @@ struct ImageDisplayView: View {
                 .aspectRatio(contentMode: .fit)
                 .overlay(NameOverlayView(), alignment: SettingsStore.alignmentDecode(alignmentChoice: settings.alignment))
                 .padding(.bottom, 5)
-
+                .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+                    .onEnded { value in
+                        let direction = atan2(value.translation.width, value.translation.height)
+                        switch direction {
+                        case (-Double.pi/4..<Double.pi/4): break
+                        case (Double.pi/4..<Double.pi*3/4): imageDisplay.fileDataSource?.doPrev()
+                        case (Double.pi*3/4...Double.pi), (-Double.pi..<(-Double.pi*3/4)): break
+                        case (-Double.pi*3/4..<(-Double.pi/4)): imageDisplay.fileDataSource?.doNext()
+                        default: print("unknown")
+                        }
+                    }
+                )
             HStack {
                 Group {
                     NavigationLink(destination: FullScreenImageView()) {

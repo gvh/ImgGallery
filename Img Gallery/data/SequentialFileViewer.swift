@@ -26,9 +26,6 @@ class SequentialFileViewer {
         rowCount = sequentialDataSource.getCurrentFolder().filesInTree
     }
 
-    func countProgress(timer: RefreshTimer) {
-        self.imageSelectionDelegate?.onImageCountdown(timer: timer)
-    }
 }
 
 extension SequentialFileViewer: FileDataSource {
@@ -80,10 +77,6 @@ extension SequentialFileViewer: FileDataSource {
 
     func onSubscriptionTimer() {
         _ = goForwards()
-    }
-
-    func onProgress(timer: RefreshTimer) {
-        countProgress(timer: timer)
     }
 
    func setImageSelectionDelegate(delegate: ImageSelectionDelegate?) {

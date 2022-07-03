@@ -73,7 +73,7 @@ class RefreshTimer {
                     }
 
                     self.remainingSecondsBeforeExpire -= Int(AppData.sharedInstance.settingsStore.secondsBetweenCountdown)!
-                    _ = self.viewer!.onProgress(timer: self)
+                    AppData.sharedInstance.imageDisplay.countDownSeconds = self.remainingSecondsBeforeExpire
                     if self.remainingSecondsBeforeExpire <= 0 {
                         self.removeProgressTimer()
                     }

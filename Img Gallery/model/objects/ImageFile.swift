@@ -98,7 +98,7 @@ final class ImageFile: ObservableObject {
     func setImage(_ image: UIImage) {
         self.image = image
         self.imageReady = true
-        AppData.sharedInstance.imageReadDelegate?.onReadComplete(file: self)
+//        AppData.sharedInstance.imageReadDelegate?.onReadComplete(file: self)
     }
 
     var imageUrl: URL {

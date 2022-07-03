@@ -25,19 +25,13 @@
 		5F16A5F628658B84000E6817 /* KeywordIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5E528658B83000E6817 /* KeywordIndex.swift */; };
 		5F16A5F728658B84000E6817 /* TableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5E628658B83000E6817 /* TableOfContents.swift */; };
 		5F16A5F828658B84000E6817 /* Histories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5E728658B83000E6817 /* Histories.swift */; };
-		5F16A5F928658B84000E6817 /* CustomDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5E928658B83000E6817 /* CustomDate.swift */; };
 		5F16A5FA28658B84000E6817 /* StopWords.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5EA28658B83000E6817 /* StopWords.swift */; };
-		5F16A5FB28658B84000E6817 /* SimpleDateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5EB28658B83000E6817 /* SimpleDateFormat.swift */; };
 		5F16A5FC28658B84000E6817 /* ImageFolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5ED28658B84000E6817 /* ImageFolder.swift */; };
 		5F16A5FD28658B84000E6817 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5EE28658B84000E6817 /* SearchResult.swift */; };
 		5F16A5FE28658B84000E6817 /* ImageFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5EF28658B84000E6817 /* ImageFile.swift */; };
 		5F16A5FF28658B84000E6817 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5F028658B84000E6817 /* Favorite.swift */; };
 		5F16A60028658B84000E6817 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A5F128658B84000E6817 /* History.swift */; };
-		5F16A60C28658FFE000E6817 /* ConfigChangedDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60628658FFE000E6817 /* ConfigChangedDelegate.swift */; };
-		5F16A60D28658FFE000E6817 /* ImageReadDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60728658FFE000E6817 /* ImageReadDelegate.swift */; };
-		5F16A60E28658FFE000E6817 /* DataLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60828658FFE000E6817 /* DataLoaderDelegate.swift */; };
 		5F16A60F28658FFE000E6817 /* ImageSelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60928658FFE000E6817 /* ImageSelectionDelegate.swift */; };
-		5F16A61028658FFE000E6817 /* HasDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60A28658FFE000E6817 /* HasDateFormatter.swift */; };
 		5F16A61128658FFE000E6817 /* FileDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A60B28658FFE000E6817 /* FileDataSource.swift */; };
 		5F16A6142865901D000E6817 /* FileViewerType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A6132865901D000E6817 /* FileViewerType.swift */; };
 		5F16A61D286591E0000E6817 /* HistoryFileViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A616286591E0000E6817 /* HistoryFileViewer.swift */; };
@@ -63,6 +57,7 @@
 		5F16A64228660446000E6817 /* RefreshableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64128660446000E6817 /* RefreshableDelegate.swift */; };
 		5F16A64428664BC1000E6817 /* ExplorerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F16A64328664BC1000E6817 /* ExplorerRowView.swift */; };
 		5F16A64728664DB3000E6817 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F16A64628664DB3000E6817 /* CloudKit.framework */; };
+		5F2B58B92871220500AD1B19 /* SwipeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B58B82871220500AD1B19 /* SwipeModifier.swift */; };
 		5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */; };
 		5F4B1A4C28684D8800E2EEA0 /* FileImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */; };
 		5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */; };
@@ -94,19 +89,13 @@
 		5F16A5E528658B83000E6817 /* KeywordIndex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeywordIndex.swift; sourceTree = "<group>"; };
 		5F16A5E628658B83000E6817 /* TableOfContents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableOfContents.swift; sourceTree = "<group>"; };
 		5F16A5E728658B83000E6817 /* Histories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Histories.swift; sourceTree = "<group>"; };
-		5F16A5E928658B83000E6817 /* CustomDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDate.swift; sourceTree = "<group>"; };
 		5F16A5EA28658B83000E6817 /* StopWords.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StopWords.swift; sourceTree = "<group>"; };
-		5F16A5EB28658B83000E6817 /* SimpleDateFormat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleDateFormat.swift; sourceTree = "<group>"; };
 		5F16A5ED28658B84000E6817 /* ImageFolder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFolder.swift; sourceTree = "<group>"; };
 		5F16A5EE28658B84000E6817 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		5F16A5EF28658B84000E6817 /* ImageFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFile.swift; sourceTree = "<group>"; };
 		5F16A5F028658B84000E6817 /* Favorite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		5F16A5F128658B84000E6817 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
-		5F16A60628658FFE000E6817 /* ConfigChangedDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigChangedDelegate.swift; sourceTree = "<group>"; };
-		5F16A60728658FFE000E6817 /* ImageReadDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageReadDelegate.swift; sourceTree = "<group>"; };
-		5F16A60828658FFE000E6817 /* DataLoaderDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataLoaderDelegate.swift; sourceTree = "<group>"; };
 		5F16A60928658FFE000E6817 /* ImageSelectionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSelectionDelegate.swift; sourceTree = "<group>"; };
-		5F16A60A28658FFE000E6817 /* HasDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasDateFormatter.swift; sourceTree = "<group>"; };
 		5F16A60B28658FFE000E6817 /* FileDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileDataSource.swift; sourceTree = "<group>"; };
 		5F16A6132865901D000E6817 /* FileViewerType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileViewerType.swift; sourceTree = "<group>"; };
 		5F16A616286591E0000E6817 /* HistoryFileViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryFileViewer.swift; sourceTree = "<group>"; };
@@ -132,6 +121,7 @@
 		5F16A64128660446000E6817 /* RefreshableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshableDelegate.swift; sourceTree = "<group>"; };
 		5F16A64328664BC1000E6817 /* ExplorerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerRowView.swift; sourceTree = "<group>"; };
 		5F16A64628664DB3000E6817 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		5F2B58B82871220500AD1B19 /* SwipeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeModifier.swift; path = "img Gallery/utility/SwipeModifier.swift"; sourceTree = SOURCE_ROOT; };
 		5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootExplorerView.swift; sourceTree = "<group>"; };
 		5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageRowView.swift; sourceTree = "<group>"; };
 		5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplayView.swift; path = "img Gallery/UI/Tabs/ImageDisplayView.swift"; sourceTree = SOURCE_ROOT; };
@@ -249,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				5F16A63F28660408000E6817 /* Utility.swift */,
+				5F2B58B82871220500AD1B19 /* SwipeModifier.swift */,
 			);
 			path = utility;
 			sourceTree = "<group>";
@@ -290,9 +281,7 @@
 		5F16A5E828658B83000E6817 /* reference */ = {
 			isa = PBXGroup;
 			children = (
-				5F16A5E928658B83000E6817 /* CustomDate.swift */,
 				5F16A5EA28658B83000E6817 /* StopWords.swift */,
-				5F16A5EB28658B83000E6817 /* SimpleDateFormat.swift */,
 				5F88720F286DE1FC0023FAEA /* SettingsStore.swift */,
 			);
 			path = reference;
@@ -316,11 +305,7 @@
 			children = (
 				5F16A64128660446000E6817 /* RefreshableDelegate.swift */,
 				5F16A63D2865C5D1000E6817 /* MessageDisplayer.swift */,
-				5F16A60628658FFE000E6817 /* ConfigChangedDelegate.swift */,
-				5F16A60728658FFE000E6817 /* ImageReadDelegate.swift */,
-				5F16A60828658FFE000E6817 /* DataLoaderDelegate.swift */,
 				5F16A60928658FFE000E6817 /* ImageSelectionDelegate.swift */,
-				5F16A60A28658FFE000E6817 /* HasDateFormatter.swift */,
 				5F16A60B28658FFE000E6817 /* FileDataSource.swift */,
 			);
 			path = protocol;
@@ -460,7 +445,6 @@
 				5F16A5D128654DEC000E6817 /* FavoritesView.swift in Sources */,
 				5F16A5C02865467D000E6817 /* ContentView.swift in Sources */,
 				5F16A60F28658FFE000E6817 /* ImageSelectionDelegate.swift in Sources */,
-				5F16A5FB28658B84000E6817 /* SimpleDateFormat.swift in Sources */,
 				5F16A621286591E0000E6817 /* RandomFileViewer.swift in Sources */,
 				5F16A5F828658B84000E6817 /* Histories.swift in Sources */,
 				5F16A636286591FC000E6817 /* StreamReader.swift in Sources */,
@@ -482,16 +466,14 @@
 				5F16A61D286591E0000E6817 /* HistoryFileViewer.swift in Sources */,
 				5F16A634286591FC000E6817 /* CustomPhotoAlbum.swift in Sources */,
 				5F16A5CE28654DB4000E6817 /* ExploreView.swift in Sources */,
-				5F16A61028658FFE000E6817 /* HasDateFormatter.swift in Sources */,
 				5F16A5D528654E33000E6817 /* SearchView.swift in Sources */,
+				5F2B58B92871220500AD1B19 /* SwipeModifier.swift in Sources */,
 				5F16A622286591E0000E6817 /* SearchFileViewer.swift in Sources */,
 				5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */,
 				5F16A5F528658B84000E6817 /* KeywordUsage.swift in Sources */,
 				5FE7A8E5286AE62C007BA234 /* ImageDisplay.swift in Sources */,
 				5F16A5BE2865467D000E6817 /* Img_GalleryApp.swift in Sources */,
-				5F16A60C28658FFE000E6817 /* ConfigChangedDelegate.swift in Sources */,
 				5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */,
-				5F16A60E28658FFE000E6817 /* DataLoaderDelegate.swift in Sources */,
 				5F16A5F328658B84000E6817 /* SearchUsage.swift in Sources */,
 				5F16A5F428658B84000E6817 /* MainMenuItem.swift in Sources */,
 				5F16A637286591FC000E6817 /* Searcher.swift in Sources */,
@@ -501,11 +483,9 @@
 				5F16A61128658FFE000E6817 /* FileDataSource.swift in Sources */,
 				5F16A64428664BC1000E6817 /* ExplorerRowView.swift in Sources */,
 				5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */,
-				5F16A5F928658B84000E6817 /* CustomDate.swift in Sources */,
 				5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */,
 				5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */,
 				5F16A62F286591FC000E6817 /* ImageLoader.swift in Sources */,
-				5F16A60D28658FFE000E6817 /* ImageReadDelegate.swift in Sources */,
 				5F16A5F728658B84000E6817 /* TableOfContents.swift in Sources */,
 				5F16A623286591E0000E6817 /* FavoriteFileViewer.swift in Sources */,
 				5F16A6142865901D000E6817 /* FileViewerType.swift in Sources */,

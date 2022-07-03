@@ -21,10 +21,6 @@ class RandomFileViewer {
         self.randomDataSource = randomDataSource
         self.imageSelectionDelegate = imageSelectionDelegate
     }
-
-    func countProgress(timer: RefreshTimer) {
-        self.imageSelectionDelegate?.onImageCountdown(timer: timer)
-    }
 }
 
 extension RandomFileViewer: FileDataSource {
@@ -73,10 +69,6 @@ extension RandomFileViewer: FileDataSource {
 
     func onSubscriptionTimer() {
         _ = goForwards()
-    }
-
-    func onProgress(timer: RefreshTimer) {
-        countProgress(timer: timer)
     }
 
    func setImageSelectionDelegate(delegate: ImageSelectionDelegate?) {

@@ -11,7 +11,7 @@ import Combine
 import SwiftUI
 
 class DataLoader {
-    weak var delegate: DataLoaderDelegate?
+ //   weak var delegate: DataLoaderDelegate?
 
     func create(completionHandler : @escaping (() -> Void) ) {
         DispatchQueue.global().async {
@@ -66,7 +66,6 @@ class DataLoader {
         Favorites.loadCloud {
             Histories.loadCloud {
                 AppData.sharedInstance.dataLoadComplete = true
-                self.delegate?.onDataLoadComplete()
             }
         }
     }

@@ -15,7 +15,7 @@ struct NameOverlayView: View {
         ZStack {
             VStack {
                 Text(imageDisplay.parentDirectoryName)
-                Text("\(imageDisplay.directoryName) : \(imageDisplay.fileSequence) of \(imageDisplay.fileCount)")
+                Text("\(imageDisplay.directoryName) : \(imageDisplay.fileSequence + 1) of \(imageDisplay.fileCount)")
             }
             .font(.callout)
             .foregroundColor(.white)

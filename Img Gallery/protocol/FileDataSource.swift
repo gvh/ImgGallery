@@ -16,7 +16,6 @@ protocol FileDataSource {
     func onDisappear()
 
     func onSubscriptionTimer()
-    func onProgress(timer: RefreshTimer)
 
     func hasBackButton() -> Bool
     func hasNextButton() -> Bool

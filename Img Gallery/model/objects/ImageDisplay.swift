@@ -25,6 +25,8 @@ class ImageDisplay : ObservableObject {
     @Published var hasGoToButtonVar: Bool = false
     @Published var hasPlayPauseButtonVar: Bool = false
 
+    @Published var countDownSeconds: Int = 0
+    
     var fileDataSource: FileDataSource?
 
     func setValues(name: String, image: UIImage, parentDirectoryName: String, directoryName: String, fileSequence: Int, fileCount: Int, hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
