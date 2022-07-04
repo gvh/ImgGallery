@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct HistoriesImageRowView: View {
+    @EnvironmentObject var historyNavigator: HistoryNavigator
     @ObservedObject var file: ImageFile
-    
+
     var body: some View {
         VStack {
             NavigationLink{

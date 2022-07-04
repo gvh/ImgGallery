@@ -10,13 +10,11 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var imageDisplay: ImageDisplay = AppData.sharedInstance.imageDisplay;
     @StateObject var settingsStore: SettingsStore = SettingsStore()
+    @StateObject var explorerNavigator = ExplorerNavigator(currentFolder: AppData.sharedInstance.downloadTOC.rootFolder, currentPosition: 0)
+    @StateObject var favoritesNavigator = FavoritesNavigator()
+    @StateObject var historyNavigator = HistoryNavigator()
 
     @State var selectedTab: Int
-
-    var explorerNavigator = ExplorerNavigator()
-    var favoritesNavigator = FavoritesNavigator()
-    var historyNavigator = HistoryNavigator()
-    var searchNavigator = SearchNavigator()
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -27,14 +25,14 @@ struct ContentView: View {
                 }
             .tag(1)
 
-            FavoritesView()
+            FavoritesView(favoritesNavigator: favoritesNavigator)
             .tabItem {
                 Image(systemName: "heart.fill")
                 Text("Favorites")
             }
             .tag(2)
 
-            HistoryView()
+            HistoryView(historyNavigator: historyNavigator)
             .tabItem {
                 Image(systemName: "clock.fill")
                 Text("History")
@@ -57,6 +55,10 @@ struct ContentView: View {
         }
         .environmentObject(imageDisplay)
         .environmentObject(settingsStore)
+        .environmentObject(explorerNavigator)
+        .environmentObject(favoritesNavigator)
+        .environmentObject(historyNavigator)
+
         .onChange(of: selectedTab) { newValue in
             switch newValue {
             case 1:
@@ -69,7 +71,7 @@ struct ContentView: View {
                 AppData.sharedInstance.imageDisplay.navigator = self.historyNavigator
 
             case 4:
-                AppData.sharedInstance.imageDisplay.navigator = self.searchNavigator
+                AppData.sharedInstance.imageDisplay.navigator = nil
 
             case 5:
                 AppData.sharedInstance.imageDisplay.navigator = nil

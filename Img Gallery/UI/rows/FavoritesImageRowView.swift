@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct FavoritesImageRowView: View {
+    @EnvironmentObject var favoritesNavigator: FavoritesNavigator
     @ObservedObject var file: ImageFile
-    
+
     var body: some View {
         VStack {
             NavigationLink{

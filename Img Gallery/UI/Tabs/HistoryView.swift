@@ -10,6 +10,7 @@ import SwiftUI
 struct HistoryView: View {
 
     @ObservedObject var histories: Histories = AppData.sharedInstance.histories
+    @StateObject var historyNavigator: HistoryNavigator
 
     let columns = [GridItem(.adaptive(minimum: 100, maximum: 300))]
 

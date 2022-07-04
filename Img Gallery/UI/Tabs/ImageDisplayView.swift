@@ -25,9 +25,9 @@ struct ImageDisplayView: View {
                         let direction = atan2(value.translation.width, value.translation.height)
                         switch direction {
                         case (-Double.pi/4..<Double.pi/4): break
-                        case (Double.pi/4..<Double.pi*3/4): imageDisplay.fileDataSource?.doPrev()
+                        case (Double.pi/4..<Double.pi*3/4): imageDisplay.navigator?.doPrev()
                         case (Double.pi*3/4...Double.pi), (-Double.pi..<(-Double.pi*3/4)): break
-                        case (-Double.pi*3/4..<(-Double.pi/4)): imageDisplay.fileDataSource?.doNext()
+                        case (-Double.pi*3/4..<(-Double.pi/4)): imageDisplay.navigator?.doNext()
                         default: print("unknown")
                         }
                     }
@@ -41,42 +41,42 @@ struct ImageDisplayView: View {
                     Spacer()
 
                     Button("Back") {
-                        imageDisplay.fileDataSource?.doPrev()
+                        imageDisplay.navigator?.doPrev()
                     }
                     .disabled(!imageDisplay.hasBackButtonVar)
 
                     Spacer()
 
                     Button("Next") {
-                        imageDisplay.fileDataSource?.doNext()
+                        imageDisplay.navigator?.doNext()
                     }
                     .disabled(!imageDisplay.hasNextButtonVar)
 
                     Spacer()
 
                     Button("Fav") {
-                        imageDisplay.fileDataSource?.getCurrentFile().toggleFavorite()
+                        imageDisplay.navigator?.getCurrentFile()!.toggleFavorite()
                     }
                 }
                 Group {
                     Spacer()
 
                     Button("Save") {
-                        imageDisplay.fileDataSource?.doSave(file: (imageDisplay.fileDataSource?.getCurrentFile())!)
+                        imageDisplay.navigator?.doSave()
                     }
                     .disabled(!imageDisplay.hasSaveButtonVar)
 
                     Spacer()
 
                     Button("GoTo") {
-                        imageDisplay.fileDataSource?.doPrev()
+                        imageDisplay.navigator?.doPrev()
                     }
                     .disabled(!imageDisplay.hasGoToButtonVar)
 
                     Spacer()
 
                     Button("Pause") {
-                        imageDisplay.fileDataSource?.togglePlayPause()
+                        imageDisplay.navigator?.togglePlayPause()
                     }
                     .disabled(!imageDisplay.hasPlayPauseButtonVar )
                 }
@@ -86,9 +86,7 @@ struct ImageDisplayView: View {
             .padding(.bottom, 5)
         }
         .onAppear() {
-            let explorerFileViewer = ExplorerFileViewer.create(file: file)
-            imageDisplay.setDataSource(fileDataSource:explorerFileViewer)
-            imageDisplay.fileDataSource?.setCurrentFile(file: file)
+            imageDisplay.setFile(file: file)
         }
     }
 }

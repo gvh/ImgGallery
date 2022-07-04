@@ -9,12 +9,13 @@ import SwiftUI
 
 struct ExplorerRowView: View {
     @ObservedObject var subFolder: ImageFolder
+    @EnvironmentObject var explorerNavigator: ExplorerNavigator
 
     var body: some View {
         if subFolder.files.count > 0 {
             HStack {
                 NavigationLink {
-                    ImageMenuView(folder: subFolder)
+                    ImageMenuView(folder: subFolder, explorerNavigator: explorerNavigator)
                 } label : {
                     Label("\(subFolder.noPrefixName)", systemImage: "photo.fill.on.rectangle.fill")
                 }
@@ -31,9 +32,3 @@ struct ExplorerRowView: View {
         }
     }
 }
-
-// struct ExploreRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ExploreRowView()
-//    }
-// }

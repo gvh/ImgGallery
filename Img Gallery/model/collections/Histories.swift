@@ -134,7 +134,7 @@ class Histories: ObservableObject {
                 let item = items.last
                 item?.deleteCloudRecord()
                 DispatchQueue.main.sync {
-                    items.removeLast()
+                    _ = items.removeLast()
                 }
             }
         }

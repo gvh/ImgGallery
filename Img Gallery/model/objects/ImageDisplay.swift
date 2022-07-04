@@ -53,6 +53,13 @@ class ImageDisplay : ObservableObject {
         self.fileCount = fileCount
     }
 
+    func setFile(file: ImageFile) {
+        self.name = file.name
+        self.image = file.image
+        self.directoryName = file.textDirectoryName
+        self.fileSequence = file.subs
+    }
+
     func setNavigator(navigator: Navigator) {
         self.navigator = navigator
     }

@@ -10,20 +10,15 @@ import SwiftUI
 
 struct ImageMenuDisplayRowView: View {
     @ObservedObject var subFolder: ImageFolder
+    @EnvironmentObject var explorerNavigator: ExplorerNavigator
 
     var body: some View {
         HStack {
             NavigationLink {
-                ImageMenuView(folder: subFolder)
+                ImageMenuView(folder: subFolder, explorerNavigator: explorerNavigator)
             } label : {
                 Label(subFolder.noPrefixName, systemImage: "folder.fill")
             }
         }
     }
 }
-
-//struct ImageDisplayRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ImageMenuDisplayRowView()
-//    }
-//}

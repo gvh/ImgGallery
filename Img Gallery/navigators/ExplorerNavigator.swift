@@ -7,33 +7,65 @@
 //
 
 import Foundation
+import SwiftUI
+import Combine
 
-class ExplorerNavigator: Navigator {
-    var file: ImageFile
-    var totalFiles: Int
+class ExplorerNavigator: Navigator, ObservableObject {
+    var currentFolder: ImageFolder
+    var currentPosition: Int = 0
 
-    init() {
-        self.totalFiles = 0
+    init(currentFolder: ImageFolder, currentPosition: Int) {
+        self.currentFolder = currentFolder
+        self.currentPosition = currentPosition
     }
 
     func doPrev() {
-
+        currentPosition = currentPosition <= 0 ? currentFolder.subFolderValues.count - 1 : currentPosition - 1
+        setImageDisplay()
     }
 
     func doNext() {
+        currentPosition = currentPosition >= currentFolder.subFolderValues.count - 1 ? currentPosition + 1 : 0
+        setImageDisplay()
+    }
 
+    private func setImageDisplay() {
+        let currentFile = getCurrentFile()
+        guard currentFile != nil else { return }
+
+        withAnimation(.default) {
+            ImageLoader.readImage(file: currentFile!) { _ in }
+        }
+        AppData.sharedInstance.imageDisplay.setValues(name: currentFile!.textDirectoryName, image: currentFile!.image, directoryName: currentFile!.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: getTotalFiles())
+    }
+
+    func getTotalFiles() -> Int {
+        return currentFolder.subFolderValues.count
     }
 
     func getCurrentFile() -> ImageFile? {
-        return nil
+        return currentFolder.files[currentPosition]
+    }
+
+    func setCurrentPosition(currentPosition: Int) {
+        self.currentPosition = currentPosition
+    }
+    
+    func setCurrentFolder(currentFolder: ImageFolder) {
+        self.currentFolder = currentFolder
     }
 
     func setCurrentFile(file: ImageFile) {
-
+        currentPosition = currentFolder.files.firstIndex (where: { $0 == file } )!
+        setImageDisplay()
     }
 
     func doSave() {
-
+        let file = getCurrentFile()
+        if file != nil {
+            CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+            }
+        }
     }
 
     func togglePlayPause() {

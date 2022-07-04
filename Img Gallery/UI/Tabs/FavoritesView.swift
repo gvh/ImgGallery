@@ -10,6 +10,7 @@ import SwiftUI
 struct FavoritesView: View {
 
     @ObservedObject var favorites: Favorites = AppData.sharedInstance.favorites
+    @ObservedObject var favoritesNavigator: FavoritesNavigator
 
     let columns = [GridItem(.adaptive(minimum: 100, maximum: 300))]
 
