@@ -17,6 +17,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
     init(currentFolder: ImageFolder, currentPosition: Int) {
         self.currentFolder = currentFolder
         self.currentPosition = currentPosition
+        self.setImageDisplay()
     }
 
     func doPrev() {
@@ -36,7 +37,8 @@ class ExplorerNavigator: Navigator, ObservableObject {
         withAnimation(.default) {
             ImageLoader.readImage(file: currentFile!) { _ in }
         }
-        AppData.sharedInstance.imageDisplay.setValues(name: currentFile!.textDirectoryName, image: currentFile!.image, directoryName: currentFile!.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: getTotalFiles())
+        AppData.sharedInstance.imageDisplay.navigator?.setCurrentFile(file: currentFile!)
+//        AppData.sharedInstance.imageDisplay.setValues(name: currentFile!.textDirectoryName, image: currentFile!.image, directoryName: currentFile!.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: getTotalFiles())
     }
 
     func getTotalFiles() -> Int {
@@ -47,10 +49,6 @@ class ExplorerNavigator: Navigator, ObservableObject {
         return currentFolder.files[currentPosition]
     }
 
-    func setCurrentPosition(currentPosition: Int) {
-        self.currentPosition = currentPosition
-    }
-    
     func setCurrentFolder(currentFolder: ImageFolder) {
         self.currentFolder = currentFolder
     }
@@ -70,6 +68,10 @@ class ExplorerNavigator: Navigator, ObservableObject {
 
     func togglePlayPause() {
 
+    }
+
+    func setButtons() {
+        AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  ImageMenuView.swift
+//  ExplorerImageMenuView.swift
 //  Img Gallery
 //
 //  Created by Gardner von Holt on 6/25/22.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ImageMenuView: View {
+struct ExplorerImageMenuView: View {
     @ObservedObject var folder: ImageFolder
     @StateObject var explorerNavigator: ExplorerNavigator
 
@@ -20,7 +20,7 @@ struct ImageMenuView: View {
                 Text(folder.noPrefixName)
                 LazyVGrid(columns: columns) {
                     ForEach(folder.files, id: \.self) { file in
-                        FileImageRowView(file: file)
+                        ExplorerImageRowView(file: file)
                     }
                 }
             }
@@ -28,7 +28,6 @@ struct ImageMenuView: View {
         }
         .onAppear() {
             explorerNavigator.setCurrentFolder(currentFolder: folder)
-            explorerNavigator.setCurrentPosition(currentPosition: 0)
         }
     }
 }

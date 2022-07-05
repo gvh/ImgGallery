@@ -139,10 +139,6 @@ final class Favorites: ObservableObject {
         return currentPosition
     }
 
-    func setCurrentPosition(_ position: Int) {
-        currentPosition = position
-    }
-
     func resize() {
         while items.count > favoritesSizeLimit {
             items.remove(at: 0)

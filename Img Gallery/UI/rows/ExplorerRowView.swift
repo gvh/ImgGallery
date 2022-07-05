@@ -15,7 +15,7 @@ struct ExplorerRowView: View {
         if subFolder.files.count > 0 {
             HStack {
                 NavigationLink {
-                    ImageMenuView(folder: subFolder, explorerNavigator: explorerNavigator)
+                    ExplorerImageMenuView(folder: subFolder, explorerNavigator: explorerNavigator)
                 } label : {
                     Label("\(subFolder.noPrefixName)", systemImage: "photo.fill.on.rectangle.fill")
                 }

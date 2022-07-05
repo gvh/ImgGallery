@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct FileImageRowView: View {
+struct ExplorerImageRowView: View {
     @EnvironmentObject var explorerNavigator: ExplorerNavigator
     @ObservedObject var file: ImageFile
 

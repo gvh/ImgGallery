@@ -48,10 +48,9 @@
 		5F16A64728664DB3000E6817 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F16A64628664DB3000E6817 /* CloudKit.framework */; };
 		5F2B58B92871220500AD1B19 /* SwipeModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2B58B82871220500AD1B19 /* SwipeModifier.swift */; };
 		5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */; };
-		5F4B1A4C28684D8800E2EEA0 /* FileImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */; };
+		5F4B1A4C28684D8800E2EEA0 /* ExplorerImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* ExplorerImageRowView.swift */; };
 		5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */; };
-		5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */; };
-		5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */; };
+		5F5729AF2867349000DA4CF1 /* ExplorerImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AE2867349000DA4CF1 /* ExplorerImageMenuView.swift */; };
 		5F5DF03E286A8596001FA059 /* ImageDisplayFullScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5DF03D286A8596001FA059 /* ImageDisplayFullScreenView.swift */; };
 		5F88720E286D824F0023FAEA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720D286D824F0023FAEA /* SettingsView.swift */; };
 		5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720F286DE1FC0023FAEA /* SettingsStore.swift */; };
@@ -107,10 +106,9 @@
 		5F16A64628664DB3000E6817 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		5F2B58B82871220500AD1B19 /* SwipeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SwipeModifier.swift; path = "Img Gallery/SwipeModifier.swift"; sourceTree = SOURCE_ROOT; };
 		5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootExplorerView.swift; sourceTree = "<group>"; };
-		5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImageRowView.swift; sourceTree = "<group>"; };
+		5F4B1A4B28684D8800E2EEA0 /* ExplorerImageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerImageRowView.swift; sourceTree = "<group>"; };
 		5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplayView.swift; path = "img Gallery/UI/Tabs/ImageDisplayView.swift"; sourceTree = SOURCE_ROOT; };
-		5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuDisplayRowView.swift; sourceTree = "<group>"; };
-		5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMenuView.swift; sourceTree = "<group>"; };
+		5F5729AE2867349000DA4CF1 /* ExplorerImageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerImageMenuView.swift; sourceTree = "<group>"; };
 		5F5DF03D286A8596001FA059 /* ImageDisplayFullScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplayFullScreenView.swift; path = "img Gallery/UI/Tabs/ImageDisplayFullScreenView.swift"; sourceTree = SOURCE_ROOT; };
 		5F88720D286D824F0023FAEA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = "img Gallery/UI/Tabs/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
 		5F88720F286DE1FC0023FAEA /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsStore.swift; path = "img Gallery/model/reference/SettingsStore.swift"; sourceTree = SOURCE_ROOT; };
@@ -205,11 +203,11 @@
 			children = (
 				5F4B1A49286841C800E2EEA0 /* RootExplorerView.swift */,
 				5F16A5CD28654DB4000E6817 /* ExploreView.swift */,
+				5F5729AE2867349000DA4CF1 /* ExplorerImageMenuView.swift */,
 				5F16A5D028654DEC000E6817 /* FavoritesView.swift */,
 				5F16A5D228654E14000E6817 /* HistoryView.swift */,
 				5F16A5D428654E33000E6817 /* SearchView.swift */,
 				5F88720D286D824F0023FAEA /* SettingsView.swift */,
-				5F5729AE2867349000DA4CF1 /* ImageMenuView.swift */,
 				5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */,
 				5F5DF03D286A8596001FA059 /* ImageDisplayFullScreenView.swift */,
 				5F0E27D62870DD11008BFB4A /* NameOverlayView.swift */,
@@ -247,10 +245,9 @@
 			isa = PBXGroup;
 			children = (
 				5F16A64328664BC1000E6817 /* ExplorerRowView.swift */,
+				5F4B1A4B28684D8800E2EEA0 /* ExplorerImageRowView.swift */,
 				5FE2674A2871965600A0D086 /* FavoritesImageRowView.swift */,
 				5FE2674C2871B95500A0D086 /* HistoriesImageRowView.swift */,
-				5F5729AC2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift */,
-				5F4B1A4B28684D8800E2EEA0 /* FileImageRowView.swift */,
 			);
 			path = rows;
 			sourceTree = "<group>";
@@ -435,7 +432,7 @@
 				5F16A5FF28658B84000E6817 /* Favorite.swift in Sources */,
 				5F16A630286591FC000E6817 /* URLSessionFactory.swift in Sources */,
 				5F16A5D328654E14000E6817 /* HistoryView.swift in Sources */,
-				5F4B1A4C28684D8800E2EEA0 /* FileImageRowView.swift in Sources */,
+				5F4B1A4C28684D8800E2EEA0 /* ExplorerImageRowView.swift in Sources */,
 				5FE2674F2871D6A000A0D086 /* Navigator.swift in Sources */,
 				5F16A64028660408000E6817 /* Utility.swift in Sources */,
 				5F16A638286591FC000E6817 /* DataLoader.swift in Sources */,
@@ -447,7 +444,6 @@
 				5F16A5CE28654DB4000E6817 /* ExploreView.swift in Sources */,
 				5F16A5D528654E33000E6817 /* SearchView.swift in Sources */,
 				5F2B58B92871220500AD1B19 /* SwipeModifier.swift in Sources */,
-				5F5729AD2867324B00DA4CF1 /* ImageMenuDisplayRowView.swift in Sources */,
 				5F16A5F528658B84000E6817 /* KeywordUsage.swift in Sources */,
 				5FE7A8E5286AE62C007BA234 /* ImageDisplay.swift in Sources */,
 				5F16A5BE2865467D000E6817 /* Img_GalleryApp.swift in Sources */,
@@ -464,7 +460,7 @@
 				5FE267542871F49A00A0D086 /* FavoritesNavigator.swift in Sources */,
 				5F16A64428664BC1000E6817 /* ExplorerRowView.swift in Sources */,
 				5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */,
-				5F5729AF2867349000DA4CF1 /* ImageMenuView.swift in Sources */,
+				5F5729AF2867349000DA4CF1 /* ExplorerImageMenuView.swift in Sources */,
 				5F4B1A4A286841C800E2EEA0 /* RootExplorerView.swift in Sources */,
 				5F16A62F286591FC000E6817 /* ImageLoader.swift in Sources */,
 				5F16A5F728658B84000E6817 /* TableOfContents.swift in Sources */,

@@ -30,7 +30,6 @@ protocol FileDataSource {
     func getRowCount() -> Int
 
     func getCurrentPosition() -> Int
-    func setCurrentPosition(_ position: Int)
 
     func getCurrentFile() -> ImageFile
     func setCurrentFile(file: ImageFile)

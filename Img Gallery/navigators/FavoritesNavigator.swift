@@ -30,7 +30,8 @@ class FavoritesNavigator: Navigator, ObservableObject {
         withAnimation(.default) {
             ImageLoader.readImage(file: currentFile!) { _ in }
         }
-        AppData.sharedInstance.imageDisplay.setValues(name: currentFile!.textDirectoryName, image: currentFile!.image, directoryName: currentFile!.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: getTotalFiles())
+        AppData.sharedInstance.imageDisplay.navigator?.setCurrentFile(file: currentFile!)
+//        AppData.sharedInstance.imageDisplay.setValues(name: currentFile!.textDirectoryName, image: currentFile!.image, directoryName: currentFile!.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: getTotalFiles())
     }
 
     func getTotalFiles() -> Int {
@@ -57,5 +58,9 @@ class FavoritesNavigator: Navigator, ObservableObject {
     func togglePlayPause() {
 
     }
-    
+
+    func setButtons() {
+        AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+    }
+
 }

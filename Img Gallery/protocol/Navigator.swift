@@ -16,4 +16,5 @@ protocol Navigator {
     func setCurrentFile(file: ImageFile)
     func doSave()
     func togglePlayPause()
+    func setButtons()
 }
