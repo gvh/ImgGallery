@@ -11,15 +11,10 @@ import Combine
 import SwiftUI
 
 class DataLoader {
- //   weak var delegate: DataLoaderDelegate?
-
     func create(completionHandler : @escaping (() -> Void) ) {
         DispatchQueue.global().async {
             self.load { (_ :ImageFolder?) in
                 self.populate()
-//                let countem = AppData.sharedInstance.downloadTOC.allFiles.count
-//                print("count: \(countem)")
-//                let appData = AppData.sharedInstance
                 completionHandler()
             }
         }
@@ -51,7 +46,7 @@ class DataLoader {
     func sortAllFolders() {
         for idx in AppData.sharedInstance.downloadAllFolders.indices {
             let folder = AppData.sharedInstance.downloadAllFolders[idx]
-            // folder.files.sort { $0.name < $1.name }
+//             folder.files.sort { $0.name < $1.name }
             if folder.files.count > 0 {
                 let maxSubs = folder.files.count - 1
                 for i in 0...maxSubs {

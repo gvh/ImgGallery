@@ -25,14 +25,14 @@ struct ContentView: View {
                 }
             .tag(1)
 
-            FavoritesView(favoritesNavigator: favoritesNavigator)
+            FavoritesView()
             .tabItem {
                 Image(systemName: "heart.fill")
                 Text("Favorites")
             }
             .tag(2)
 
-            HistoryView(historyNavigator: historyNavigator)
+            HistoryView()
             .tabItem {
                 Image(systemName: "clock.fill")
                 Text("History")

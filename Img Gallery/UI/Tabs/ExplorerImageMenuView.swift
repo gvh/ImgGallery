@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExplorerImageMenuView: View {
     @ObservedObject var folder: ImageFolder
-    @StateObject var explorerNavigator: ExplorerNavigator
+    @EnvironmentObject var explorerNavigator: ExplorerNavigator
 
     let columns = [GridItem(.adaptive(minimum: 100, maximum: 250))]
 
@@ -27,6 +27,7 @@ struct ExplorerImageMenuView: View {
             .padding()
         }
         .onAppear() {
+            AppData.sharedInstance.imageDisplay.setNavigator(navigator: explorerNavigator)
             explorerNavigator.setCurrentFolder(currentFolder: folder)
         }
     }

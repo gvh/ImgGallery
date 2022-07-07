@@ -15,77 +15,67 @@ struct ImageDisplayView: View {
 
     var body: some View {
         VStack {
-            Image(uiImage: imageDisplay.image)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .overlay(NameOverlayView(), alignment: SettingsStore.alignmentDecode(alignmentChoice: settings.alignment))
-                .padding(.bottom, 5)
-                .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
-                    .onEnded { value in
-                        let direction = atan2(value.translation.width, value.translation.height)
-                        switch direction {
-                        case (-Double.pi/4..<Double.pi/4): break
-                        case (Double.pi/4..<Double.pi*3/4): imageDisplay.navigator?.doPrev()
-                        case (Double.pi*3/4...Double.pi), (-Double.pi..<(-Double.pi*3/4)): break
-                        case (-Double.pi*3/4..<(-Double.pi/4)): imageDisplay.navigator?.doNext()
-                        default: print("unknown")
-                        }
-                    }
-                )
             HStack {
-                Group {
-                    NavigationLink(destination: ImageDisplayFullScreenView()) {
-                        Text("Full")
+                if file.isFavorite {
+                    Button(role: .destructive, action: { imageDisplay.navigator?.getCurrentFile()!.toggleFavorite() }) {
+                        Label("Fav", systemImage: "heart")
                     }
-
-                    Spacer()
-
-                    Button("Back") {
-                        imageDisplay.navigator?.doPrev()
+                    .imageScale(.large)
+                } else {
+                    Button(role: .destructive, action: { imageDisplay.navigator?.getCurrentFile()!.toggleFavorite() }) {
+                        Label("Fav", systemImage: "heart.fill")
                     }
-                    .disabled(!imageDisplay.hasBackButtonVar)
-
-                    Spacer()
-
-                    Button("Next") {
-                        imageDisplay.navigator?.doNext()
-                    }
-                    .disabled(!imageDisplay.hasNextButtonVar)
-
-                    Spacer()
-
-                    Button("Fav") {
-                        imageDisplay.navigator?.getCurrentFile()!.toggleFavorite()
-                    }
+                    .imageScale(.large)
                 }
-                Group {
-                    Spacer()
 
-                    Button("Save") {
-                        imageDisplay.navigator?.doSave()
-                    }
-                    .disabled(!imageDisplay.hasSaveButtonVar)
+                Spacer()
 
-                    Spacer()
-
-                    Button("GoTo") {
-                        imageDisplay.navigator?.doPrev()
-                    }
-                    .disabled(!imageDisplay.hasGoToButtonVar)
-
-                    Spacer()
-
-                    Button("Pause") {
-                        imageDisplay.navigator?.togglePlayPause()
-                    }
-                    .disabled(!imageDisplay.hasPlayPauseButtonVar )
+                Button(role: .destructive, action: { imageDisplay.navigator?.doSave() }) {
+                    Label("Save", systemImage: "square.and.arrow.down.fill")
                 }
+
+                Spacer()
+
+                if AppData.sharedInstance.isTimerActive {
+                    Button(role: .destructive, action: { imageDisplay.navigator?.togglePlayPause() }) {
+                        Label("Pause", systemImage: "pause.fill")
+                    }
+                    .imageScale(.large)
+                } else {
+                    Button(role: .destructive, action: { imageDisplay.navigator?.togglePlayPause() }) {
+                        Label("Play", systemImage: "play.fill")
+                    }
+                    .imageScale(.large)
+                }
+
+                Button("GoTo") {
+                    imageDisplay.navigator?.doPrev()
+                }
+                .disabled(!imageDisplay.hasGoToButtonVar)
             }
-            .fixedSize(horizontal: true, vertical: false)
-            .frame(maxWidth: .infinity)
-            .padding(.bottom, 5)
+            .imageScale(.large)
+            HStack {
+                Image(uiImage: imageDisplay.image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .overlay(NameOverlayView(), alignment: SettingsStore.alignmentDecode(alignmentChoice: settings.alignment))
+                    .padding(15)
+                    .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
+                        .onEnded { value in
+                            let direction = atan2(value.translation.width, value.translation.height)
+                            switch direction {
+                            case (-Double.pi/4..<Double.pi/4): break
+                            case (Double.pi/4..<Double.pi*3/4): imageDisplay.navigator?.doPrev()
+                            case (Double.pi*3/4...Double.pi), (-Double.pi..<(-Double.pi*3/4)): break
+                            case (-Double.pi*3/4..<(-Double.pi/4)): imageDisplay.navigator?.doNext()
+                            default: print("unknown")
+                            }
+                        }
+                    )
+            }
         }
         .onAppear() {
+            imageDisplay.navigator?.setCurrentFile(file: file)
             imageDisplay.setFile(file: file)
         }
     }

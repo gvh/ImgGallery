@@ -12,33 +12,49 @@ import Combine
 
 class ExplorerNavigator: Navigator, ObservableObject {
     var currentFolder: ImageFolder
-    var currentPosition: Int = 0
+    var currentPosition: Int
 
     init(currentFolder: ImageFolder, currentPosition: Int) {
         self.currentFolder = currentFolder
         self.currentPosition = currentPosition
-        self.setImageDisplay()
+        print("new explorer navigator: \(currentFolder.noPrefixName) : \(currentPosition)")
+        self.configureImageDisplay()
+        self.readImageIfNeeded()
+    }
+
+    func configureImageDisplay() {
+        let file = getCurrentFile()
+        guard file != nil else { return }
+        AppData.sharedInstance.imageDisplay.setFile(file: file!)
     }
 
     func doPrev() {
-        currentPosition = currentPosition <= 0 ? currentFolder.subFolderValues.count - 1 : currentPosition - 1
-        setImageDisplay()
+        if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
+            currentPosition = currentPosition <= 0 ? currentFolder.subFolderValues.count - 1 : currentPosition - 1
+            self.configureImageDisplay()
+            readImageIfNeeded()
+        }
     }
 
     func doNext() {
-        currentPosition = currentPosition >= currentFolder.subFolderValues.count - 1 ? currentPosition + 1 : 0
-        setImageDisplay()
+        if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
+            currentPosition = currentPosition >= currentFolder.subFolderValues.count - 1 ? currentPosition + 1 : 0
+            self.configureImageDisplay()
+            readImageIfNeeded()
+        }
     }
 
-    private func setImageDisplay() {
+    private func readImageIfNeeded() {
         let currentFile = getCurrentFile()
-        guard currentFile != nil else { return }
 
-        withAnimation(.default) {
-            ImageLoader.readImage(file: currentFile!) { _ in }
-        }
-        AppData.sharedInstance.imageDisplay.navigator?.setCurrentFile(file: currentFile!)
-//        AppData.sharedInstance.imageDisplay.setValues(name: currentFile!.textDirectoryName, image: currentFile!.image, directoryName: currentFile!.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: getTotalFiles())
+        guard currentFile != nil else { return }
+        guard currentFile?.image == nil else { return }
+        
+//        withAnimation(.default) {
+            ImageLoader.readImage(file: currentFile!) { file in
+                AppData.sharedInstance.imageDisplay.updateImage(file: file)
+            }
+//        }
     }
 
     func getTotalFiles() -> Int {
@@ -46,6 +62,9 @@ class ExplorerNavigator: Navigator, ObservableObject {
     }
 
     func getCurrentFile() -> ImageFile? {
+        guard currentFolder.files.count > 0 else { return nil }
+        guard currentPosition >= 0 && currentPosition < currentFolder.files.count else { return nil }
+
         return currentFolder.files[currentPosition]
     }
 
@@ -55,7 +74,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
 
     func setCurrentFile(file: ImageFile) {
         currentPosition = currentFolder.files.firstIndex (where: { $0 == file } )!
-        setImageDisplay()
+        readImageIfNeeded()
     }
 
     func doSave() {
@@ -72,6 +91,9 @@ class ExplorerNavigator: Navigator, ObservableObject {
 
     func setButtons() {
         AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+    }
+
+    func onSubscriptionTimer() {
     }
     
 }

@@ -17,4 +17,5 @@ protocol Navigator {
     func doSave()
     func togglePlayPause()
     func setButtons()
+    func onSubscriptionTimer()
 }

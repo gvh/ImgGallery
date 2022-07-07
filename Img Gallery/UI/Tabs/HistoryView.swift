@@ -10,7 +10,7 @@ import SwiftUI
 struct HistoryView: View {
 
     @ObservedObject var histories: Histories = AppData.sharedInstance.histories
-    @StateObject var historyNavigator: HistoryNavigator
+    @EnvironmentObject var historyNavigator: HistoryNavigator
 
     let columns = [GridItem(.adaptive(minimum: 100, maximum: 300))]
 
@@ -29,5 +29,8 @@ struct HistoryView: View {
             }
         }
         .navigationViewStyle(.stack)
+        .onAppear() {
+            AppData.sharedInstance.imageDisplay.setNavigator(navigator: historyNavigator)
+        }
     }
 }

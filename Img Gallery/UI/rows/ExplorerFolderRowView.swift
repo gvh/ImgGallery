@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-struct ExplorerRowView: View {
-    @ObservedObject var subFolder: ImageFolder
+struct ExplorerFolderRowView: View {
     @EnvironmentObject var explorerNavigator: ExplorerNavigator
+    @ObservedObject var subFolder: ImageFolder
 
     var body: some View {
         if subFolder.files.count > 0 {
             HStack {
                 NavigationLink {
-                    ExplorerImageMenuView(folder: subFolder, explorerNavigator: explorerNavigator)
+                    ExplorerImageMenuView(folder: subFolder)
                 } label : {
                     Label("\(subFolder.noPrefixName)", systemImage: "photo.fill.on.rectangle.fill")
                 }
@@ -24,7 +24,7 @@ struct ExplorerRowView: View {
         if subFolder.subFolderValues.count > 0 {
             HStack {
                 NavigationLink {
-                    ExplorerView(folder: subFolder)
+                    ExplorerFolderView(folder: subFolder)
                 } label : {
                     Label("\(subFolder.noPrefixName)", systemImage: "folder.fill")
                 }

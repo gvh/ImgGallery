@@ -59,7 +59,7 @@ final class AppData {
     var isTimerDesired: Bool = false
     var wasTimerActive: Bool = false
 
-    var wasDataSource: FileDataSource?
+    var wsNavigator: Navigator?
     var firstTimeStart: Bool = true
 
     var splitViewController: UISplitViewController!
@@ -70,8 +70,8 @@ final class AppData {
         self.privateDb = CKContainer(identifier: "iCloud.com.gardnervh.MediaBrowser").privateCloudDatabase
     }
 
-    func startTimer(fileDataSource: FileDataSource) {
-        timer.startTimer(viewer: fileDataSource)
+    func startTimer(navigator: Navigator) {
+        timer.startTimer(viewer: navigator)
         self.isTimerActive = true
     }
 

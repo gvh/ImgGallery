@@ -11,27 +11,50 @@ import SwiftUI
 import Combine
 
 class FavoritesNavigator: Navigator, ObservableObject {
-    var currentPosition: Int = 0
+
+    var currentPosition: Int
+
+    init() {
+        self.currentPosition = 0
+        print("new favorites navigator: \(currentPosition)")
+        readImageIfNeeded()
+        self.configureImageDisplay()
+        self.readImageIfNeeded()
+    }
+
+    func configureImageDisplay() {
+        let file = getCurrentFile()
+        guard file != nil else { return }
+        AppData.sharedInstance.imageDisplay.setFile(file: file!)
+    }
 
     func doPrev() {
-        currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
-        setImageDisplay()
+        if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
+             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
+            self.configureImageDisplay()
+            readImageIfNeeded()
+        }
     }
 
     func doNext() {
+    if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
         currentPosition = currentPosition >= AppData.sharedInstance.favorites.items.count - 1 ? currentPosition + 1 : 0
-        setImageDisplay()
+        self.configureImageDisplay()
+        readImageIfNeeded()
+        }
     }
 
-    private func setImageDisplay() {
+    private func readImageIfNeeded() {
         let currentFile = getCurrentFile()
-        guard currentFile != nil else { return }
 
-        withAnimation(.default) {
-            ImageLoader.readImage(file: currentFile!) { _ in }
-        }
-        AppData.sharedInstance.imageDisplay.navigator?.setCurrentFile(file: currentFile!)
-//        AppData.sharedInstance.imageDisplay.setValues(name: currentFile!.textDirectoryName, image: currentFile!.image, directoryName: currentFile!.parentFolder.noPrefixName, fileSequence: currentPosition, fileCount: getTotalFiles())
+        guard currentFile != nil else { return }
+        guard currentFile?.image == nil else { return }
+
+//        withAnimation(.default) {
+            ImageLoader.readImage(file: currentFile!) { file in
+                AppData.sharedInstance.imageDisplay.updateImage(file: file)
+            }
+//        }
     }
 
     func getTotalFiles() -> Int {
@@ -39,12 +62,15 @@ class FavoritesNavigator: Navigator, ObservableObject {
     }
 
     func getCurrentFile() -> ImageFile? {
+        guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
+        guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.favorites.items.count else { return nil }
+        
         return AppData.sharedInstance.favorites.items[currentPosition].file
     }
 
     func setCurrentFile(file: ImageFile) {
         currentPosition = AppData.sharedInstance.favorites.items.firstIndex (where: { $0.file == file } )!
-        setImageDisplay()
+        readImageIfNeeded()
     }
 
     func doSave() {
@@ -61,6 +87,9 @@ class FavoritesNavigator: Navigator, ObservableObject {
 
     func setButtons() {
         AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+    }
+
+    func onSubscriptionTimer() {
     }
 
 }

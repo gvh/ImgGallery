@@ -11,6 +11,8 @@ import SwiftUI
 
 class ImageDisplay : ObservableObject {
 
+    var currentFile: ImageFile!
+
     @Published var name: String = ""
     @Published var image: UIImage = UIImage(systemName: "film")!
 
@@ -45,16 +47,25 @@ class ImageDisplay : ObservableObject {
         self.fileCount = fileCount
     }
 
-    func setFile(file: ImageFile) {
-        self.name = file.name
-        self.image = file.image
-        self.directoryName = file.textDirectoryName
-        self.fileSequence = file.subs
-        navigator?.setCurrentFile(file: file)
-    }
-
     func setNavigator(navigator: Navigator) {
         self.navigator = navigator
         self.navigator?.setButtons()
+    }
+
+    func setFile(file: ImageFile) {
+        print("in set file")
+        self.fileSequence = file.subs
+        self.name = file.name
+        self.image = file.image
+        self.fileCount = file.parentFolder.files.count
+        self.directoryName = file.parentFolder.noPrefixName
+        self.parentDirectoryName = file.parentFolder.parentFolder?.getFullPath() ?? ""
+        self.currentFile = file
+    }
+
+    func updateImage(file: ImageFile) {
+        if self.currentFile == file {
+            self.image = file.image
+        }
     }
 }

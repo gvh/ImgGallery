@@ -31,7 +31,6 @@ private extension Img_GalleryApp {
         AppData.sharedInstance.session = URLSessionFactory.create()
         AppData.sharedInstance.settingsStore.setServerReachable()
         Img_GalleryApp.configureData {
-            print("done with set server reachable")
         }
     }
 

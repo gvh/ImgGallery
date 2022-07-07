@@ -97,7 +97,6 @@ class ImageFolder: ObservableObject {
 
     func subFolder(_ key: String) -> ImageFolder? {
         let folders = subFolderValues.filter {$0.name == key}
-//        print("\(subFolderValues.count) subfoldervalues   \(folders.count) selected")
         return folders.first
     }
 
@@ -262,7 +261,6 @@ class ImageFolder: ObservableObject {
 
         let currentFolderName = self.getName()
         print("unable to find item \(nextSequence) in folder \(currentFolderName)")
-
         return ImageFile(name: "default")
     }
 

@@ -11,7 +11,7 @@ import SwiftUI
 struct RootExplorerView: View {
     var body: some View {
         NavigationView {
-            ExplorerView(folder: (AppData.sharedInstance.downloadTOC?.rootFolder)!)
+            ExplorerFolderView(folder: (AppData.sharedInstance.downloadTOC?.rootFolder)!)
         }
         .navigationViewStyle(.stack)
     }
