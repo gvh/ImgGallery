@@ -1,5 +1,5 @@
 //
-//  FileImageView.swift
+//  ExplorerImageRowView.swift
 //  Img Gallery
 //
 //  Created by Gardner von Holt on 6/26/22.
@@ -15,7 +15,7 @@ struct ExplorerImageRowView: View {
     var body: some View {
         VStack {
             NavigationLink{
-                ImageDisplayView(file: file)
+                ImageDisplayView(file: file, isRandom: false)
             } label : {
                 Image(uiImage: file.image)
                     .resizable()

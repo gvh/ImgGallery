@@ -16,6 +16,7 @@ class HistoryNavigator: Navigator, ObservableObject {
 
     init() {
         self.currentPosition = 0
+        print("new history navigator: \(currentPosition)")
         readImageIfNeeded()
         self.configureImageDisplay()
         self.readImageIfNeeded()
@@ -41,6 +42,10 @@ class HistoryNavigator: Navigator, ObservableObject {
             self.configureImageDisplay()
             readImageIfNeeded()
         }
+    }
+
+    func doGoTo() {
+        print("do go to")
     }
 
     private func readImageIfNeeded() {
@@ -89,6 +94,15 @@ class HistoryNavigator: Navigator, ObservableObject {
     }
 
     func onSubscriptionTimer() {
+        currentPosition = getRandomPosition()
+        self.configureImageDisplay()
+        readImageIfNeeded()
+    }
+
+    func getRandomPosition() -> Int {
+        let totalItems: Int = AppData.sharedInstance.histories.items.count
+        guard totalItems > 0 else { return -1 }
+        return Int.random(in: 0..<totalItems)
     }
 
 }

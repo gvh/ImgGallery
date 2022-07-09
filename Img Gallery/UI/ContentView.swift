@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     @StateObject var imageDisplay: ImageDisplay = AppData.sharedInstance.imageDisplay;
     @StateObject var settingsStore: SettingsStore = SettingsStore()
     @StateObject var explorerNavigator = ExplorerNavigator(currentFolder: AppData.sharedInstance.downloadTOC.rootFolder, currentPosition: 0)

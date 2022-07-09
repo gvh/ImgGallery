@@ -12,6 +12,7 @@ protocol Navigator {
     func getTotalFiles() -> Int
     func doPrev()
     func doNext()
+    func doGoTo()
     func getCurrentFile() -> ImageFile?
     func setCurrentFile(file: ImageFile)
     func doSave()

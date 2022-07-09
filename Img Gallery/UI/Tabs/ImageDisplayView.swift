@@ -9,51 +9,15 @@
 import SwiftUI
 
 struct ImageDisplayView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+
     @EnvironmentObject var settings: SettingsStore
     @EnvironmentObject var imageDisplay: ImageDisplay
     @ObservedObject var file: ImageFile
+    @State var isRandom: Bool
 
     var body: some View {
         VStack {
-            HStack {
-                if file.isFavorite {
-                    Button(role: .destructive, action: { imageDisplay.navigator?.getCurrentFile()!.toggleFavorite() }) {
-                        Label("Fav", systemImage: "heart")
-                    }
-                    .imageScale(.large)
-                } else {
-                    Button(role: .destructive, action: { imageDisplay.navigator?.getCurrentFile()!.toggleFavorite() }) {
-                        Label("Fav", systemImage: "heart.fill")
-                    }
-                    .imageScale(.large)
-                }
-
-                Spacer()
-
-                Button(role: .destructive, action: { imageDisplay.navigator?.doSave() }) {
-                    Label("Save", systemImage: "square.and.arrow.down.fill")
-                }
-
-                Spacer()
-
-                if AppData.sharedInstance.isTimerActive {
-                    Button(role: .destructive, action: { imageDisplay.navigator?.togglePlayPause() }) {
-                        Label("Pause", systemImage: "pause.fill")
-                    }
-                    .imageScale(.large)
-                } else {
-                    Button(role: .destructive, action: { imageDisplay.navigator?.togglePlayPause() }) {
-                        Label("Play", systemImage: "play.fill")
-                    }
-                    .imageScale(.large)
-                }
-
-                Button("GoTo") {
-                    imageDisplay.navigator?.doPrev()
-                }
-                .disabled(!imageDisplay.hasGoToButtonVar)
-            }
-            .imageScale(.large)
             HStack {
                 Image(uiImage: imageDisplay.image)
                     .resizable()
@@ -72,6 +36,39 @@ struct ImageDisplayView: View {
                             }
                         }
                     )
+                    .gesture(TapGesture(count: 2)
+                        .onEnded {
+                            imageDisplay.navigator?.doGoTo()
+                        }
+                    )
+                    .navigationTitle("Image")
+                    .toolbar {
+                        if file.isFavorite {
+                            Button("Un Fav") {
+                                print("Un Fav tapped!")
+                                imageDisplay.navigator?.getCurrentFile()!.toggleFavorite()
+                            }
+                        } else {
+                            Button("Fav") {
+                                print("Fav tapped!")
+                                imageDisplay.navigator?.getCurrentFile()!.toggleFavorite()
+                            }
+
+                        }
+                        Button("Save") {
+                            print("Save tapped!")
+                            imageDisplay.navigator?.doSave()
+                        }
+                        if AppData.sharedInstance.isTimerActive {
+                            Button("Pause") {
+                                imageDisplay.navigator?.togglePlayPause()
+                            }
+                        } else {
+                            Button("Play") {
+                                imageDisplay.navigator?.togglePlayPause()
+                            }
+                        }
+                    }
             }
         }
         .onAppear() {

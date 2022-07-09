@@ -20,12 +20,27 @@ struct FavoritesView: View {
                 ScrollView(.vertical) {
                     Text("Favorites")
                     LazyVGrid(columns: columns) {
+                        FavoritesRandomRowView()
                         ForEach(favorites.items, id: \.self) { favorite in
                             FavoritesImageRowView(file: favorite.file)
                         }
                     }
                 }
                 .padding()
+            }
+            .toolbar {
+                if AppData.sharedInstance.isTimerActive {
+                    Button("Pause") {
+                        AppData.sharedInstance.imageDisplay.navigator?.togglePlayPause()
+                    }
+                } else {
+                    Button("Play") {
+                        AppData.sharedInstance.imageDisplay.navigator?.togglePlayPause()
+                        let position = favoritesNavigator.getRandomPosition()
+                        let file = AppData.sharedInstance.favorites.items[position]
+                        ImageDisplayView(file: file)
+                    }
+                }
             }
         }
         .navigationViewStyle(.stack)

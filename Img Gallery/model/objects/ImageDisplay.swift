@@ -10,7 +10,6 @@ import Foundation
 import SwiftUI
 
 class ImageDisplay : ObservableObject {
-
     var currentFile: ImageFile!
 
     @Published var name: String = ""
@@ -53,7 +52,6 @@ class ImageDisplay : ObservableObject {
     }
 
     func setFile(file: ImageFile) {
-        print("in set file")
         self.fileSequence = file.subs
         self.name = file.name
         self.image = file.image

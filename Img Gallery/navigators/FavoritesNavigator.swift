@@ -14,6 +14,8 @@ class FavoritesNavigator: Navigator, ObservableObject {
 
     var currentPosition: Int
 
+    var lastRandomNumber: Int = -1
+
     init() {
         self.currentPosition = 0
         print("new favorites navigator: \(currentPosition)")
@@ -42,6 +44,10 @@ class FavoritesNavigator: Navigator, ObservableObject {
         self.configureImageDisplay()
         readImageIfNeeded()
         }
+    }
+
+    func doGoTo() {
+        print("do go to")
     }
 
     private func readImageIfNeeded() {
@@ -82,7 +88,14 @@ class FavoritesNavigator: Navigator, ObservableObject {
     }
 
     func togglePlayPause() {
-
+        let appData = AppData.sharedInstance
+        if appData.isTimerActive {
+            appData.stopTimer()
+            appData.isTimerDesired = false
+        } else {
+            appData.startTimer(navigator: self)
+            appData.isTimerDesired = true
+        }
     }
 
     func setButtons() {
@@ -90,6 +103,14 @@ class FavoritesNavigator: Navigator, ObservableObject {
     }
 
     func onSubscriptionTimer() {
+        currentPosition = getRandomPosition()
+        self.configureImageDisplay()
+        readImageIfNeeded()
     }
 
+    func getRandomPosition() -> Int {
+        let totalItems: Int = AppData.sharedInstance.favorites.items.count
+        guard totalItems > 0 else { return -1 }
+        return Int.random(in: 0..<totalItems)
+    }
 }

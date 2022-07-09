@@ -33,11 +33,9 @@ class Searcher: NSObject {
         }
 
         matchedFoldersDictionary.removeAll()
-//        var report:[String:Int] = [:]
         for searchWord in searchWords {
             let searchWordString = String(searchWord)
             let matchingFolders = getMatchingFolders(searchWord: searchWordString)
-//            report[searchWordString] = matchingFolders.count
             mergeFoldersIntoDictionary(folders: matchingFolders)
         }
 

@@ -44,6 +44,10 @@ class ExplorerNavigator: Navigator, ObservableObject {
         }
     }
 
+    func doGoTo() {
+        print("do go to")
+    }
+
     private func readImageIfNeeded() {
         let currentFile = getCurrentFile()
 

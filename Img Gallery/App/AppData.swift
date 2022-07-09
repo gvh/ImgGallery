@@ -79,5 +79,4 @@ final class AppData {
         timer.stopTimer()
         self.isTimerActive = false
     }
-
 }

@@ -1,5 +1,5 @@
 //
-//  ExploreRowView.swift
+//  ExplorerFolderRowView.swift
 //  Img Gallery
 //
 //  Created by Gardner von Holt on 6/24/22.
