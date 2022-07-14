@@ -1,4 +1,4 @@
-//
+﻿//
 //  FavoritesView.swift
 //  Img Gallery
 //
@@ -27,20 +27,6 @@ struct FavoritesView: View {
                     }
                 }
                 .padding()
-            }
-            .toolbar {
-                if AppData.sharedInstance.isTimerActive {
-                    Button("Pause") {
-                        AppData.sharedInstance.imageDisplay.navigator?.togglePlayPause()
-                    }
-                } else {
-                    Button("Play") {
-                        AppData.sharedInstance.imageDisplay.navigator?.togglePlayPause()
-                        let position = favoritesNavigator.getRandomPosition()
-                        let file = AppData.sharedInstance.favorites.items[position]
-                        ImageDisplayView(file: file)
-                    }
-                }
             }
         }
         .navigationViewStyle(.stack)

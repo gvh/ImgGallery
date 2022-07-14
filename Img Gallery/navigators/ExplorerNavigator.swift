@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 
 class ExplorerNavigator: Navigator, ObservableObject {
+
     var currentFolder: ImageFolder
     var currentPosition: Int
 
@@ -22,7 +23,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
         self.readImageIfNeeded()
     }
 
-    func configureImageDisplay() {
+    private func configureImageDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
         AppData.sharedInstance.imageDisplay.setFile(file: file!)
@@ -30,7 +31,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
 
     func doPrev() {
         if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
-            currentPosition = currentPosition <= 0 ? currentFolder.subFolderValues.count - 1 : currentPosition - 1
+            currentPosition = currentPosition <= 0 ? currentFolder.files.count - 1 : currentPosition - 1
             self.configureImageDisplay()
             readImageIfNeeded()
         }
@@ -38,7 +39,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
 
     func doNext() {
         if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
-            currentPosition = currentPosition >= currentFolder.subFolderValues.count - 1 ? currentPosition + 1 : 0
+            currentPosition = currentPosition >= currentFolder.files.count - 1 ? 0 : currentPosition + 1
             self.configureImageDisplay()
             readImageIfNeeded()
         }
@@ -53,12 +54,14 @@ class ExplorerNavigator: Navigator, ObservableObject {
 
         guard currentFile != nil else { return }
         guard currentFile?.image == nil else { return }
-        
-//        withAnimation(.default) {
-            ImageLoader.readImage(file: currentFile!) { file in
-                AppData.sharedInstance.imageDisplay.updateImage(file: file)
+
+        DispatchQueue.main.async {
+            withAnimation(.default) {
+                ImageLoader.readImage(file: currentFile!) { file in
+                    AppData.sharedInstance.imageDisplay.updateImage(file: file)
+                }
             }
-//        }
+        }
     }
 
     func getTotalFiles() -> Int {
@@ -68,7 +71,6 @@ class ExplorerNavigator: Navigator, ObservableObject {
     func getCurrentFile() -> ImageFile? {
         guard currentFolder.files.count > 0 else { return nil }
         guard currentPosition >= 0 && currentPosition < currentFolder.files.count else { return nil }
-
         return currentFolder.files[currentPosition]
     }
 
@@ -77,24 +79,29 @@ class ExplorerNavigator: Navigator, ObservableObject {
     }
 
     func setCurrentFile(file: ImageFile) {
-        currentPosition = currentFolder.files.firstIndex (where: { $0 == file } )!
-        readImageIfNeeded()
+        DispatchQueue.main.async {
+            self.currentPosition = self.currentFolder.files.firstIndex (where: { $0 == file } )!
+            self.readImageIfNeeded()
+        }
     }
 
     func doSave() {
         let file = getCurrentFile()
         if file != nil {
-            CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+            DispatchQueue.main.async {
+                CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+                }
             }
         }
     }
 
     func togglePlayPause() {
-
     }
 
     func setButtons() {
-        AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+        DispatchQueue.main.async {
+            AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+        }
     }
 
     func onSubscriptionTimer() {

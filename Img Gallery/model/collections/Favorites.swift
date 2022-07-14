@@ -29,9 +29,9 @@ final class Favorites: ObservableObject {
     }
 
     static func loadCloud(completionHandler : @escaping (() -> Void) ) {
-        DispatchQueue.main.sync {
-            AppData.sharedInstance.favorites.items.removeAll()
-        }
+        print("begin load cloud for favorites")
+        AppData.sharedInstance.favorites.items.removeAll()
+        print("after remove all for favorites")
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Favorite", predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -41,13 +41,12 @@ final class Favorites: ObservableObject {
             make(result: result)
         }
         operation.queryResultBlock = { _ in
+            print("about to clean up any duplicates removed during load")
             if !recordIDsToDelete.isEmpty {
-                // clean up any duplicates removed during load
-                DispatchQueue.main.sync {
-                    Favorites.remove(recordIDs: recordIDsToDelete)
-                }
+                Favorites.remove(recordIDs: recordIDsToDelete)
             }
 
+            print("end load cloud for favorites")
             completionHandler()
         }
         AppData.sharedInstance.privateDb.add(operation)
@@ -81,9 +80,7 @@ final class Favorites: ObservableObject {
             } else {
                 ids.insert(key)
                 let favorite = Favorite(file: file!, dateAdded: dateAdded, favoriteID: recordID.recordName)
-                DispatchQueue.main.async {
-                    AppData.sharedInstance.favorites.add(favorite: favorite)
-                }
+                AppData.sharedInstance.favorites.add(favorite: favorite)
             }
         } else {
             var inIgnoreList: Bool = false
@@ -116,22 +113,24 @@ final class Favorites: ObservableObject {
     }
 
     func add(favorite: Favorite) {
-        let file = favorite.file
-        file.favorite = favorite
-        file.isFavorite = true
-        items.insert(favorite, at: items.startIndex)
-        if items.count > favoritesSizeLimit {
-            resize()
+        DispatchQueue.main.async {
+            let file = favorite.file
+            file.favorite = favorite
+            file.isFavorite = true
+            self.items.insert(favorite, at: self.items.startIndex)
+            if self.items.count > self.favoritesSizeLimit {
+                self.resize()
+            }
+            favorite.saveCloudRecord()
         }
-        favorite.saveCloudRecord()
     }
 
     func remove(favorite: Favorite) {
         let file = favorite.file
         file.favorite = nil
         file.isFavorite = false
-        let itemIndex = items.firstIndex(of: favorite)!
-        items.remove(at: itemIndex)
+        let itemIndex = self.items.firstIndex(of: favorite)!
+        self.items.remove(at: itemIndex)
         favorite.deleteCloudRecord()
     }
 
@@ -140,8 +139,8 @@ final class Favorites: ObservableObject {
     }
 
     func resize() {
-        while items.count > favoritesSizeLimit {
-            items.remove(at: 0)
+        while self.items.count > favoritesSizeLimit {
+            self.items.remove(at: 0)
         }
     }
 

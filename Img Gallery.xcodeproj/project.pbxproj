@@ -52,8 +52,9 @@
 		5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720F286DE1FC0023FAEA /* SettingsStore.swift */; };
 		5FD5A14E28771D11006E59FA /* IfViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5A14D28771D11006E59FA /* IfViewExtension.swift */; };
 		5FD5A1502879FA07006E59FA /* FavoritesRandomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5A14F2879FA07006E59FA /* FavoritesRandomRowView.swift */; };
+		5FD5A152287AE951006E59FA /* HistoryRandomRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5A151287AE951006E59FA /* HistoryRandomRowView.swift */; };
 		5FE2674B2871965600A0D086 /* FavoritesImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2674A2871965600A0D086 /* FavoritesImageRowView.swift */; };
-		5FE2674D2871B95500A0D086 /* HistoriesImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2674C2871B95500A0D086 /* HistoriesImageRowView.swift */; };
+		5FE2674D2871B95500A0D086 /* HistoryImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2674C2871B95500A0D086 /* HistoryImageRowView.swift */; };
 		5FE2674F2871D6A000A0D086 /* Navigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE2674E2871D6A000A0D086 /* Navigator.swift */; };
 		5FE267512871DECC00A0D086 /* ExplorerNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE267502871DECC00A0D086 /* ExplorerNavigator.swift */; };
 		5FE267542871F49A00A0D086 /* FavoritesNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE267532871F49A00A0D086 /* FavoritesNavigator.swift */; };
@@ -108,8 +109,9 @@
 		5F88720F286DE1FC0023FAEA /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsStore.swift; path = "img Gallery/model/reference/SettingsStore.swift"; sourceTree = SOURCE_ROOT; };
 		5FD5A14D28771D11006E59FA /* IfViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IfViewExtension.swift; path = "img Gallery/extensions/IfViewExtension.swift"; sourceTree = SOURCE_ROOT; };
 		5FD5A14F2879FA07006E59FA /* FavoritesRandomRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesRandomRowView.swift; path = "img Gallery/UI/rows/FavoritesRandomRowView.swift"; sourceTree = SOURCE_ROOT; };
+		5FD5A151287AE951006E59FA /* HistoryRandomRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HistoryRandomRowView.swift; path = "img Gallery/UI/rows/HistoryRandomRowView.swift"; sourceTree = SOURCE_ROOT; };
 		5FE2674A2871965600A0D086 /* FavoritesImageRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesImageRowView.swift; path = "img Gallery/UI/rows/FavoritesImageRowView.swift"; sourceTree = SOURCE_ROOT; };
-		5FE2674C2871B95500A0D086 /* HistoriesImageRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HistoriesImageRowView.swift; path = "img Gallery/UI/rows/HistoriesImageRowView.swift"; sourceTree = SOURCE_ROOT; };
+		5FE2674C2871B95500A0D086 /* HistoryImageRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HistoryImageRowView.swift; path = "img Gallery/UI/rows/HistoryImageRowView.swift"; sourceTree = SOURCE_ROOT; };
 		5FE2674E2871D6A000A0D086 /* Navigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Navigator.swift; path = "img Gallery/protocol/Navigator.swift"; sourceTree = SOURCE_ROOT; };
 		5FE267502871DECC00A0D086 /* ExplorerNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExplorerNavigator.swift; path = "Img Gallery/navigators/ExplorerNavigator.swift"; sourceTree = SOURCE_ROOT; };
 		5FE267532871F49A00A0D086 /* FavoritesNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesNavigator.swift; path = "img Gallery/navigators/FavoritesNavigator.swift"; sourceTree = SOURCE_ROOT; };
@@ -244,7 +246,8 @@
 				5F4B1A4B28684D8800E2EEA0 /* ExplorerImageRowView.swift */,
 				5FE2674A2871965600A0D086 /* FavoritesImageRowView.swift */,
 				5FD5A14F2879FA07006E59FA /* FavoritesRandomRowView.swift */,
-				5FE2674C2871B95500A0D086 /* HistoriesImageRowView.swift */,
+				5FE2674C2871B95500A0D086 /* HistoryImageRowView.swift */,
+				5FD5A151287AE951006E59FA /* HistoryRandomRowView.swift */,
 			);
 			path = rows;
 			sourceTree = "<group>";
@@ -431,7 +434,7 @@
 				5F16A638286591FC000E6817 /* DataLoader.swift in Sources */,
 				5F16A631286591FC000E6817 /* HttpReader.swift in Sources */,
 				5F88720E286D824F0023FAEA /* SettingsView.swift in Sources */,
-				5FE2674D2871B95500A0D086 /* HistoriesImageRowView.swift in Sources */,
+				5FE2674D2871B95500A0D086 /* HistoryImageRowView.swift in Sources */,
 				5F16A634286591FC000E6817 /* CustomPhotoAlbum.swift in Sources */,
 				5FE267512871DECC00A0D086 /* ExplorerNavigator.swift in Sources */,
 				5F16A5CE28654DB4000E6817 /* ExplorerFolderView.swift in Sources */,
@@ -443,6 +446,7 @@
 				5FD5A1502879FA07006E59FA /* FavoritesRandomRowView.swift in Sources */,
 				5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */,
 				5FE267562871F4F400A0D086 /* HistoryNavigator.swift in Sources */,
+				5FD5A152287AE951006E59FA /* HistoryRandomRowView.swift in Sources */,
 				5F16A5F328658B84000E6817 /* SearchUsage.swift in Sources */,
 				5F16A637286591FC000E6817 /* Searcher.swift in Sources */,
 				5F16A635286591FC000E6817 /* RefreshTimer.swift in Sources */,

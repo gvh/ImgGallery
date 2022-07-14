@@ -1,5 +1,5 @@
 //
-//  FavoritesRandomRowView.swift
+//  HistoryRandomRowView.swift
 //  Img Gallery
 //
 //  Created by Gardner von Holt on 6/24/22.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct FavoritesRandomRowView: View {
-    @EnvironmentObject var favoritesNavigator: FavoritesNavigator
+struct HistoryRandomRowView: View {
+    @EnvironmentObject var historyNavigator: HistoryNavigator
 
     var body: some View {
         VStack {
             NavigationLink{
-                ImageDisplayView(file: favoritesNavigator.getRandomFile(), isRandom: true)
+                ImageDisplayView(file: historyNavigator.getRandomFile(), isRandom: true)
             } label : {
                 Image(uiImage: UIImage(named: "Random")!)
                     .resizable()

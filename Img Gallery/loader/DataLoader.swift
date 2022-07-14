@@ -11,11 +11,13 @@ import Combine
 import SwiftUI
 
 class DataLoader {
-    func create(completionHandler : @escaping (() -> Void) ) {
-        DispatchQueue.global().async {
+    func create() {
+        print("data loader create")
+        DispatchQueue.global().sync {
             self.load { (_ :ImageFolder?) in
+                print("loaded")
                 self.populate()
-                completionHandler()
+                print("populated")
             }
         }
     }
@@ -57,7 +59,9 @@ class DataLoader {
     }
 
     func populate() {
+        print("start populate index")
         AppData.sharedInstance.downloadTOC.populateIndex()
+        print("populate index complete")
         Favorites.loadCloud {
             print("\(AppData.sharedInstance.favorites.items.count) favorites added")
             Histories.loadCloud {

@@ -33,9 +33,7 @@ class Histories: ObservableObject {
     }
 
     static func loadCloud(completionHandler : @escaping (() -> Void) ) {
-        DispatchQueue.main.sync {
-            AppData.sharedInstance.histories.items.removeAll()
-        }
+        AppData.sharedInstance.histories.items.removeAll()
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "History", predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -113,9 +111,7 @@ class Histories: ObservableObject {
         if items.contains(newHistory) {
 
         } else {
-            DispatchQueue.main.sync {
-                items.insert(newHistory, at: items.startIndex)
-            }
+            items.insert(newHistory, at: items.startIndex)
             currentPosition = items.count - 1
         }
         removeExcessHistory()
@@ -133,9 +129,7 @@ class Histories: ObservableObject {
             while items.count > 200 {
                 let item = items.last
                 item?.deleteCloudRecord()
-                DispatchQueue.main.sync {
-                    _ = items.removeLast()
-                }
+                _ = items.removeLast()
             }
         }
     }
@@ -143,39 +137,34 @@ class Histories: ObservableObject {
     func backward() -> ImageFile? {
         if items.isEmpty {
             currentPosition = -1
-            return nil
         }
-
-        if currentPosition >= items.count {
+        else if currentPosition >= items.count {
             currentPosition = items.count - 1
         }
-        if currentPosition < 0 {
+        else if currentPosition < 0 {
             currentPosition = 0
         }
 
-        if currentPosition > 0 {
+        else if currentPosition > 0 {
             currentPosition -= 1
         }
-        return items[currentPosition].file
+        return currentPosition < 0 ? nil : items[currentPosition].file
     }
 
     func forward() -> ImageFile? {
         if items.isEmpty {
             currentPosition = -1
-            return nil
         }
-
-        if currentPosition >= items.count {
+        else if currentPosition >= items.count {
             currentPosition = items.count - 1
         }
-        if currentPosition < 0 {
+        else if currentPosition < 0 {
             currentPosition = 0
         }
-
-        if currentPosition < items.count - 1 {
+        else if currentPosition < items.count - 1 {
             currentPosition += 1
         }
-        return items[currentPosition].file
+        return currentPosition < 0 ? nil : items[currentPosition].file
     }
 
     func save() {

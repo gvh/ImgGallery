@@ -59,7 +59,7 @@ struct ImageDisplayView: View {
                             print("Save tapped!")
                             imageDisplay.navigator?.doSave()
                         }
-                        if AppData.sharedInstance.isTimerActive {
+                        if imageDisplay.isTimerActive {
                             Button("Pause") {
                                 imageDisplay.navigator?.togglePlayPause()
                             }
@@ -74,6 +74,10 @@ struct ImageDisplayView: View {
         .onAppear() {
             imageDisplay.navigator?.setCurrentFile(file: file)
             imageDisplay.setFile(file: file)
+            if isRandom {
+                AppData.sharedInstance.startTimer(navigator: imageDisplay.navigator!)
+                AppData.sharedInstance.isTimerDesired = true
+            }
         }
     }
 }

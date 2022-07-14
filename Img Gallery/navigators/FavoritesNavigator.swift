@@ -13,7 +13,6 @@ import Combine
 class FavoritesNavigator: Navigator, ObservableObject {
 
     var currentPosition: Int
-
     var lastRandomNumber: Int = -1
 
     init() {
@@ -32,17 +31,17 @@ class FavoritesNavigator: Navigator, ObservableObject {
 
     func doPrev() {
         if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
-             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
+            currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
             self.configureImageDisplay()
             readImageIfNeeded()
         }
     }
 
     func doNext() {
-    if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
-        currentPosition = currentPosition >= AppData.sharedInstance.favorites.items.count - 1 ? currentPosition + 1 : 0
-        self.configureImageDisplay()
-        readImageIfNeeded()
+        if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
+            currentPosition = currentPosition >= AppData.sharedInstance.favorites.items.count - 1 ? 0 : currentPosition + 1
+           self.configureImageDisplay()
+           readImageIfNeeded()
         }
     }
 
@@ -89,7 +88,7 @@ class FavoritesNavigator: Navigator, ObservableObject {
 
     func togglePlayPause() {
         let appData = AppData.sharedInstance
-        if appData.isTimerActive {
+        if appData.imageDisplay.isTimerActive {
             appData.stopTimer()
             appData.isTimerDesired = false
         } else {
@@ -106,6 +105,12 @@ class FavoritesNavigator: Navigator, ObservableObject {
         currentPosition = getRandomPosition()
         self.configureImageDisplay()
         readImageIfNeeded()
+    }
+
+    func getRandomFile() -> ImageFile {
+        let position = self.getRandomPosition()
+        let file = AppData.sharedInstance.favorites.items[position].file
+        return file
     }
 
     func getRandomPosition() -> Int {

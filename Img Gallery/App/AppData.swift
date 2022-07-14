@@ -55,7 +55,7 @@ final class AppData {
 //    weak var imageReadDelegate: ImageReadDelegate?
     var timer: RefreshTimer = RefreshTimer()
 
-    var isTimerActive: Bool = false
+//    var isTimerActive: Bool = false
     var isTimerDesired: Bool = false
     var wasTimerActive: Bool = false
 
@@ -68,15 +68,16 @@ final class AppData {
 
     init() {
         self.privateDb = CKContainer(identifier: "iCloud.com.gardnervh.MediaBrowser").privateCloudDatabase
+        print("cloud db initialized")
     }
 
     func startTimer(navigator: Navigator) {
         timer.startTimer(viewer: navigator)
-        self.isTimerActive = true
+        self.imageDisplay.isTimerActive = true
     }
 
     func stopTimer() {
         timer.stopTimer()
-        self.isTimerActive = false
+        self.imageDisplay.isTimerActive = false
     }
 }

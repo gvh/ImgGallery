@@ -11,6 +11,7 @@ import Combine
 import SwiftUI
 
 final class SettingsStore: ObservableObject {
+
     private enum Keys {
 
         static let labelAlignment = "LabelAlignment"

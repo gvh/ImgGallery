@@ -13,13 +13,17 @@ import Combine
 class HistoryNavigator: Navigator, ObservableObject {
 
     var currentPosition: Int
+    var lastRandomNumber: Int = -1
 
     init() {
         self.currentPosition = 0
         print("new history navigator: \(currentPosition)")
-        readImageIfNeeded()
-        self.configureImageDisplay()
         self.readImageIfNeeded()
+        print("image read")
+        self.configureImageDisplay()
+        print("display configured")
+        self.readImageIfNeeded()
+        print("read image again")
     }
 
     func configureImageDisplay() {
@@ -29,7 +33,7 @@ class HistoryNavigator: Navigator, ObservableObject {
     }
 
     func doPrev() {
-         if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
+        if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.histories.items.count - 1 : currentPosition - 1
             self.configureImageDisplay()
             readImageIfNeeded()
@@ -38,9 +42,9 @@ class HistoryNavigator: Navigator, ObservableObject {
 
     func doNext() {
         if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
-            currentPosition = currentPosition >= AppData.sharedInstance.histories.items.count - 1 ? currentPosition + 1 : 0
-            self.configureImageDisplay()
-            readImageIfNeeded()
+            currentPosition = currentPosition >= AppData.sharedInstance.histories.items.count - 1 ? 0 : currentPosition + 1
+           self.configureImageDisplay()
+           readImageIfNeeded()
         }
     }
 
@@ -86,7 +90,14 @@ class HistoryNavigator: Navigator, ObservableObject {
     }
 
     func togglePlayPause() {
-
+        let appData = AppData.sharedInstance
+        if appData.imageDisplay.isTimerActive {
+            appData.stopTimer()
+            appData.isTimerDesired = false
+        } else {
+            appData.startTimer(navigator: self)
+            appData.isTimerDesired = true
+        }
     }
 
     func setButtons() {
@@ -99,10 +110,15 @@ class HistoryNavigator: Navigator, ObservableObject {
         readImageIfNeeded()
     }
 
+    func getRandomFile() -> ImageFile {
+        let position = self.getRandomPosition()
+        let file = AppData.sharedInstance.histories.items[position].file
+        return file
+    }
+
     func getRandomPosition() -> Int {
         let totalItems: Int = AppData.sharedInstance.histories.items.count
         guard totalItems > 0 else { return -1 }
         return Int.random(in: 0..<totalItems)
     }
-
 }

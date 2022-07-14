@@ -1,5 +1,5 @@
 //
-//  HistoriesImageRowView.swift
+//  HistoryImageRowView.swift
 //  Img Gallery
 //
 //  Created by Gardner von Holt on 6/24/22.
@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-struct HistoriesImageRowView: View {
+struct HistoryImageRowView: View {
     @EnvironmentObject var historyNavigator: HistoryNavigator
     @ObservedObject var file: ImageFile
 
     var body: some View {
         VStack {
             NavigationLink{
-                ImageDisplayView(file: file)
+                ImageDisplayView(file: file, isRandom: false)
             } label : {
                 Image(uiImage: file.image)
                     .resizable()

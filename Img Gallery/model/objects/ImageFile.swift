@@ -96,9 +96,10 @@ final class ImageFile: ObservableObject {
     }
 
     func setImage(_ image: UIImage) {
-        self.image = image
-        self.imageReady = true
-//        AppData.sharedInstance.imageReadDelegate?.onReadComplete(file: self)
+        DispatchQueue.main.async {
+            self.image = image
+            self.imageReady = true
+        }
     }
 
     var imageUrl: URL {
@@ -134,7 +135,7 @@ final class ImageFile: ObservableObject {
             imageGenerator.appliesPreferredTrackTransform = true
             let cgImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 10, timescale: 1), actualTime: nil)
             let image = UIImage(cgImage: cgImage)
-            setImage(image)
+            self.setImage(image)
         } catch {
             let message = "generateThumbnail.createfailed".localizedWithComment(comment: "error in file access") + error.localizedDescription
             print(message)

@@ -89,10 +89,8 @@ class ImageFolder: ObservableObject {
 
     fileprivate func addSubFolder(_ childFolder: ImageFolder) {
         childFolder.folderLevel = self.folderLevel + 1
-        DispatchQueue.main.sync {
-            self.subFolderValues.append(childFolder)
-            self.subFolderValues.sort()
-        }
+        self.subFolderValues.append(childFolder)
+        self.subFolderValues.sort()
     }
 
     func subFolder(_ key: String) -> ImageFolder? {
@@ -101,10 +99,8 @@ class ImageFolder: ObservableObject {
     }
 
     func addFile(_ file: ImageFile) {
-        DispatchQueue.main.async {
-            self.files.append(file)
-            self.incrementCounter()
-        }
+        self.files.append(file)
+        self.incrementCounter()
     }
 
     func incrementCounter() {
