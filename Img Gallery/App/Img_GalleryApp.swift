@@ -24,19 +24,13 @@ struct Img_GalleryApp: App {
 
 private extension Img_GalleryApp {
     func setup() {
-        print("about to register settings bundle")
         Utility.registerSettingsBundle()
-        print("about to update from defaults")
         Utility.updateFromDefaults()
 
         //Configurator.configureLoad()
-        print("about to create session")
         AppData.sharedInstance.session = URLSessionFactory.create()
-        print("about ro set server reachabke")
         AppData.sharedInstance.settingsStore.setServerReachable()
-        print("about to configure data")
         Img_GalleryApp.configureData()
-        print("img gallery setup complete")
     }
 
     static func configureData() {
@@ -44,7 +38,6 @@ private extension Img_GalleryApp {
         CustomPhotoAlbum.sharedInstance.checkPhotoLibraryPermission()
         let dataLoader = DataLoader()
         dataLoader.create()
-        print("data loader started")
     }
 
     static func createRoots() {

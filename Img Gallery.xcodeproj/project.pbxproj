@@ -48,6 +48,7 @@
 		5F4B1A4C28684D8800E2EEA0 /* ExplorerImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4B1A4B28684D8800E2EEA0 /* ExplorerImageRowView.swift */; };
 		5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */; };
 		5F5729AF2867349000DA4CF1 /* ExplorerImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AE2867349000DA4CF1 /* ExplorerImageMenuView.swift */; };
+		5F67F12828813A6A00D8A672 /* FolderDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F67F12728813A6A00D8A672 /* FolderDisplay.swift */; };
 		5F88720E286D824F0023FAEA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720D286D824F0023FAEA /* SettingsView.swift */; };
 		5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720F286DE1FC0023FAEA /* SettingsStore.swift */; };
 		5FD5A14E28771D11006E59FA /* IfViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5A14D28771D11006E59FA /* IfViewExtension.swift */; };
@@ -105,6 +106,7 @@
 		5F4B1A4B28684D8800E2EEA0 /* ExplorerImageRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerImageRowView.swift; sourceTree = "<group>"; };
 		5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplayView.swift; path = "img Gallery/UI/Tabs/ImageDisplayView.swift"; sourceTree = SOURCE_ROOT; };
 		5F5729AE2867349000DA4CF1 /* ExplorerImageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerImageMenuView.swift; sourceTree = "<group>"; };
+		5F67F12728813A6A00D8A672 /* FolderDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FolderDisplay.swift; path = "img Gallery/model/objects/FolderDisplay.swift"; sourceTree = SOURCE_ROOT; };
 		5F88720D286D824F0023FAEA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = "img Gallery/UI/Tabs/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
 		5F88720F286DE1FC0023FAEA /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsStore.swift; path = "img Gallery/model/reference/SettingsStore.swift"; sourceTree = SOURCE_ROOT; };
 		5FD5A14D28771D11006E59FA /* IfViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IfViewExtension.swift; path = "img Gallery/extensions/IfViewExtension.swift"; sourceTree = SOURCE_ROOT; };
@@ -283,6 +285,7 @@
 				5F16A5F028658B84000E6817 /* Favorite.swift */,
 				5F16A5F128658B84000E6817 /* History.swift */,
 				5FE7A8E4286AE62C007BA234 /* ImageDisplay.swift */,
+				5F67F12728813A6A00D8A672 /* FolderDisplay.swift */,
 			);
 			path = objects;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				5F16A5F528658B84000E6817 /* KeywordUsage.swift in Sources */,
 				5FE7A8E5286AE62C007BA234 /* ImageDisplay.swift in Sources */,
 				5F16A5BE2865467D000E6817 /* Img_GalleryApp.swift in Sources */,
+				5F67F12828813A6A00D8A672 /* FolderDisplay.swift in Sources */,
 				5FD5A1502879FA07006E59FA /* FavoritesRandomRowView.swift in Sources */,
 				5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */,
 				5FE267562871F4F400A0D086 /* HistoryNavigator.swift in Sources */,

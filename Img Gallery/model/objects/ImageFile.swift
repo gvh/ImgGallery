@@ -29,10 +29,10 @@ final class ImageFile: ObservableObject {
     private(set) var name: String
     private(set) var key: String
 
-    @Published private(set) var image: UIImage
+    private(set) var image: UIImage
     private(set) var fileContents: FileContents
     private(set) var isDummyEntry: Bool = false
-    @Published private(set) var imageReady = false
+    private(set) var imageReady = false
 
     var isFavorite: Bool = false
     var favorite: Favorite?
@@ -97,9 +97,10 @@ final class ImageFile: ObservableObject {
 
     func setImage(_ image: UIImage) {
         DispatchQueue.main.async {
-            self.image = image
-            self.imageReady = true
+            self.objectWillChange.send()
         }
+        self.image = image
+        self.imageReady = true
     }
 
     var imageUrl: URL {

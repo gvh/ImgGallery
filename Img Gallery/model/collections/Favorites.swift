@@ -14,8 +14,8 @@ final class Favorites: ObservableObject {
 
     let favoritesSizeLimit: Int = 1000
 
-    @Published var items: [Favorite] = []
-    @Published var currentPosition: Int = 0
+    var items: [Favorite] = []
+    var currentPosition: Int = 0
 
     static var ids: Set<UUID> = []
     static var recordIDsToDelete: [CKRecord.ID] = []
@@ -25,13 +25,14 @@ final class Favorites: ObservableObject {
     }
 
     func clear() {
-        items.removeAll()
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            self.items.removeAll()
+        }
     }
 
     static func loadCloud(completionHandler : @escaping (() -> Void) ) {
-        print("begin load cloud for favorites")
         AppData.sharedInstance.favorites.items.removeAll()
-        print("after remove all for favorites")
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Favorite", predicate: predicate)
         query.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
@@ -41,12 +42,9 @@ final class Favorites: ObservableObject {
             make(result: result)
         }
         operation.queryResultBlock = { _ in
-            print("about to clean up any duplicates removed during load")
             if !recordIDsToDelete.isEmpty {
                 Favorites.remove(recordIDs: recordIDsToDelete)
             }
-
-            print("end load cloud for favorites")
             completionHandler()
         }
         AppData.sharedInstance.privateDb.add(operation)
@@ -117,6 +115,7 @@ final class Favorites: ObservableObject {
             let file = favorite.file
             file.favorite = favorite
             file.isFavorite = true
+            self.objectWillChange.send()
             self.items.insert(favorite, at: self.items.startIndex)
             if self.items.count > self.favoritesSizeLimit {
                 self.resize()
@@ -126,12 +125,15 @@ final class Favorites: ObservableObject {
     }
 
     func remove(favorite: Favorite) {
-        let file = favorite.file
-        file.favorite = nil
-        file.isFavorite = false
-        let itemIndex = self.items.firstIndex(of: favorite)!
-        self.items.remove(at: itemIndex)
-        favorite.deleteCloudRecord()
+        DispatchQueue.main.async {
+            let file = favorite.file
+            file.favorite = nil
+            file.isFavorite = false
+            let itemIndex = self.items.firstIndex(of: favorite)!
+            self.objectWillChange.send()
+            self.items.remove(at: itemIndex)
+            favorite.deleteCloudRecord()
+        }
     }
 
     func getCurrentPosition() -> Int {

@@ -13,25 +13,26 @@ class ImageDisplay : ObservableObject {
     var currentFile: ImageFile!
     var navigator: Navigator?
 
-    @Published var name: String = ""
-    @Published var image: UIImage = UIImage(systemName: "film")!
+    var name: String = ""
+    var image: UIImage = UIImage(systemName: "film")!
 
-    @Published var parentDirectoryName: String = ""
-    @Published var directoryName: String = ""
-    @Published var fileSequence: Int = -1
-    @Published var fileCount: Int = -2
+    var parentDirectoryName: String = ""
+    var directoryName: String = ""
+    var fileSequence: Int = -1
+    var fileCount: Int = -2
 
-    @Published var hasBackButtonVar: Bool = false
-    @Published var hasNextButtonVar: Bool = false
-    @Published var hasSaveButtonVar: Bool = false
-    @Published var hasGoToButtonVar: Bool = false
-    @Published var hasPlayPauseButtonVar: Bool = false
+    var hasBackButtonVar: Bool = false
+    var hasNextButtonVar: Bool = false
+    var hasSaveButtonVar: Bool = false
+    var hasGoToButtonVar: Bool = false
+    var hasPlayPauseButtonVar: Bool = false
 
-    @Published var isTimerActive: Bool = false
-    @Published var countDownSeconds: Int = 0
+    var isTimerActive: Bool = false
+    var countDownSeconds: Int = 0
 
     func setButtons(hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
         DispatchQueue.main.async {
+            self.objectWillChange.send()
             self.hasBackButtonVar = hasBackButton
             self.hasNextButtonVar = hasNextButton
             self.hasSaveButtonVar = hasSaveButton
@@ -42,6 +43,7 @@ class ImageDisplay : ObservableObject {
 
     func setValues(name: String, image: UIImage, directoryName: String, fileSequence: Int, fileCount: Int) {
         DispatchQueue.main.async {
+            self.objectWillChange.send()
             self.name = name
             self.image = image
             self.directoryName = directoryName
@@ -57,6 +59,7 @@ class ImageDisplay : ObservableObject {
 
     func setFile(file: ImageFile) {
         DispatchQueue.main.async {
+            self.objectWillChange.send()
             self.fileSequence = file.subs
             self.name = file.name
             self.image = file.image
@@ -70,6 +73,7 @@ class ImageDisplay : ObservableObject {
     func updateImage(file: ImageFile) {
         if self.currentFile == file {
             DispatchQueue.main.async {
+                self.objectWillChange.send()
                 self.image = file.image
             }
         }

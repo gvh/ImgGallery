@@ -36,11 +36,6 @@ struct ImageDisplayView: View {
                             }
                         }
                     )
-                    .gesture(TapGesture(count: 2)
-                        .onEnded {
-                            imageDisplay.navigator?.doGoTo()
-                        }
-                    )
                     .navigationTitle("Image")
                     .toolbar {
                         if file.isFavorite {

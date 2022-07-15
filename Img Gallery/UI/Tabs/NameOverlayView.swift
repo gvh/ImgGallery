@@ -17,6 +17,12 @@ struct NameOverlayView: View {
                 Text(imageDisplay.parentDirectoryName)
                 Text("\(imageDisplay.directoryName) : \(imageDisplay.fileSequence + 1) of \(imageDisplay.fileCount)")
             }
+            .gesture(TapGesture(count: 2)
+                .onEnded {
+                    print("on tap")
+                    imageDisplay.navigator?.doGoTo()
+                }
+            )
             .font(.callout)
             .foregroundColor(.white)
         }.background(Color.black)

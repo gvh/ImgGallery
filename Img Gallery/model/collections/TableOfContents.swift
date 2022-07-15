@@ -9,13 +9,16 @@
 import Foundation
 
 class TableOfContents: ObservableObject {
-    @Published private(set) var rootFolder: ImageFolder!
+    private(set) var rootFolder: ImageFolder!
     var allFiles: [String: ImageFile] = [:]
 
     private init() {
     }
 
     init(rootFolder: ImageFolder) {
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
         self.rootFolder = rootFolder
     }
 

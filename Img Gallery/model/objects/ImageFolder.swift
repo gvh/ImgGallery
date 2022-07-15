@@ -22,8 +22,8 @@ class ImageFolder: ObservableObject {
 
     private(set) var parentFolder: ImageFolder?
 
-    @Published private(set) var subFolderValues: [ImageFolder] = []
-    @Published private(set) var files: [ImageFile] = []
+    private(set) var subFolderValues: [ImageFolder] = []
+    private(set) var files: [ImageFile] = []
 
     private(set) var folderLevel: Int = 0
     private(set) var filesInTree: Int = 0

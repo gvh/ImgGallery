@@ -10,8 +10,8 @@ import CloudKit
 
 class Histories: ObservableObject {
 
-    @Published var currentPosition: Int = -1
-    @Published var items: [History] = []
+    var currentPosition: Int = -1
+    var items: [History] = []
 
     static var ids: Set<UUID> = []
     static var recordIDsToDelete: [CKRecord.ID] = []
@@ -50,8 +50,10 @@ class Histories: ObservableObject {
         operation.queryResultBlock = { _ in
             if !recordIDsToDelete.isEmpty {
                 // clean up any duplicates removed during load
+                print("removing a record from histories")
                 Histories.remove(recordIDs: recordIDsToDelete)
             }
+            print("completion handler from histories load")
             completionHandler()
         }
         AppData.sharedInstance.privateDb.add(operation)
@@ -70,9 +72,10 @@ class Histories: ObservableObject {
                 print("Would delete key \(key) ; recordid \(recordID) from histories")
                 recordIDsToDelete.append(recordID)
             } else {
-                ids.insert(key)
-                let history = History(file: file!, dateAdded: dateAdded, historyID: recordID.recordName, record: record)
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
+                    AppData.sharedInstance.histories.objectWillChange.send()
+                    ids.insert(key)
+                    let history = History(file: file!, dateAdded: dateAdded, historyID: recordID.recordName, record: record)
                     AppData.sharedInstance.histories.items.append(history)
                 }
             }
@@ -107,10 +110,14 @@ class Histories: ObservableObject {
     }
 
     func visit(file: ImageFile) {
+        print("histories visit")
         let newHistory = History(file: file)
         if items.contains(newHistory) {
 
         } else {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
             items.insert(newHistory, at: items.startIndex)
             currentPosition = items.count - 1
         }
@@ -125,6 +132,9 @@ class Histories: ObservableObject {
     }
 
     private func removeExcessHistory() {
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
         if items.count > 225 {
             while items.count > 200 {
                 let item = items.last
@@ -135,6 +145,9 @@ class Histories: ObservableObject {
     }
 
     func backward() -> ImageFile? {
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
         if items.isEmpty {
             currentPosition = -1
         }
@@ -152,6 +165,9 @@ class Histories: ObservableObject {
     }
 
     func forward() -> ImageFile? {
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+        }
         if items.isEmpty {
             currentPosition = -1
         }
