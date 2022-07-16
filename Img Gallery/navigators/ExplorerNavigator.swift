@@ -29,6 +29,12 @@ class ExplorerNavigator: Navigator, ObservableObject {
         AppData.sharedInstance.imageDisplay.setFile(file: file!)
     }
 
+    func doPrevResult() {
+    }
+
+    func doNextResult() {
+    }
+
     func doPrev() {
         if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
             currentPosition = currentPosition <= 0 ? currentFolder.files.count - 1 : currentPosition - 1
@@ -100,7 +106,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
 
     func setButtons() {
         DispatchQueue.main.async {
-            AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+            AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
         }
     }
 

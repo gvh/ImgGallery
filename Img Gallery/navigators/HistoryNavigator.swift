@@ -32,6 +32,12 @@ class HistoryNavigator: Navigator, ObservableObject {
         AppData.sharedInstance.imageDisplay.setFile(file: file!)
     }
 
+    func doPrevResult() {
+    }
+
+    func doNextResult() {
+    }
+
     func doPrev() {
         if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.histories.items.count - 1 : currentPosition - 1
@@ -101,7 +107,7 @@ class HistoryNavigator: Navigator, ObservableObject {
     }
 
     func setButtons() {
-        AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
     }
 
     func onSubscriptionTimer() {
@@ -110,7 +116,7 @@ class HistoryNavigator: Navigator, ObservableObject {
         readImageIfNeeded()
     }
 
-    func getRandomFile() -> ImageFile {
+    func getRandomFile() -> ImageFile? {
         let position = self.getRandomPosition()
         let file = AppData.sharedInstance.histories.items[position].file
         return file

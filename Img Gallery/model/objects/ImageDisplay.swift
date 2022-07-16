@@ -21,6 +21,7 @@ class ImageDisplay : ObservableObject {
     var fileSequence: Int = -1
     var fileCount: Int = -2
 
+    var hasResultButtons: Bool = false
     var hasBackButtonVar: Bool = false
     var hasNextButtonVar: Bool = false
     var hasSaveButtonVar: Bool = false
@@ -30,9 +31,10 @@ class ImageDisplay : ObservableObject {
     var isTimerActive: Bool = false
     var countDownSeconds: Int = 0
 
-    func setButtons(hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
+    func setButtons(hasResultButtons: Bool, hasBackButton: Bool, hasNextButton: Bool, hasSaveButton: Bool, hasGoToButton: Bool, hasPlayPauseButton: Bool )  {
         DispatchQueue.main.async {
             self.objectWillChange.send()
+            self.hasResultButtons = hasResultButtons
             self.hasBackButtonVar = hasBackButton
             self.hasNextButtonVar = hasNextButton
             self.hasSaveButtonVar = hasSaveButton
@@ -60,22 +62,40 @@ class ImageDisplay : ObservableObject {
     func setFile(file: ImageFile) {
         DispatchQueue.main.async {
             self.objectWillChange.send()
-            self.fileSequence = file.subs
-            self.name = file.name
-            self.image = file.image
-            self.fileCount = file.parentFolder.files.count
-            self.directoryName = file.parentFolder.noPrefixName
-            self.parentDirectoryName = file.parentFolder.parentFolder?.getFullPath() ?? ""
-            self.currentFile = file
         }
+        self.fileSequence = file.subs
+        self.name = file.name
+        self.image = file.image
+        self.fileCount = file.parentFolder.files.count
+        self.directoryName = file.parentFolder.noPrefixName
+        self.parentDirectoryName = file.parentFolder.parentFolder?.getFullPath() ?? ""
+        self.currentFile = file
     }
 
     func updateImage(file: ImageFile) {
         if self.currentFile == file {
             DispatchQueue.main.async {
                 self.objectWillChange.send()
-                self.image = file.image
             }
+            self.image = file.image
         }
     }
+}
+
+extension ImageDisplay : Hashable {
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(name)
+        hasher.combine(directoryName)
+    }
+
+}
+
+extension ImageDisplay : Equatable {
+
+    static func == (lhs: ImageDisplay, rhs: ImageDisplay) -> Bool {
+        return lhs.name == rhs.name &&
+            lhs.directoryName == rhs.directoryName
+    }
+
 }

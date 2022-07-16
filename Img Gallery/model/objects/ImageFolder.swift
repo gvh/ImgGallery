@@ -275,21 +275,6 @@ class ImageFolder: ObservableObject {
         files.remove(at: fileIndex)
     }
 
-    func getTokens() -> [String] {
-        var tokenStrings: [String] = []
-        var finalTokenStrings: [String] = []
-        let tokens: [String.SubSequence] = name.split(separator: " ")
-        for token in tokens where token.count > 2 {
-            let tokenString = String(token).lowercased()
-            tokenStrings.append(tokenString)
-        }
-        let uniqueTokenStrings = Array(Set(tokenStrings)).sorted()
-        for uniqueTokenString in uniqueTokenStrings {
-            finalTokenStrings.append(uniqueTokenString)
-        }
-        return finalTokenStrings
-    }
-
     static func clearSearchCounts() {
     }
 

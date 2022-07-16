@@ -13,11 +13,22 @@ struct ImageDisplayView: View {
 
     @EnvironmentObject var settings: SettingsStore
     @EnvironmentObject var imageDisplay: ImageDisplay
-    @ObservedObject var file: ImageFile
+    @ObservedObject var file: ImageDisplay
     @State var isRandom: Bool
 
     var body: some View {
         VStack {
+            if imageDisplay.hasResultButtons {
+                HStack {
+                    Button("<< Prev Result") {
+                        imageDisplay.navigator?.doPrevResult()
+                    }
+                    Spacer()
+                    Button("Next Result >>") {
+                        imageDisplay.navigator?.doNextResult()
+                    }
+                }
+            }
             HStack {
                 Image(uiImage: imageDisplay.image)
                     .resizable()
@@ -36,7 +47,7 @@ struct ImageDisplayView: View {
                             }
                         }
                     )
-                    .navigationTitle("Image")
+                    .navigationTitle(imageDisplay.directoryName)
                     .toolbar {
                         if file.isFavorite {
                             Button("Un Fav") {
@@ -48,7 +59,6 @@ struct ImageDisplayView: View {
                                 print("Fav tapped!")
                                 imageDisplay.navigator?.getCurrentFile()!.toggleFavorite()
                             }
-
                         }
                         Button("Save") {
                             print("Save tapped!")

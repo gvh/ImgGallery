@@ -15,6 +15,7 @@ final class AppData {
     static var sharedInstance: AppData = AppData()
 
     var imageDisplay: ImageDisplay = ImageDisplay()
+    var folderDisplay: FolderDisplay!
 
     var serverName: String = ""
     var serverPort: String = ""

@@ -49,6 +49,9 @@
 		5F4E8E5D28686A4900F15BA3 /* ImageDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */; };
 		5F5729AF2867349000DA4CF1 /* ExplorerImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5729AE2867349000DA4CF1 /* ExplorerImageMenuView.swift */; };
 		5F67F12828813A6A00D8A672 /* FolderDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F67F12728813A6A00D8A672 /* FolderDisplay.swift */; };
+		5F67F12A2882951400D8A672 /* SearchResultsNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F67F1292882951400D8A672 /* SearchResultsNavigator.swift */; };
+		5F67F12C2882E6DC00D8A672 /* SearchImageMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F67F12B2882E6DC00D8A672 /* SearchImageMenuView.swift */; };
+		5F67F12E2882E89900D8A672 /* SearchImageRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F67F12D2882E89900D8A672 /* SearchImageRowView.swift */; };
 		5F88720E286D824F0023FAEA /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720D286D824F0023FAEA /* SettingsView.swift */; };
 		5F887210286DE1FC0023FAEA /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F88720F286DE1FC0023FAEA /* SettingsStore.swift */; };
 		5FD5A14E28771D11006E59FA /* IfViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD5A14D28771D11006E59FA /* IfViewExtension.swift */; };
@@ -107,6 +110,9 @@
 		5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageDisplayView.swift; path = "img Gallery/UI/Tabs/ImageDisplayView.swift"; sourceTree = SOURCE_ROOT; };
 		5F5729AE2867349000DA4CF1 /* ExplorerImageMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplorerImageMenuView.swift; sourceTree = "<group>"; };
 		5F67F12728813A6A00D8A672 /* FolderDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FolderDisplay.swift; path = "img Gallery/model/objects/FolderDisplay.swift"; sourceTree = SOURCE_ROOT; };
+		5F67F1292882951400D8A672 /* SearchResultsNavigator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchResultsNavigator.swift; path = "img Gallery/navigators/SearchResultsNavigator.swift"; sourceTree = SOURCE_ROOT; };
+		5F67F12B2882E6DC00D8A672 /* SearchImageMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchImageMenuView.swift; path = "img Gallery/UI/Tabs/SearchImageMenuView.swift"; sourceTree = SOURCE_ROOT; };
+		5F67F12D2882E89900D8A672 /* SearchImageRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchImageRowView.swift; path = "img Gallery/UI/rows/SearchImageRowView.swift"; sourceTree = SOURCE_ROOT; };
 		5F88720D286D824F0023FAEA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsView.swift; path = "img Gallery/UI/Tabs/SettingsView.swift"; sourceTree = SOURCE_ROOT; };
 		5F88720F286DE1FC0023FAEA /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsStore.swift; path = "img Gallery/model/reference/SettingsStore.swift"; sourceTree = SOURCE_ROOT; };
 		5FD5A14D28771D11006E59FA /* IfViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = IfViewExtension.swift; path = "img Gallery/extensions/IfViewExtension.swift"; sourceTree = SOURCE_ROOT; };
@@ -207,6 +213,7 @@
 				5F16A5D028654DEC000E6817 /* FavoritesView.swift */,
 				5F16A5D228654E14000E6817 /* HistoryView.swift */,
 				5F16A5D428654E33000E6817 /* SearchView.swift */,
+				5F67F12B2882E6DC00D8A672 /* SearchImageMenuView.swift */,
 				5F88720D286D824F0023FAEA /* SettingsView.swift */,
 				5F4E8E5C28686A4900F15BA3 /* ImageDisplayView.swift */,
 				5F0E27D62870DD11008BFB4A /* NameOverlayView.swift */,
@@ -246,6 +253,7 @@
 			children = (
 				5F16A64328664BC1000E6817 /* ExplorerFolderRowView.swift */,
 				5F4B1A4B28684D8800E2EEA0 /* ExplorerImageRowView.swift */,
+				5F67F12D2882E89900D8A672 /* SearchImageRowView.swift */,
 				5FE2674A2871965600A0D086 /* FavoritesImageRowView.swift */,
 				5FD5A14F2879FA07006E59FA /* FavoritesRandomRowView.swift */,
 				5FE2674C2871B95500A0D086 /* HistoryImageRowView.swift */,
@@ -334,6 +342,7 @@
 			children = (
 				5FE267502871DECC00A0D086 /* ExplorerNavigator.swift */,
 				5FE267532871F49A00A0D086 /* FavoritesNavigator.swift */,
+				5F67F1292882951400D8A672 /* SearchResultsNavigator.swift */,
 				5FE267552871F4F400A0D086 /* HistoryNavigator.swift */,
 			);
 			path = navigators;
@@ -427,11 +436,14 @@
 				5F16A636286591FC000E6817 /* StreamReader.swift in Sources */,
 				5F16A5F228658B84000E6817 /* Favorites.swift in Sources */,
 				5F16A5D928658863000E6817 /* AppData.swift in Sources */,
+				5F67F12E2882E89900D8A672 /* SearchImageRowView.swift in Sources */,
 				5F16A5FA28658B84000E6817 /* StopWords.swift in Sources */,
+				5F67F12A2882951400D8A672 /* SearchResultsNavigator.swift in Sources */,
 				5F16A5FF28658B84000E6817 /* Favorite.swift in Sources */,
 				5F16A630286591FC000E6817 /* URLSessionFactory.swift in Sources */,
 				5F16A5D328654E14000E6817 /* HistoryView.swift in Sources */,
 				5F4B1A4C28684D8800E2EEA0 /* ExplorerImageRowView.swift in Sources */,
+				5F67F12C2882E6DC00D8A672 /* SearchImageMenuView.swift in Sources */,
 				5FE2674F2871D6A000A0D086 /* Navigator.swift in Sources */,
 				5F16A64028660408000E6817 /* Utility.swift in Sources */,
 				5F16A638286591FC000E6817 /* DataLoader.swift in Sources */,

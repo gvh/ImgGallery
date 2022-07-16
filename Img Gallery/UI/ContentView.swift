@@ -15,6 +15,7 @@ struct ContentView: View {
     @StateObject var explorerNavigator = ExplorerNavigator(currentFolder: AppData.sharedInstance.downloadTOC.rootFolder, currentPosition: 0)
     @StateObject var favoritesNavigator = FavoritesNavigator()
     @StateObject var historyNavigator = HistoryNavigator()
+    @StateObject var searchResultsNavigator = SearchResultsNavigator( searchResults: [])
 
     @State var selectedTab: Int
 
@@ -60,6 +61,7 @@ struct ContentView: View {
         .environmentObject(explorerNavigator)
         .environmentObject(favoritesNavigator)
         .environmentObject(historyNavigator)
+        .environmentObject(searchResultsNavigator)
 
         .onChange(of: selectedTab) { newValue in
             switch newValue {
@@ -73,7 +75,7 @@ struct ContentView: View {
                 AppData.sharedInstance.imageDisplay.navigator = self.historyNavigator
 
             case 4:
-                AppData.sharedInstance.imageDisplay.navigator = nil
+                AppData.sharedInstance.imageDisplay.navigator = self.searchResultsNavigator
 
             case 5:
                 AppData.sharedInstance.imageDisplay.navigator = nil

@@ -10,6 +10,8 @@ import Foundation
 
 protocol Navigator {
     func getTotalFiles() -> Int
+    func doPrevResult()
+    func doNextResult()
     func doPrev()
     func doNext()
     func doGoTo()

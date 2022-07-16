@@ -29,6 +29,12 @@ class FavoritesNavigator: Navigator, ObservableObject {
         AppData.sharedInstance.imageDisplay.setFile(file: file!)
     }
 
+    func doPrevResult() {
+    }
+
+    func doNextResult() {
+    }
+
     func doPrev() {
         if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
@@ -55,11 +61,11 @@ class FavoritesNavigator: Navigator, ObservableObject {
         guard currentFile != nil else { return }
         guard currentFile?.image == nil else { return }
 
-//        withAnimation(.default) {
+        withAnimation(.default) {
             ImageLoader.readImage(file: currentFile!) { file in
                 AppData.sharedInstance.imageDisplay.updateImage(file: file)
             }
-//        }
+        }
     }
 
     func getTotalFiles() -> Int {
@@ -80,8 +86,8 @@ class FavoritesNavigator: Navigator, ObservableObject {
 
     func doSave() {
         let file = getCurrentFile()
-        if file != nil {
-            CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+       if file != nil {
+                CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
             }
         }
     }
@@ -98,7 +104,7 @@ class FavoritesNavigator: Navigator, ObservableObject {
     }
 
     func setButtons() {
-        AppData.sharedInstance.imageDisplay.setButtons(hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
     }
 
     func onSubscriptionTimer() {
@@ -107,7 +113,7 @@ class FavoritesNavigator: Navigator, ObservableObject {
         readImageIfNeeded()
     }
 
-    func getRandomFile() -> ImageFile {
+    func getRandomFile() -> ImageFile? {
         let position = self.getRandomPosition()
         let file = AppData.sharedInstance.favorites.items[position].file
         return file

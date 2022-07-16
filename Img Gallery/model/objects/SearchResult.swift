@@ -7,27 +7,30 @@
 
 import Foundation
 
-class SearchResult {
+class SearchResult : ObservableObject {
     var hitCount: Int
-    var folder: ImageFolder
+    var folderDisplay: FolderDisplay
 
     init(folder: ImageFolder, hitCount: Int) {
         self.hitCount = hitCount
-        self.folder = folder
+        self.folderDisplay = FolderDisplay(folder: folder)
     }
 }
 
 extension SearchResult: Equatable {
     static func == (lhs: SearchResult, rhs: SearchResult) -> Bool {
-        return
-            lhs.folder.getFullPath() == rhs.folder.getFullPath()
+        let result: Bool =
+            lhs.folderDisplay.name == rhs.folderDisplay.name &&
+            lhs.folderDisplay.parentName == rhs.folderDisplay.parentName
+        return result
     }
 }
 
 extension SearchResult: Hashable {
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(folder.getFullPath())
+        hasher.combine(folderDisplay.parentName)
+        hasher.combine(folderDisplay.name)
     }
 
 }
