@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class SearchResultsNavigator: Navigator, ObservableObject {
+class SearchResultsNavigator: ObservableObject {
     var searchResults: [SearchResult] = []
 
     var currentSearchResult: SearchResult?
@@ -33,52 +33,11 @@ class SearchResultsNavigator: Navigator, ObservableObject {
     private func configureDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.configure(file: file,
-                                                      directoyName: currentSearchResult!.imageFolder.noPrefixName,
-                                                      parentDirectoryName: currentSearchResult!.imageFolder.parentName,
+        AppData.sharedInstance.imageDisplay.configure(file: file!,
                                                       fileSequence: currentPosition,
                                                       fileCount: currentSearchResult!.folderDisplay.files.count)
     }
 
-    private func setNewResult() {
-        self.currentSearchResult = searchResults[currentSearchResultPosition]
-        self.currentPosition = 0
-        self.setNames()
-        self.setPosition()
-        print("new search result: \(currentSearchResult?.folderDisplay.name ?? "none")")
-    }
-
-    private func setPosition() {
-        self.configureImageDisplay()
-        self.readImageIfNeeded()
-        self.configureDisplay()
-    }
-
-    func doPrevResult() {
-        print("search do next result")
-        if searchResults.count > 0 {
-            self.currentSearchResultPosition = currentSearchResultPosition <= 0 ? searchResults.count - 1 : currentSearchResultPosition - 1
-            self.setNewResult()
-        }
-    }
-
-    func doNextResult() {
-        print("search do Next result")
-        if searchResults.count > 0 {
-            self.currentSearchResultPosition = currentSearchResultPosition >= searchResults.count - 1 ? 0 : currentSearchResultPosition + 1
-            self.setNewResult()
-        }
-    }
-
-    func doPrev() {
-        self.currentPosition = currentPosition <= 0 ? currentSearchResult!.folderDisplay.files.count - 1 : currentPosition - 1
-        self.setPosition()
-    }
-
-    func doNext() {
-        self.currentPosition = currentPosition >= currentSearchResult!.folderDisplay.files.count - 1 ? 0 : currentPosition + 1
-        self.setPosition()
-    }
 
     func doGoTo() {
         print("do go to")
@@ -95,10 +54,6 @@ class SearchResultsNavigator: Navigator, ObservableObject {
                 AppData.sharedInstance.imageDisplay.updateImage(file: file)
             }
         }
-    }
-
-    func getTotalFiles() -> Int {
-        return AppData.sharedInstance.favorites.items.count
     }
 
     func doSave() {
@@ -120,9 +75,9 @@ class SearchResultsNavigator: Navigator, ObservableObject {
         }
     }
 
-    func setButtons() {
-        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: true, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
-    }
+//    func setButtons() {
+//        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: true, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+//    }
 
     func onSubscriptionTimer() {
         currentPosition = getRandomPosition()
@@ -136,20 +91,15 @@ class SearchResultsNavigator: Navigator, ObservableObject {
         return file
     }
 
-    func getRandomPosition() -> Int {
-        let totalItems: Int = currentSearchResult!.folderDisplay.files.count
-        guard totalItems > 0 else { return -1 }
-        return Int.random(in: 0..<totalItems)
-    }
-
     func setResults(results: [SearchResult]) {
         self.searchResults.removeAll()
         self.searchResults.append(contentsOf: results)
     }
 
+
     func setFolderDisplay(folderDisplay: FolderDisplay) {
         for i in 0..<searchResults.count {
-            let searchResult = searchResults[i].folderDisplay
+            let searchResult = searchResults[i].imageFolder
             if folderDisplay.currentFolder == searchResult.currentFolder {
                 currentPosition = i
                 break
@@ -158,18 +108,81 @@ class SearchResultsNavigator: Navigator, ObservableObject {
         return
     }
 
-    func getCurrentFile() -> ImageDisplay? {
-        guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
-        guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.favorites.items.count else { return nil }
 
-        return AppData.sharedInstance.favorites.items[currentPosition].file.imageDisplay
+    private func setPosition() {
+        self.configureImageDisplay()
+        self.readImageIfNeeded()
+        self.configureDisplay()
+    }
+
+}
+extension SearchResultsNavigator : FileNavigator {
+    func getCurrentFile() -> ImageFile? {
+        guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
+        guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.searchResult.files.count else { return nil }
+        return AppData.sharedInstance.favorites.items[currentPosition].file
     }
 
     func setCurrentFile(file: ImageDisplay) {
         if currentSearchResult != nil {
-            currentPosition = currentSearchResult!.folderDisplay.files.firstIndex (where: { $0 == file } )!
+            currentPosition = currentSearchResult!.imageFolder.files.firstIndex (where: { $0 == file } )!
             readImageIfNeeded()
         }
+    }
+
+    func getCurrentFilePosition() -> Int {
+        return currentPosition
+    }
+
+    func setCurrentFilePosition(position: Int) {
+        guard position >= 0 && position < currentSearchResult!.imageFolder.files.count else { return }
+        currentPosition = position
+    }
+
+    func getTotalFiles() -> Int {
+        return AppData.sharedInstance.favorites.items.count
+    }
+    
+    func doPrev() {
+        self.currentPosition = currentPosition <= 0 ? currentSearchResult!.imageFolder.files.count - 1 : currentPosition - 1
+        self.setPosition()
+    }
+
+    func doNext() {
+        self.currentPosition = currentPosition >= currentSearchResult!.imageFolder.files.count - 1 ? 0 : currentPosition + 1
+        self.setPosition()
+    }
+
+    func getRandomPosition() -> Int {
+        let totalItems: Int = currentSearchResult!.imageFolder.files.count
+        guard totalItems > 0 else { return -1 }
+        return Int.random(in: 0..<totalItems)
+    }
+
+}
+
+extension SearchResultsNavigator : FolderNavigator {
+    func doPrevResult() {
+        print("search do next result")
+        if searchResults.count > 0 {
+            self.currentSearchResultPosition = currentSearchResultPosition <= 0 ? searchResults.count - 1 : currentSearchResultPosition - 1
+            self.setNewResult()
+        }
+    }
+
+    func doNextResult() {
+        print("search do Next result")
+        if searchResults.count > 0 {
+            self.currentSearchResultPosition = currentSearchResultPosition >= searchResults.count - 1 ? 0 : currentSearchResultPosition + 1
+            self.setNewResult()
+        }
+    }
+
+    private func setNewResult() {
+        self.currentSearchResult = searchResults[currentSearchResultPosition]
+        self.currentPosition = 0
+        self.setPosition()
+        print("new search result: \(currentSearchResult?.folderDisplay.name ?? "none")")
     }
 
 

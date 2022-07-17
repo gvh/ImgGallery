@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class HistoryNavigator: Navigator, ObservableObject {
+class HistoryNavigator: FileNavigator, ObservableObject {
 
     var currentPosition: Int
     var lastRandomNumber: Int = -1
@@ -106,9 +106,9 @@ class HistoryNavigator: Navigator, ObservableObject {
         }
     }
 
-    func setButtons() {
-        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
-    }
+//    func setButtons() {
+//        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
+//    }
 
     func onSubscriptionTimer() {
         currentPosition = getRandomPosition()

@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Combine
 
-class ExplorerNavigator: Navigator, ObservableObject {
+class ExplorerNavigator: FileNavigator, ObservableObject {
 
     var currentFolder: ImageFolder
     var currentPosition: Int
@@ -102,12 +102,6 @@ class ExplorerNavigator: Navigator, ObservableObject {
     }
 
     func togglePlayPause() {
-    }
-
-    func setButtons() {
-        DispatchQueue.main.async {
-            AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
-        }
     }
 
     func onSubscriptionTimer() {

@@ -8,17 +8,32 @@
 
 import Foundation
 
-protocol Navigator {
+protocol FileNavigator {
+
     func getTotalFiles() -> Int
-    func doPrevResult()
-    func doNextResult()
+
+    func getCurrentFilePosition() -> Int
+    func setCurrentFilePosition(position: Int)
+
+    func getCurrentFile() -> ImageFile?
+    func setCurrentFile(file: ImageFile)
+
+    func getRandomPosition() -> Int
+
     func doPrev()
     func doNext()
-    func doGoTo()
-    func getCurrentFile() -> ImageDisplay?
-    func setCurrentFile(file: ImageDisplay)
-    func doSave()
+
+    func doGoTo(file: ImageFile)
+
+// to app
     func togglePlayPause()
-    func setButtons()
     func onSubscriptionTimer()
+
+    // to file
+    func doSave()
+}
+
+protocol FolderNavigator {
+    func doPrevResult()
+    func doNextResult()
 }

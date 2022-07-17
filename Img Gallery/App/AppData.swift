@@ -18,7 +18,7 @@ final class AppData {
     var folderDisplay = FolderDisplay()
     var navigationDisplay = NavigationDisplay()
 
-    var navigator: Navigator?
+    var navigator: FileNavigator?
 
     var serverName: String = ""
     var serverPort: String = ""
@@ -63,7 +63,6 @@ final class AppData {
     var isTimerDesired: Bool = false
     var wasTimerActive: Bool = false
 
-    var wsNavigator: Navigator?
     var firstTimeStart: Bool = true
 
     var splitViewController: UISplitViewController!
@@ -75,7 +74,7 @@ final class AppData {
         print("cloud db initialized")
     }
 
-    func startTimer(navigator: Navigator) {
+    func startTimer(navigator: FileNavigator) {
         timer.startTimer(viewer: navigator)
         self.imageDisplay.isTimerActive = true
     }
