@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HistoryImageRowView: View {
     @EnvironmentObject var historyNavigator: HistoryNavigator
-    @ObservedObject var file: ImageFile
+    @ObservedObject var file: ImageDisplay
 
     var body: some View {
         VStack {

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ExplorerImageRowView: View {
     @EnvironmentObject var explorerNavigator: ExplorerNavigator
-    @ObservedObject var file: ImageFile
+    @ObservedObject var file: ImageDisplay
 
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct ExplorerImageRowView: View {
             }
         }
         .onAppear() {
-            file.getDisplayImage()
+            
         }
     }
 }

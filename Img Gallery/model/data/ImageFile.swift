@@ -44,6 +44,8 @@ final class ImageFile: ObservableObject {
         return favorite == nil ? nil : favorite?.favoriteID
     }
 
+    var imageDisplay: ImageDisplay?
+
     func setSavedThisSession() {
         savedThisSession = true
     }

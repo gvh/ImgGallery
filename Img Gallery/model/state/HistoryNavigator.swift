@@ -116,7 +116,7 @@ class HistoryNavigator: Navigator, ObservableObject {
         readImageIfNeeded()
     }
 
-    func getRandomFile() -> ImageFile? {
+    func getRandomFile() -> ImageDisplay? {
         let position = self.getRandomPosition()
         let file = AppData.sharedInstance.histories.items[position].file
         return file

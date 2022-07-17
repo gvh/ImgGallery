@@ -1,4 +1,4 @@
-﻿//
+//
 //  FavoritesView.swift
 //  Img Gallery
 //
@@ -22,7 +22,7 @@ struct FavoritesView: View {
                     LazyVGrid(columns: columns) {
                         FavoritesRandomRowView()
                         ForEach(favorites.items, id: \.self) { favorite in
-                            FavoritesImageRowView(file: favorite.file)
+                            FavoritesImageRowView(file: favorite.file.imageDisplay)
                         }
                     }
                 }

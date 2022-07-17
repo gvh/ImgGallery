@@ -9,19 +9,18 @@ import Foundation
 
 class SearchResult : ObservableObject {
     var hitCount: Int
-    var folderDisplay: FolderDisplay
+    var imageFolder: ImageFolder
 
     init(folder: ImageFolder, hitCount: Int) {
         self.hitCount = hitCount
-        self.folderDisplay = FolderDisplay(folder: folder)
+        self.imageFolder = folder
     }
 }
 
 extension SearchResult: Equatable {
     static func == (lhs: SearchResult, rhs: SearchResult) -> Bool {
         let result: Bool =
-            lhs.folderDisplay.name == rhs.folderDisplay.name &&
-            lhs.folderDisplay.parentName == rhs.folderDisplay.parentName
+            lhs.imageFolder.name == rhs.imageFoler.name &&
         return result
     }
 }
@@ -29,7 +28,6 @@ extension SearchResult: Equatable {
 extension SearchResult: Hashable {
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(folderDisplay.parentName)
         hasher.combine(folderDisplay.name)
     }
 

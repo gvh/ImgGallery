@@ -66,22 +66,22 @@ struct ContentView: View {
         .onChange(of: selectedTab) { newValue in
             switch newValue {
             case 1:
-                AppData.sharedInstance.imageDisplay.navigator = self.explorerNavigator
+                AppData.sharedInstance.navigator = self.explorerNavigator
 
             case 2:
-                AppData.sharedInstance.imageDisplay.navigator = self.favoritesNavigator
+                AppData.sharedInstance.navigator = self.favoritesNavigator
 
             case 3:
-                AppData.sharedInstance.imageDisplay.navigator = self.historyNavigator
+                AppData.sharedInstance.navigator = self.historyNavigator
 
             case 4:
-                AppData.sharedInstance.imageDisplay.navigator = self.searchResultsNavigator
+                AppData.sharedInstance.navigator = self.searchResultsNavigator
 
             case 5:
-                AppData.sharedInstance.imageDisplay.navigator = nil
+                AppData.sharedInstance.navigator = nil
 
             default:
-                AppData.sharedInstance.imageDisplay.navigator = nil
+                AppData.sharedInstance.navigator = nil
 
             }
         }

@@ -26,7 +26,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
     private func configureImageDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.setFile(file: file!)
+        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: currentFolder.files.count)
     }
 
     func doPrevResult() {
@@ -36,7 +36,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
     }
 
     func doPrev() {
-        if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasBackButtonVar {
             currentPosition = currentPosition <= 0 ? currentFolder.files.count - 1 : currentPosition - 1
             self.configureImageDisplay()
             readImageIfNeeded()
@@ -44,7 +44,7 @@ class ExplorerNavigator: Navigator, ObservableObject {
     }
 
     func doNext() {
-        if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasNextButtonVar {
             currentPosition = currentPosition >= currentFolder.files.count - 1 ? 0 : currentPosition + 1
             self.configureImageDisplay()
             readImageIfNeeded()

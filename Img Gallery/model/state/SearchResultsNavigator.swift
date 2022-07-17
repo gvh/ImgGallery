@@ -11,7 +11,6 @@ import SwiftUI
 import Combine
 
 class SearchResultsNavigator: Navigator, ObservableObject {
-
     var searchResults: [SearchResult] = []
 
     var currentSearchResult: SearchResult?
@@ -31,30 +30,35 @@ class SearchResultsNavigator: Navigator, ObservableObject {
         self.readImageIfNeeded()
     }
 
-    func configureImageDisplay() {
+    private func configureDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.setFile(file: file!)
-    }
-
-    func setNames() {
-        AppData.sharedInstance.imageDisplay.setValues(name: currentSearchResult!.folderDisplay.name,
-                                                      image: currentSearchResult!.folderDisplay.files[currentPosition].image,
-                                                      directoryName: currentSearchResult!.folderDisplay.parentName,
+        AppData.sharedInstance.imageDisplay.configure(file: file,
+                                                      directoyName: currentSearchResult!.imageFolder.noPrefixName,
+                                                      parentDirectoryName: currentSearchResult!.imageFolder.parentName,
                                                       fileSequence: currentPosition,
                                                       fileCount: currentSearchResult!.folderDisplay.files.count)
+    }
+
+    private func setNewResult() {
+        self.currentSearchResult = searchResults[currentSearchResultPosition]
+        self.currentPosition = 0
+        self.setNames()
+        self.setPosition()
+        print("new search result: \(currentSearchResult?.folderDisplay.name ?? "none")")
+    }
+
+    private func setPosition() {
+        self.configureImageDisplay()
+        self.readImageIfNeeded()
+        self.configureDisplay()
     }
 
     func doPrevResult() {
         print("search do next result")
         if searchResults.count > 0 {
             self.currentSearchResultPosition = currentSearchResultPosition <= 0 ? searchResults.count - 1 : currentSearchResultPosition - 1
-            self.currentSearchResult = searchResults[currentSearchResultPosition]
-            self.currentPosition = 0
-            self.setNames()
-            self.configureImageDisplay()
-            self.readImageIfNeeded()
-            print("new search result: \(currentSearchResult?.folderDisplay.name ?? "none")")
+            self.setNewResult()
         }
     }
 
@@ -62,25 +66,18 @@ class SearchResultsNavigator: Navigator, ObservableObject {
         print("search do Next result")
         if searchResults.count > 0 {
             self.currentSearchResultPosition = currentSearchResultPosition >= searchResults.count - 1 ? 0 : currentSearchResultPosition + 1
-            self.currentSearchResult = searchResults[currentSearchResultPosition]
-            self.currentPosition = 0
-            self.setNames()
-            self.configureImageDisplay()
-            self.readImageIfNeeded()
-            print("new search result: \(currentSearchResult?.folderDisplay.name ?? "none")")
+            self.setNewResult()
         }
     }
 
     func doPrev() {
-        currentPosition = currentPosition <= 0 ? currentSearchResult!.folderDisplay.files.count - 1 : currentPosition - 1
-        self.configureImageDisplay()
-        readImageIfNeeded()
+        self.currentPosition = currentPosition <= 0 ? currentSearchResult!.folderDisplay.files.count - 1 : currentPosition - 1
+        self.setPosition()
     }
 
     func doNext() {
-       currentPosition = currentPosition >= currentSearchResult!.folderDisplay.files.count - 1 ? 0 : currentPosition + 1
-       self.configureImageDisplay()
-       readImageIfNeeded()
+        self.currentPosition = currentPosition >= currentSearchResult!.folderDisplay.files.count - 1 ? 0 : currentPosition + 1
+        self.setPosition()
     }
 
     func doGoTo() {
@@ -102,20 +99,6 @@ class SearchResultsNavigator: Navigator, ObservableObject {
 
     func getTotalFiles() -> Int {
         return AppData.sharedInstance.favorites.items.count
-    }
-
-    func getCurrentFile() -> ImageFile? {
-        guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
-        guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.favorites.items.count else { return nil }
-        
-        return AppData.sharedInstance.favorites.items[currentPosition].file
-    }
-
-    func setCurrentFile(file: ImageFile) {
-        if currentSearchResult != nil {
-            currentPosition = currentSearchResult!.folderDisplay.files.firstIndex (where: { $0 == file } )!
-            readImageIfNeeded()
-        }
     }
 
     func doSave() {
@@ -147,7 +130,7 @@ class SearchResultsNavigator: Navigator, ObservableObject {
         readImageIfNeeded()
     }
 
-    func getRandomFile() -> ImageFile? {
+    func getRandomFile() -> ImageDisplay? {
         let position = self.getRandomPosition()
         let file = currentSearchResult!.folderDisplay.files[position]
         return file
@@ -166,11 +149,28 @@ class SearchResultsNavigator: Navigator, ObservableObject {
 
     func setFolderDisplay(folderDisplay: FolderDisplay) {
         for i in 0..<searchResults.count {
-            if folderDisplay.currentFolder == searchResults[i].folderDisplay {
+            let searchResult = searchResults[i].folderDisplay
+            if folderDisplay.currentFolder == searchResult.currentFolder {
                 currentPosition = i
                 break
             }
         }
         return
     }
+
+    func getCurrentFile() -> ImageDisplay? {
+        guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
+        guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.favorites.items.count else { return nil }
+
+        return AppData.sharedInstance.favorites.items[currentPosition].file.imageDisplay
+    }
+
+    func setCurrentFile(file: ImageDisplay) {
+        if currentSearchResult != nil {
+            currentPosition = currentSearchResult!.folderDisplay.files.firstIndex (where: { $0 == file } )!
+            readImageIfNeeded()
+        }
+    }
+
+
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FavoritesImageRowView: View {
     @EnvironmentObject var favoritesNavigator: FavoritesNavigator
-    @ObservedObject var file: ImageFile
+    @ObservedObject var file: ImageDisplay
 
     var body: some View {
         VStack {

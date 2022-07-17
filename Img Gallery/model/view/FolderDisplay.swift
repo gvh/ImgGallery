@@ -10,23 +10,36 @@ import Foundation
 import SwiftUI
 
 class FolderDisplay : ObservableObject {
-    var currentFolder: ImageFolder!
-    var navigator: Navigator?
+    static var nextId: Int = 1
+
+    var id: Int
+    
+    var currentFolder: ImageFolder
     var name: String = ""
     var parentName: String = ""
     var files: [ImageDisplay] = []
+
+    convenience init() {
+        let rootFolder = AppData.sharedInstance.downloadTOC.rootFolder
+        if (rootFolder != nil) {
+            self.init(folder: rootFolder!)
+        }
+    }
 
     init(folder: ImageFolder) {
         self.currentFolder = folder
         self.name = folder.noPrefixName
         self.parentName = folder.parentFolder?.noPrefixName ?? ""
+        super.init()
     }
 
-    static func create(folder: ImageFolder) -> FolderDisplay {
-        let folderDisplay = FolderDisplay(folder: folder)
+    func configure(folder: ImageFolder) {
+        self.currentFolder = folder
+        self.name = folder.noPrefixName
+        self.parentName = folder.parentFolder?.noPrefixName ?? ""
         for file in folder.files {
             let imageDisplay: ImageDisplay = ImageDisplay()
-            imageDisplay.setFile(file: file)
+            imageDisplay.configure(file: <#T##ImageFile#>, hasResultButtons: <#T##Bool#>, hasBackButton: <#T##Bool#>, hasNextButton: <#T##Bool#>, hasSaveButton: <#T##Bool#>, hasGoToButton: <#T##Bool#>, hasPlayPauseButton: <#T##Bool#>, fileSequence: <#T##Int#>, fileCount: <#T##Int#>, isTimerActive: <#T##Bool#>)
         }
         return folderDisplay
     }
@@ -45,24 +58,21 @@ class FolderDisplay : ObservableObject {
         }
         return finalTokenStrings
     }
-
-
 }
 
 extension FolderDisplay : Hashable {
-
     func hash(into hasher: inout Hasher) {
         hasher.combine(name)
         hasher.combine(parentName)
     }
-
 }
 
 extension FolderDisplay : Equatable {
-
     static func == (lhs: FolderDisplay, rhs: FolderDisplay) -> Bool {
         return lhs.name == rhs.name &&
         lhs.parentName == rhs.parentName
     }
-    
+}
+
+extension FolderDisplay : Identifiable {
 }

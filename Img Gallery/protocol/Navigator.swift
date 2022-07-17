@@ -15,8 +15,8 @@ protocol Navigator {
     func doPrev()
     func doNext()
     func doGoTo()
-    func getCurrentFile() -> ImageFile?
-    func setCurrentFile(file: ImageFile)
+    func getCurrentFile() -> ImageDisplay?
+    func setCurrentFile(file: ImageDisplay)
     func doSave()
     func togglePlayPause()
     func setButtons()
