@@ -19,8 +19,7 @@ struct NameOverlayView: View {
             }
             .gesture(TapGesture(count: 2)
                 .onEnded {
-                    print("on tap")
-                    imageDisplay.navigator?.doGoTo()
+                    print("on tap of overlay")
                 }
             )
             .font(.callout)

@@ -13,12 +13,11 @@ struct ImageDisplayView: View {
 
     @EnvironmentObject var settings: SettingsStore
     @EnvironmentObject var imageDisplay: ImageDisplay
-    @ObservedObject var file: ImageDisplay
-    @State var isRandom: Bool
+    @ObservedObject var file: ImageFile
 
     var body: some View {
         VStack {
-            if imageDisplay.hasResultButtons {
+            if AppData.sharedInstance.navigationDisplay.hasResultButtons {
                 HStack {
                     Button("<< Prev Result") {
                         imageDisplay.navigator?.doPrevResult()
@@ -77,12 +76,7 @@ struct ImageDisplayView: View {
             }
         }
         .onAppear() {
-            imageDisplay.navigator?.setCurrentFile(file: file)
-            imageDisplay.setFile(file: file)
-            if isRandom {
-                AppData.sharedInstance.startTimer(navigator: imageDisplay.navigator!)
-                AppData.sharedInstance.isTimerDesired = true
-            }
+            AppData.sharedInstance.fileNavigator?.setCurrentFile(file: file)
         }
     }
 }

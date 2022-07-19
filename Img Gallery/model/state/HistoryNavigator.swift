@@ -39,7 +39,7 @@ class HistoryNavigator: FileNavigator, ObservableObject {
     }
 
     func doPrev() {
-        if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasBackButton {
             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.histories.items.count - 1 : currentPosition - 1
             self.configureImageDisplay()
             readImageIfNeeded()
@@ -47,7 +47,7 @@ class HistoryNavigator: FileNavigator, ObservableObject {
     }
 
     func doNext() {
-        if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasNextButton {
             currentPosition = currentPosition >= AppData.sharedInstance.histories.items.count - 1 ? 0 : currentPosition + 1
            self.configureImageDisplay()
            readImageIfNeeded()

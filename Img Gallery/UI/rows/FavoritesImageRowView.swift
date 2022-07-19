@@ -9,12 +9,12 @@ import SwiftUI
 
 struct FavoritesImageRowView: View {
     @EnvironmentObject var favoritesNavigator: FavoritesNavigator
-    @ObservedObject var file: ImageDisplay
+    @ObservedObject var file: ImageFile
 
     var body: some View {
         VStack {
             NavigationLink{
-                ImageDisplayView(file: file, isRandom: false)
+                ImageDisplayView(file: file)
             } label : {
                 Image(uiImage: file.image)
                     .resizable()

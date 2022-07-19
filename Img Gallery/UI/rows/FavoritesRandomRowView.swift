@@ -13,7 +13,7 @@ struct FavoritesRandomRowView: View {
     var body: some View {
         VStack {
             NavigationLink{
-                ImageDisplayView(file: favoritesNavigator.getRandomFile()!, isRandom: true)
+                ImageDisplayView(file: favoritesNavigator.getRandomFile()!)
             } label : {
                 Image(uiImage: UIImage(named: "Random")!)
                     .resizable()

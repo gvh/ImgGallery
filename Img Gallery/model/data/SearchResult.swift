@@ -19,8 +19,7 @@ class SearchResult : ObservableObject {
 
 extension SearchResult: Equatable {
     static func == (lhs: SearchResult, rhs: SearchResult) -> Bool {
-        let result: Bool =
-            lhs.imageFolder.name == rhs.imageFoler.name &&
+        let result: Bool = lhs.imageFolder.name == rhs.imageFolder.name
         return result
     }
 }
@@ -28,7 +27,7 @@ extension SearchResult: Equatable {
 extension SearchResult: Hashable {
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(folderDisplay.name)
+        hasher.combine(imageFolder.name)
     }
 
 }

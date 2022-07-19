@@ -20,14 +20,13 @@ struct ExplorerImageMenuView: View {
                 Text(folder.noPrefixName)
                 LazyVGrid(columns: columns) {
                     ForEach(folder.files, id: \.self) { file in
-                        ExplorerImageRowView(file: file.imageDisplay!)
+                        ExplorerImageRowView(file: file)
                     }
                 }
             }
             .padding()
         }
         .onAppear() {
-            AppData.sharedInstance.imageDisplay.setNavigator(navigator: explorerNavigator)
             explorerNavigator.setCurrentFolder(currentFolder: folder)
         }
     }

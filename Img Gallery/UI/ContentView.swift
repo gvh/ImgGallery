@@ -16,6 +16,7 @@ struct ContentView: View {
     @StateObject var favoritesNavigator = FavoritesNavigator()
     @StateObject var historyNavigator = HistoryNavigator()
     @StateObject var searchResultsNavigator = SearchResultsNavigator( searchResults: [])
+    @StateObject var navigationDisplay = NavigationDisplay()
 
     @State var selectedTab: Int
 
@@ -66,22 +67,28 @@ struct ContentView: View {
         .onChange(of: selectedTab) { newValue in
             switch newValue {
             case 1:
-                AppData.sharedInstance.navigator = self.explorerNavigator
+                AppData.sharedInstance.fileNavigator = self.explorerNavigator
+                AppData.sharedInstance.folderNavigator = nil
 
             case 2:
-                AppData.sharedInstance.navigator = self.favoritesNavigator
+                AppData.sharedInstance.fileNavigator = self.favoritesNavigator
+                AppData.sharedInstance.folderNavigator = nil
 
             case 3:
-                AppData.sharedInstance.navigator = self.historyNavigator
+                AppData.sharedInstance.fileNavigator = self.historyNavigator
+                AppData.sharedInstance.folderNavigator = nil
 
             case 4:
-                AppData.sharedInstance.navigator = self.searchResultsNavigator
+                AppData.sharedInstance.fileNavigator = self.searchResultsNavigator
+                AppData.sharedInstance.folderNavigator = self.searchResultsNavigator
 
             case 5:
-                AppData.sharedInstance.navigator = nil
+                AppData.sharedInstance.fileNavigator = nil
+                AppData.sharedInstance.folderNavigator = nil
 
             default:
-                AppData.sharedInstance.navigator = nil
+                AppData.sharedInstance.fileNavigator = nil
+                AppData.sharedInstance.folderNavigator = nil
 
             }
         }

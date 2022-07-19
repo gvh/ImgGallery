@@ -13,7 +13,7 @@ struct HistoryRandomRowView: View {
     var body: some View {
         VStack {
             NavigationLink{
-                ImageDisplayView(file: historyNavigator.getRandomFile()!, isRandom: true)
+                ImageDisplayView(file: historyNavigator.getRandomFile()!)
             } label : {
                 Image(uiImage: UIImage(named: "Random")!)
                     .resizable()

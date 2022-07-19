@@ -13,12 +13,12 @@ class RefreshTimer {
     var subscription: AnyCancellable?
     var progress: AnyCancellable?
 
-    var viewer: Navigator?
+    var viewer: FileNavigator?
 
     var remainingSecondsBeforeExpire: Int = 0
     var stopRequested: Bool = false
 
-    func startTimer(viewer: Navigator) {
+    func startTimer(viewer: FileNavigator) {
         self.stopRequested = false
         self.viewer = viewer
         self.createSubscriptionTimer()

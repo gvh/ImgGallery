@@ -49,7 +49,7 @@ class Searcher: NSObject {
         // Remove all folders matching the words on the ignore list
         if !appData.settingsStore.ignoreFoldersContainingSet.isEmpty {
             for ignoreFolder in appData.settingsStore.ignoreFoldersContainingSet {
-                searchFolders.removeAll { $0.folderDisplay.getTokens().contains(ignoreFolder) }
+                searchFolders.removeAll { $0.imageFolder.getTokens().contains(ignoreFolder) }
             }
         }
 

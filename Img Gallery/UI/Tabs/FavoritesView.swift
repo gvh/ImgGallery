@@ -22,7 +22,7 @@ struct FavoritesView: View {
                     LazyVGrid(columns: columns) {
                         FavoritesRandomRowView()
                         ForEach(favorites.items, id: \.self) { favorite in
-                            FavoritesImageRowView(file: favorite.file.imageDisplay)
+                            FavoritesImageRowView(file: favorite.file)
                         }
                     }
                 }
@@ -31,7 +31,6 @@ struct FavoritesView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear() {
-            AppData.sharedInstance.imageDisplay.setNavigator(navigator: favoritesNavigator)
         }
     }
 }

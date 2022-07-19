@@ -11,7 +11,6 @@ import SwiftUI
 import Combine
 
 class ExplorerNavigator: FileNavigator, ObservableObject {
-
     var currentFolder: ImageFolder
     var currentPosition: Int
 
@@ -36,7 +35,7 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
     }
 
     func doPrev() {
-        if AppData.sharedInstance.navigationDisplay.hasBackButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasBackButton {
             currentPosition = currentPosition <= 0 ? currentFolder.files.count - 1 : currentPosition - 1
             self.configureImageDisplay()
             readImageIfNeeded()
@@ -44,7 +43,7 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
     }
 
     func doNext() {
-        if AppData.sharedInstance.navigationDisplay.hasNextButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasNextButton {
             currentPosition = currentPosition >= currentFolder.files.count - 1 ? 0 : currentPosition + 1
             self.configureImageDisplay()
             readImageIfNeeded()
@@ -89,6 +88,24 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
             self.currentPosition = self.currentFolder.files.firstIndex (where: { $0 == file } )!
             self.readImageIfNeeded()
         }
+    }
+
+    func getCurrentFilePosition() -> Int {
+        return currentPosition
+    }
+
+    func setCurrentFilePosition(position: Int) {
+        currentPosition = position
+        self.readImageIfNeeded()
+    }
+
+    func getRandomPosition() -> Int {
+        let totalItems: Int = currentFolder.files.count
+        guard totalItems > 0 else { return -1 }
+        return Int.random(in: 0..<totalItems)
+    }
+
+    func doGoTo(file: ImageFile) {
     }
 
     func doSave() {

@@ -32,6 +32,21 @@ class ImageFolder: ObservableObject {
 
     static let folderImage = UIImage(named: "folder.png")
 
+    func getTokens() -> [String] {
+        var tokenStrings: [String] = []
+        var finalTokenStrings: [String] = []
+        let tokens: [String.SubSequence] = name.split(separator: " ")
+        for token in tokens where token.count > 2 {
+            let tokenString = String(token).lowercased()
+            tokenStrings.append(tokenString)
+        }
+        let uniqueTokenStrings = Array(Set(tokenStrings)).sorted()
+        for uniqueTokenString in uniqueTokenStrings {
+            finalTokenStrings.append(uniqueTokenString)
+        }
+        return finalTokenStrings
+    }
+
     func getContentType() -> FolderContents {
         var contentCode: Int = 0
         if !subFolderValues.isEmpty { contentCode += 2 }

@@ -15,10 +15,10 @@ struct SearchView: View {
         NavigationView {
             List {
                 ForEach(searchResults, id: \.self) { searchResult in
-                    NavigationLink(destination: SearchImageMenuView(folderDisplay: searchResult.folderDisplay)  ) {
-                        Text(searchResult.folderDisplay.name)
+                    NavigationLink(destination: SearchImageMenuView(folder: searchResult.imageFolder)  ) {
+                        Text(searchResult.imageFolder.noPrefixName)
                         Spacer()
-                        Text(String(searchResult.hitCount))
+                        Text(String(searchResult.imageFolder.files.count))
                     }
                 }
             }
@@ -27,7 +27,6 @@ struct SearchView: View {
         }
         .navigationViewStyle(.stack)
         .onAppear() {
-            AppData.sharedInstance.imageDisplay.setNavigator(navigator: searchResultsNavigator)
         }
     }
 

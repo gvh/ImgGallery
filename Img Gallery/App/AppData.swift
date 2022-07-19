@@ -18,7 +18,8 @@ final class AppData {
     var folderDisplay = FolderDisplay()
     var navigationDisplay = NavigationDisplay()
 
-    var navigator: FileNavigator?
+    var fileNavigator: FileNavigator?
+    var folderNavigator: FolderNavigator?
 
     var serverName: String = ""
     var serverPort: String = ""
@@ -82,5 +83,9 @@ final class AppData {
     func stopTimer() {
         timer.stopTimer()
         self.imageDisplay.isTimerActive = false
+    }
+
+    func setFileNavigator() {
+
     }
 }

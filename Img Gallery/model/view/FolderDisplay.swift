@@ -30,34 +30,20 @@ class FolderDisplay : ObservableObject {
         self.currentFolder = folder
         self.name = folder.noPrefixName
         self.parentName = folder.parentFolder?.noPrefixName ?? ""
-        super.init()
     }
 
     func configure(folder: ImageFolder) {
         self.currentFolder = folder
         self.name = folder.noPrefixName
         self.parentName = folder.parentFolder?.noPrefixName ?? ""
+        var fileSequence = 0
         for file in folder.files {
             let imageDisplay: ImageDisplay = ImageDisplay()
-            imageDisplay.configure(file: <#T##ImageFile#>, hasResultButtons: <#T##Bool#>, hasBackButton: <#T##Bool#>, hasNextButton: <#T##Bool#>, hasSaveButton: <#T##Bool#>, hasGoToButton: <#T##Bool#>, hasPlayPauseButton: <#T##Bool#>, fileSequence: <#T##Int#>, fileCount: <#T##Int#>, isTimerActive: <#T##Bool#>)
+            imageDisplay.configure(file: file, fileSequence: fileSequence, fileCount: folder.files.count)
+            fileSequence += 1
         }
-        return folderDisplay
     }
 
-    func getTokens() -> [String] {
-        var tokenStrings: [String] = []
-        var finalTokenStrings: [String] = []
-        let tokens: [String.SubSequence] = name.split(separator: " ")
-        for token in tokens where token.count > 2 {
-            let tokenString = String(token).lowercased()
-            tokenStrings.append(tokenString)
-        }
-        let uniqueTokenStrings = Array(Set(tokenStrings)).sorted()
-        for uniqueTokenString in uniqueTokenStrings {
-            finalTokenStrings.append(uniqueTokenString)
-        }
-        return finalTokenStrings
-    }
 }
 
 extension FolderDisplay : Hashable {

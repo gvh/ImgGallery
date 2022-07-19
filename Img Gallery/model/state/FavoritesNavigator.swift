@@ -11,6 +11,8 @@ import SwiftUI
 import Combine
 
 class FavoritesNavigator: FileNavigator, ObservableObject {
+
+
     var currentPosition: Int
     var lastRandomNumber: Int = -1
 
@@ -25,7 +27,7 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     func configureImageDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.setFile(file: file!)
+        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.favorites.count)
     }
 
     func doPrevResult() {
@@ -35,7 +37,7 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     }
 
     func doPrev() {
-        if AppData.sharedInstance.imageDisplay.hasBackButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasBackButton {
             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
             self.configureImageDisplay()
             readImageIfNeeded()
@@ -43,7 +45,7 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     }
 
     func doNext() {
-        if AppData.sharedInstance.imageDisplay.hasNextButtonVar {
+        if AppData.sharedInstance.navigationDisplay.hasNextButton {
             currentPosition = currentPosition >= AppData.sharedInstance.favorites.items.count - 1 ? 0 : currentPosition + 1
            self.configureImageDisplay()
            readImageIfNeeded()
@@ -100,12 +102,11 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
         readImageIfNeeded()
     }
 
-    func getRandomFile() -> ImageDisplay? {
+    func getRandomFile() -> ImageFile? {
         let position = self.getRandomPosition()
         let file = AppData.sharedInstance.favorites.items[position].file
-        let imageDisplay = ImageDisplay()
-        imageDisplay.setFile(file: file)
-        return imageDisplay
+        setCurrentFile(file: file)
+        return file
     }
 
     func getRandomPosition() -> Int {
@@ -114,14 +115,18 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
         return Int.random(in: 0..<totalItems)
     }
 
-    func getCurrentFile() -> ImageDisplay? {
-        <#code#>
+    func getCurrentFilePosition() -> Int {
+        return currentPosition
     }
 
-    func setCurrentFile(file: ImageDisplay) {
-        <#code#>
+    func setCurrentFilePosition(position: Int) {
+        currentPosition = position
+        readImageIfNeeded()
     }
-    
+
+    func doGoTo(file: ImageFile) {
+    }
+
     func getCurrentFile() -> ImageFile? {
         guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
         guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.favorites.items.count else { return nil }

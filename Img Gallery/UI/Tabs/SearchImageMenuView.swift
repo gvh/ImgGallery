@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct SearchImageMenuView: View {
-    @ObservedObject var folderDisplay: FolderDisplay
+    @ObservedObject var folder: ImageFolder
     @EnvironmentObject var searchNavigator: SearchResultsNavigator
+    @EnvironmentObject var imageDisplayh: ImageDisplay
 
     let columns = [GridItem(.adaptive(minimum: 100, maximum: 250))]
 
@@ -18,22 +19,22 @@ struct SearchImageMenuView: View {
         VStack {
             ScrollView(.vertical) {
 
-                Text(folderDisplay.name)
+                Text(folder.noPrefixName)
 
-                if AppData.sharedInstance.imageDisplay.hasResultButtons {
+                if AppData.sharedInstance.navigationDisplay.hasResultButtons {
                     HStack {
                         Button("<< Prev Result") {
-                            AppData.sharedInstance.imageDisplay.navigator?.doPrevResult()
+                            AppData.sharedInstance.folderNavigator?.doPrevResult()
                         }
                         Spacer()
                         Button("Next Result >>") {
-                            AppData.sharedInstance.imageDisplay.navigator?.doNextResult()
+                            AppData.sharedInstance.folderNavigator?.doNextResult()
                         }
                     }
                 }
 
                 LazyVGrid(columns: columns) {
-                    ForEach(folderDisplay.files, id: \.self) { file in
+                    ForEach(folder.files, id: \.self) { file in
                         SearchImageRowView(file: file)
                     }
                 }
@@ -41,10 +42,7 @@ struct SearchImageMenuView: View {
             .padding()
         }
         .onAppear() {
-            AppData.sharedInstance.imageDisplay.setNavigator(navigator: searchNavigator)
-            searchNavigator.setFolderDisplay(folderDisplay: folderDisplay)
-
-//            searchNavigator.setCurrentFolder(currentFolder: folder)
+            searchNavigator.setCurrentFolder(currentFolder: folder)
         }
     }
 }
