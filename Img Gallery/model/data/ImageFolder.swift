@@ -18,6 +18,9 @@ enum FolderContents: Int {
 }
 
 class ImageFolder: ObservableObject {
+    static var nextId: Int = 1
+    var id: Int
+
     private(set) var name: String
 
     private(set) var parentFolder: ImageFolder?
@@ -56,11 +59,15 @@ class ImageFolder: ObservableObject {
     }
 
     private init(name: String, parentFolder: ImageFolder) {
+        self.id = FolderDisplay.nextId
+        FolderDisplay.nextId += 1
         self.name = name
         self.parentFolder = parentFolder
     }
 
     private init(name: String) {
+        self.id = ImageFolder.nextId
+        ImageFolder.nextId += 1
         self.name = name
     }
 

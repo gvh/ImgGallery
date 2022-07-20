@@ -57,9 +57,11 @@ class SearchResultsNavigator: ObservableObject {
     }
 
     func doSave() {
-       let file = getCurrentFile()
-       if file != nil {
+        let file = getCurrentFile()
+        if file != nil {
+            DispatchQueue.main.async {
                 CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+                }
             }
         }
     }
@@ -75,20 +77,10 @@ class SearchResultsNavigator: ObservableObject {
         }
     }
 
-//    func setButtons() {
-//        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: true, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
-//    }
-
     func onSubscriptionTimer() {
         currentPosition = getRandomPosition()
         self.configureDisplay()
         readImageIfNeeded()
-    }
-
-    func getRandomFile() -> ImageFile? {
-        let position = self.getRandomPosition()
-        let file = currentSearchResult!.imageFolder.files[position]
-        return file
     }
 
     func setResults(results: [SearchResult]) {
@@ -154,6 +146,14 @@ extension SearchResultsNavigator : FileNavigator {
         self.currentPosition = currentPosition >= currentSearchResult!.imageFolder.files.count - 1 ? 0 : currentPosition + 1
         self.setPosition()
     }
+
+    func getRandomFile() -> ImageFile? {
+        let position = self.getRandomPosition()
+        let file = currentSearchResult!.imageFolder.files[position]
+        setCurrentFile(file: file)
+        return file
+    }
+
 
     func getRandomPosition() -> Int {
         let totalItems: Int = currentSearchResult!.imageFolder.files.count

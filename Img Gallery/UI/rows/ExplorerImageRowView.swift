@@ -11,6 +11,8 @@ import SwiftUI
 struct ExplorerImageRowView: View {
     @EnvironmentObject var explorerNavigator: ExplorerNavigator
     @ObservedObject var file: ImageFile
+    @State var fileSequence: Int
+    @State var fileCount: Int
 
     var body: some View {
         VStack {
@@ -23,7 +25,8 @@ struct ExplorerImageRowView: View {
             }
         }
         .onAppear() {
-            
+            explorerNavigator.setCurrentFile(file: file)
+            file.getDisplayImage(fileSequence: fileSequence, fileCount: fileCount)
         }
     }
 }

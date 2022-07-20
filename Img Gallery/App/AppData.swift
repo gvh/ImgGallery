@@ -34,8 +34,6 @@ final class AppData {
     var downloadTOC: TableOfContents!
     var downloadAllFolders: [ImageFolder] = []
 
-    var allFiles: [UUID: ImageFile] = [:]
-
     var keywordIndex: KeywordIndex = KeywordIndex()
 
     var favorites: Favorites = Favorites()

@@ -56,10 +56,7 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
 
     private func readImageIfNeeded() {
         let currentFile = getCurrentFile()
-
         guard currentFile != nil else { return }
-        guard currentFile?.image == nil else { return }
-
         DispatchQueue.main.async {
             withAnimation(.default) {
                 ImageLoader.readImage(file: currentFile!) { file in
@@ -97,6 +94,13 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
     func setCurrentFilePosition(position: Int) {
         currentPosition = position
         self.readImageIfNeeded()
+    }
+
+    func getRandomFile() -> ImageFile? {
+        let position = self.getRandomPosition()
+        let file = currentFolder.files[position]
+        setCurrentFile(file: file)
+        return file
     }
 
     func getRandomPosition() -> Int {

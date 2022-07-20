@@ -10,6 +10,8 @@ import SwiftUI
 struct FavoritesImageRowView: View {
     @EnvironmentObject var favoritesNavigator: FavoritesNavigator
     @ObservedObject var file: ImageFile
+    @State var fileSequence: Int
+    @State var fileCount: Int
 
     var body: some View {
         VStack {
@@ -22,7 +24,8 @@ struct FavoritesImageRowView: View {
             }
         }
         .onAppear() {
-            file.getDisplayImage()
+            favoritesNavigator.setCurrentFile(file: file)
+            file.getDisplayImage(fileSequence: fileSequence, fileCount: fileCount)
         }
     }
 }

@@ -8,10 +8,16 @@
 import Foundation
 
 class SearchResult : ObservableObject {
+    static var nextId: Int = 1
+    var id: Int
+
     var hitCount: Int
     var imageFolder: ImageFolder
 
     init(folder: ImageFolder, hitCount: Int) {
+        self.id = SearchResult.nextId
+        SearchResult.nextId += 1
+
         self.hitCount = hitCount
         self.imageFolder = folder
     }

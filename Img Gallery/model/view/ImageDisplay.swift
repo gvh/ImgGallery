@@ -11,7 +11,6 @@ import SwiftUI
 
 class ImageDisplay : ObservableObject {
     static var nextId: Int = 1
-
     var id: Int
 
     var currentFile: ImageFile!
@@ -45,11 +44,9 @@ class ImageDisplay : ObservableObject {
     }
 
     func updateImage(file: ImageFile) {
-        if self.currentFile == file {
-            DispatchQueue.main.async {
-                self.objectWillChange.send()
-                self.image = file.image
-            }
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            self.image = file.image
         }
     }
 }

@@ -13,18 +13,21 @@ struct ImageDisplayView: View {
 
     @EnvironmentObject var settings: SettingsStore
     @EnvironmentObject var imageDisplay: ImageDisplay
+    @EnvironmentObject var folderDisplay: FolderDisplay
+
     @ObservedObject var file: ImageFile
 
     var body: some View {
         VStack {
+            Text(imageDisplay.directoryName)
             if AppData.sharedInstance.navigationDisplay.hasResultButtons {
                 HStack {
                     Button("<< Prev Result") {
-                        imageDisplay.navigator?.doPrevResult()
+                        AppData.sharedInstance.folderNavigator?.doPrevResult()
                     }
                     Spacer()
                     Button("Next Result >>") {
-                        imageDisplay.navigator?.doNextResult()
+                        AppData.sharedInstance.folderNavigator?.doNextResult()
                     }
                 }
             }
@@ -39,44 +42,19 @@ struct ImageDisplayView: View {
                             let direction = atan2(value.translation.width, value.translation.height)
                             switch direction {
                             case (-Double.pi/4..<Double.pi/4): break
-                            case (Double.pi/4..<Double.pi*3/4): imageDisplay.navigator?.doPrev()
+                            case (Double.pi/4..<Double.pi*3/4): AppData.sharedInstance.fileNavigator!.doPrev()
                             case (Double.pi*3/4...Double.pi), (-Double.pi..<(-Double.pi*3/4)): break
-                            case (-Double.pi*3/4..<(-Double.pi/4)): imageDisplay.navigator?.doNext()
-                            default: print("unknown")
+                            case (-Double.pi*3/4..<(-Double.pi/4)): AppData.sharedInstance.fileNavigator!.doNext()
+                            default: break
                             }
                         }
                     )
-                    .navigationTitle(imageDisplay.directoryName)
-                    .toolbar {
-                        if file.isFavorite {
-                            Button("Un Fav") {
-                                print("Un Fav tapped!")
-                                imageDisplay.navigator?.getCurrentFile()!.toggleFavorite()
-                            }
-                        } else {
-                            Button("Fav") {
-                                print("Fav tapped!")
-                                imageDisplay.navigator?.getCurrentFile()!.toggleFavorite()
-                            }
-                        }
-                        Button("Save") {
-                            print("Save tapped!")
-                            imageDisplay.navigator?.doSave()
-                        }
-                        if imageDisplay.isTimerActive {
-                            Button("Pause") {
-                                imageDisplay.navigator?.togglePlayPause()
-                            }
-                        } else {
-                            Button("Play") {
-                                imageDisplay.navigator?.togglePlayPause()
-                            }
-                        }
-                    }
+                    .navigationTitle(imageDisplay.name)
             }
         }
         .onAppear() {
             AppData.sharedInstance.fileNavigator?.setCurrentFile(file: file)
+            imageDisplay.updateImage(file: file)
         }
     }
 }

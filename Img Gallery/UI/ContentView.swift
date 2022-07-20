@@ -11,12 +11,14 @@ struct ContentView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @StateObject var imageDisplay: ImageDisplay = AppData.sharedInstance.imageDisplay;
+    @StateObject var folderDisplay: FolderDisplay = AppData.sharedInstance.folderDisplay;
+    @StateObject var navigationDisplay: NavigationDisplay = AppData.sharedInstance.navigationDisplay
+
     @StateObject var settingsStore: SettingsStore = SettingsStore()
     @StateObject var explorerNavigator = ExplorerNavigator(currentFolder: AppData.sharedInstance.downloadTOC.rootFolder, currentPosition: 0)
     @StateObject var favoritesNavigator = FavoritesNavigator()
     @StateObject var historyNavigator = HistoryNavigator()
     @StateObject var searchResultsNavigator = SearchResultsNavigator( searchResults: [])
-    @StateObject var navigationDisplay = NavigationDisplay()
 
     @State var selectedTab: Int
 

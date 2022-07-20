@@ -10,6 +10,8 @@ import SwiftUI
 struct HistoryImageRowView: View {
     @EnvironmentObject var historyNavigator: HistoryNavigator
     @ObservedObject var file: ImageFile
+    @State var fileSequence: Int
+    @State var fileCount: Int
 
     var body: some View {
         VStack {
@@ -23,7 +25,7 @@ struct HistoryImageRowView: View {
         }
         .onAppear() {
             historyNavigator.setCurrentFile(file: file)
-            file.getDisplayImage()
+            file.getDisplayImage(fileSequence: fileSequence, fileCount: fileCount)
         }
     }
 }

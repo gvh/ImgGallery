@@ -27,7 +27,8 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     func configureImageDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.favorites.count)
+        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.favorites.items.count)
+        AppData.sharedInstance.imageDisplay.updateImage(file: file!)
     }
 
     func doPrevResult() {
@@ -40,15 +41,19 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
         if AppData.sharedInstance.navigationDisplay.hasBackButton {
             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
             self.configureImageDisplay()
-            readImageIfNeeded()
+            let file = getCurrentFile()
+            guard file != nil else { return }
+            AppData.sharedInstance.imageDisplay.updateImage(file: file!)
         }
     }
 
     func doNext() {
         if AppData.sharedInstance.navigationDisplay.hasNextButton {
             currentPosition = currentPosition >= AppData.sharedInstance.favorites.items.count - 1 ? 0 : currentPosition + 1
-           self.configureImageDisplay()
-           readImageIfNeeded()
+            self.configureImageDisplay()
+            let file = getCurrentFile()
+            guard file != nil else { return }
+            AppData.sharedInstance.imageDisplay.updateImage(file: file!)
         }
     }
 
@@ -73,10 +78,36 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
         return AppData.sharedInstance.favorites.items.count
     }
 
+    func getCurrentFile() -> ImageFile? {
+        guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
+        guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.favorites.items.count else { return nil }
+
+        return AppData.sharedInstance.favorites.items[currentPosition].file
+    }
+
+    func setCurrentFile(file: ImageFile) {
+        currentPosition = AppData.sharedInstance.favorites.items.firstIndex (where: { $0.file == file } )!
+        readImageIfNeeded()
+    }
+
+    func getCurrentFilePosition() -> Int {
+        return currentPosition
+    }
+
+    func setCurrentFilePosition(position: Int) {
+        currentPosition = position
+        readImageIfNeeded()
+    }
+
+    func doGoTo(file: ImageFile) {
+    }
+
     func doSave() {
         let file = getCurrentFile()
-       if file != nil {
+        if file != nil {
+            DispatchQueue.main.async {
                 CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+                }
             }
         }
     }
@@ -91,10 +122,6 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
             appData.isTimerDesired = true
         }
     }
-
-//    func setButtons() {
-//        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
-//    }
 
     func onSubscriptionTimer() {
         currentPosition = getRandomPosition()
@@ -114,29 +141,4 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
         guard totalItems > 0 else { return -1 }
         return Int.random(in: 0..<totalItems)
     }
-
-    func getCurrentFilePosition() -> Int {
-        return currentPosition
-    }
-
-    func setCurrentFilePosition(position: Int) {
-        currentPosition = position
-        readImageIfNeeded()
-    }
-
-    func doGoTo(file: ImageFile) {
-    }
-
-    func getCurrentFile() -> ImageFile? {
-        guard AppData.sharedInstance.favorites.items.count > 0 else { return nil }
-        guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.favorites.items.count else { return nil }
-
-        return AppData.sharedInstance.favorites.items[currentPosition].file
-    }
-
-    func setCurrentFile(file: ImageFile) {
-        currentPosition = AppData.sharedInstance.favorites.items.firstIndex (where: { $0.file == file } )!
-        readImageIfNeeded()
-    }
-
 }

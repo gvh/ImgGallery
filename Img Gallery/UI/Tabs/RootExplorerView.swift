@@ -9,10 +9,16 @@
 import SwiftUI
 
 struct RootExplorerView: View {
+    @EnvironmentObject var explorerNavigator: ExplorerNavigator
+
     var body: some View {
+
         NavigationView {
             ExplorerFolderView(folder: (AppData.sharedInstance.downloadTOC?.rootFolder)!)
         }
         .navigationViewStyle(.stack)
+        .onAppear() {
+            explorerNavigator.setCurrentFolder(currentFolder: AppData.sharedInstance.downloadTOC.rootFolder)
+        }
     }
 }

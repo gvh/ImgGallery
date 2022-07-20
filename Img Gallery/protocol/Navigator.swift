@@ -29,7 +29,6 @@ protocol FileNavigator {
     func togglePlayPause()
     func onSubscriptionTimer()
 
-    // to file
     func doSave()
 }
 

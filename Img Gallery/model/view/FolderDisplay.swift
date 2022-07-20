@@ -11,25 +11,16 @@ import SwiftUI
 
 class FolderDisplay : ObservableObject {
     static var nextId: Int = 1
-
     var id: Int
     
-    var currentFolder: ImageFolder
+    var currentFolder: ImageFolder?
     var name: String = ""
     var parentName: String = ""
     var files: [ImageDisplay] = []
 
-    convenience init() {
-        let rootFolder = AppData.sharedInstance.downloadTOC.rootFolder
-        if (rootFolder != nil) {
-            self.init(folder: rootFolder!)
-        }
-    }
-
-    init(folder: ImageFolder) {
-        self.currentFolder = folder
-        self.name = folder.noPrefixName
-        self.parentName = folder.parentFolder?.noPrefixName ?? ""
+    init() {
+        self.id = FolderDisplay.nextId
+        FolderDisplay.nextId += 1
     }
 
     func configure(folder: ImageFolder) {

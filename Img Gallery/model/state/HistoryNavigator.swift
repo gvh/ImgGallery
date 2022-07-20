@@ -12,6 +12,7 @@ import Combine
 
 class HistoryNavigator: FileNavigator, ObservableObject {
 
+
     var currentPosition: Int
     var lastRandomNumber: Int = -1
 
@@ -19,17 +20,15 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         self.currentPosition = 0
         print("new history navigator: \(currentPosition)")
         self.readImageIfNeeded()
-        print("image read")
         self.configureImageDisplay()
-        print("display configured")
         self.readImageIfNeeded()
-        print("read image again")
     }
 
     func configureImageDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.setFile(file: file!)
+        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.histories.items.count)
+        AppData.sharedInstance.imageDisplay.updateImage(file: file!)
     }
 
     func doPrevResult() {
@@ -42,15 +41,19 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         if AppData.sharedInstance.navigationDisplay.hasBackButton {
             currentPosition = currentPosition <= 0 ? AppData.sharedInstance.histories.items.count - 1 : currentPosition - 1
             self.configureImageDisplay()
-            readImageIfNeeded()
+            let currentFile = getCurrentFile()
+            guard currentFile != nil else { return }
+            AppData.sharedInstance.imageDisplay.updateImage(file: currentFile!)
         }
     }
 
     func doNext() {
         if AppData.sharedInstance.navigationDisplay.hasNextButton {
             currentPosition = currentPosition >= AppData.sharedInstance.histories.items.count - 1 ? 0 : currentPosition + 1
-           self.configureImageDisplay()
-           readImageIfNeeded()
+            self.configureImageDisplay()
+            let currentFile = getCurrentFile()
+            guard currentFile != nil else { return }
+            AppData.sharedInstance.imageDisplay.updateImage(file: currentFile!)
         }
     }
 
@@ -64,11 +67,11 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         guard currentFile != nil else { return }
         guard currentFile?.image == nil else { return }
 
-//        withAnimation(.default) {
+        withAnimation(.default) {
             ImageLoader.readImage(file: currentFile!) { file in
                 AppData.sharedInstance.imageDisplay.updateImage(file: file)
             }
-//        }
+        }
     }
 
     func getTotalFiles() -> Int {
@@ -87,10 +90,24 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         readImageIfNeeded()
     }
 
+    func getCurrentFilePosition() -> Int {
+        return currentPosition
+    }
+
+    func setCurrentFilePosition(position: Int) {
+        currentPosition = position
+        readImageIfNeeded()
+    }
+
+    func doGoTo(file: ImageFile) {
+    }
+
     func doSave() {
         let file = getCurrentFile()
         if file != nil {
-            CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+            DispatchQueue.main.async {
+                CustomPhotoAlbum.sharedInstance.saveImage(file: file!) { _ in
+                }
             }
         }
     }
@@ -106,19 +123,16 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         }
     }
 
-//    func setButtons() {
-//        AppData.sharedInstance.imageDisplay.setButtons(hasResultButtons: false, hasBackButton: true, hasNextButton: true, hasSaveButton: true, hasGoToButton: false, hasPlayPauseButton: false)
-//    }
-
     func onSubscriptionTimer() {
         currentPosition = getRandomPosition()
         self.configureImageDisplay()
         readImageIfNeeded()
     }
 
-    func getRandomFile() -> ImageDisplay? {
+    func getRandomFile() -> ImageFile? {
         let position = self.getRandomPosition()
         let file = AppData.sharedInstance.histories.items[position].file
+        setCurrentFile(file: file)
         return file
     }
 

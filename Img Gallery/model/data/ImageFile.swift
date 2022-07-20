@@ -20,8 +20,8 @@ enum FileContents: Int {
 }
 
 final class ImageFile: ObservableObject {
-
-    let id = UUID()
+    static var nextId: Int = 1
+    var id: Int
 
     static var defaultImage:UIImage = UIImage(systemName: "photo")!
 
@@ -57,6 +57,8 @@ final class ImageFile: ObservableObject {
     }
 
     init(name: String) {
+        self.id = ImageFile.nextId
+        ImageFile.nextId += 1
         self.name = name
         self.key = ""
         let folder = ImageFolder.createRoot(rootName: "xx")
@@ -67,6 +69,8 @@ final class ImageFile: ObservableObject {
     }
 
     private init(name: String, key: String, parentFolder: ImageFolder, fileContents: FileContents) {
+        self.id = ImageFile.nextId
+        ImageFile.nextId += 1
         self.name = name
         self.key = key
         self.parentFolder = parentFolder
@@ -82,7 +86,6 @@ final class ImageFile: ObservableObject {
             let fullKey: String = key
             let file: ImageFile = ImageFile(name: fileName, key: fullKey, parentFolder: folder, fileContents: fileContents)
             folder.addFile(file)
-            AppData.sharedInstance.allFiles[file.id] = file
         }
     }
 
@@ -145,9 +148,13 @@ final class ImageFile: ObservableObject {
         }
     }
 
-    func getDisplayImage() {
-        if !self.imageReady {
+    func getDisplayImage(fileSequence: Int, fileCount: Int) {
+
+        if self.imageReady {
+            AppData.sharedInstance.imageDisplay.configure(file: self, fileSequence: fileSequence, fileCount: fileCount)
+        } else {
             ImageLoader.readImage(file: self) { _ in
+                AppData.sharedInstance.imageDisplay.configure(file: self, fileSequence: fileSequence, fileCount: fileCount)
             }
         }
     }

@@ -20,7 +20,7 @@ struct ExplorerImageMenuView: View {
                 Text(folder.noPrefixName)
                 LazyVGrid(columns: columns) {
                     ForEach(folder.files, id: \.self) { file in
-                        ExplorerImageRowView(file: file)
+                        ExplorerImageRowView(file: file, fileSequence: -3, fileCount: folder.files.count)
                     }
                 }
             }

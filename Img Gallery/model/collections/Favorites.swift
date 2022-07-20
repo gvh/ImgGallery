@@ -17,7 +17,7 @@ final class Favorites: ObservableObject {
     var items: [Favorite] = []
     var currentPosition: Int = 0
 
-    static var ids: Set<UUID> = []
+    static var ids: Set<Int> = []
     static var recordIDsToDelete: [CKRecord.ID] = []
 
     private enum CodingKeys: String, CodingKey {

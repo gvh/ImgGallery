@@ -10,6 +10,7 @@ import SwiftUI
 
 struct SearchImageMenuView: View {
     @ObservedObject var folder: ImageFolder
+
     @EnvironmentObject var searchNavigator: SearchResultsNavigator
     @EnvironmentObject var imageDisplayh: ImageDisplay
 
@@ -42,7 +43,6 @@ struct SearchImageMenuView: View {
             .padding()
         }
         .onAppear() {
-            searchNavigator.setCurrentFolder(currentFolder: folder)
         }
     }
 }

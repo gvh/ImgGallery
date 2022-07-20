@@ -13,7 +13,7 @@ class Histories: ObservableObject {
     var currentPosition: Int = -1
     var items: [History] = []
 
-    static var ids: Set<UUID> = []
+    static var ids: Set<Int> = []
     static var recordIDsToDelete: [CKRecord.ID] = []
 
     var atEnd: Bool {
