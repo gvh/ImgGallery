@@ -22,7 +22,7 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
         self.readImageIfNeeded()
     }
 
-    private func configureImageDisplay() {
+    func configureImageDisplay() {
         let file = getCurrentFile()
         guard file != nil else { return }
         AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: currentFolder.files.count)
@@ -35,19 +35,13 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
     }
 
     func doPrev() {
-        if AppData.sharedInstance.navigationDisplay.hasBackButton {
-            currentPosition = currentPosition <= 0 ? currentFolder.files.count - 1 : currentPosition - 1
-            self.configureImageDisplay()
-            readImageIfNeeded()
-        }
+        currentPosition = currentPosition <= 0 ? currentFolder.files.count - 1 : currentPosition - 1
+        self.configureImageDisplay()
     }
 
     func doNext() {
-        if AppData.sharedInstance.navigationDisplay.hasNextButton {
-            currentPosition = currentPosition >= currentFolder.files.count - 1 ? 0 : currentPosition + 1
-            self.configureImageDisplay()
-            readImageIfNeeded()
-        }
+        currentPosition = currentPosition >= currentFolder.files.count - 1 ? 0 : currentPosition + 1
+        self.configureImageDisplay()
     }
 
     func doGoTo() {

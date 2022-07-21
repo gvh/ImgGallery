@@ -38,23 +38,13 @@ class HistoryNavigator: FileNavigator, ObservableObject {
     }
 
     func doPrev() {
-        if AppData.sharedInstance.navigationDisplay.hasBackButton {
-            currentPosition = currentPosition <= 0 ? AppData.sharedInstance.histories.items.count - 1 : currentPosition - 1
-            self.configureImageDisplay()
-            let currentFile = getCurrentFile()
-            guard currentFile != nil else { return }
-            AppData.sharedInstance.imageDisplay.updateImage(file: currentFile!)
-        }
+        currentPosition = currentPosition <= 0 ? AppData.sharedInstance.histories.items.count - 1 : currentPosition - 1
+        self.configureImageDisplay()
     }
 
     func doNext() {
-        if AppData.sharedInstance.navigationDisplay.hasNextButton {
-            currentPosition = currentPosition >= AppData.sharedInstance.histories.items.count - 1 ? 0 : currentPosition + 1
-            self.configureImageDisplay()
-            let currentFile = getCurrentFile()
-            guard currentFile != nil else { return }
-            AppData.sharedInstance.imageDisplay.updateImage(file: currentFile!)
-        }
+        currentPosition = currentPosition >= AppData.sharedInstance.histories.items.count - 1 ? 0 : currentPosition + 1
+        self.configureImageDisplay()
     }
 
     func doGoTo() {
@@ -81,7 +71,6 @@ class HistoryNavigator: FileNavigator, ObservableObject {
     func getCurrentFile() -> ImageFile? {
         guard AppData.sharedInstance.histories.items.count > 0 else { return nil }
         guard currentPosition >= 0 && currentPosition < AppData.sharedInstance.histories.items.count else { return nil }
-
         return AppData.sharedInstance.histories.items[currentPosition].file
     }
 

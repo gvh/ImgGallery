@@ -19,7 +19,7 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     init() {
         self.currentPosition = 0
         print("new favorites navigator: \(currentPosition)")
-        readImageIfNeeded()
+        self.readImageIfNeeded()
         self.configureImageDisplay()
         self.readImageIfNeeded()
     }
@@ -38,23 +38,13 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     }
 
     func doPrev() {
-        if AppData.sharedInstance.navigationDisplay.hasBackButton {
-            currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
-            self.configureImageDisplay()
-            let file = getCurrentFile()
-            guard file != nil else { return }
-            AppData.sharedInstance.imageDisplay.updateImage(file: file!)
-        }
+        currentPosition = currentPosition <= 0 ? AppData.sharedInstance.favorites.items.count - 1 : currentPosition - 1
+        self.configureImageDisplay()
     }
 
     func doNext() {
-        if AppData.sharedInstance.navigationDisplay.hasNextButton {
-            currentPosition = currentPosition >= AppData.sharedInstance.favorites.items.count - 1 ? 0 : currentPosition + 1
-            self.configureImageDisplay()
-            let file = getCurrentFile()
-            guard file != nil else { return }
-            AppData.sharedInstance.imageDisplay.updateImage(file: file!)
-        }
+        currentPosition = currentPosition >= AppData.sharedInstance.favorites.items.count - 1 ? 0 : currentPosition + 1
+        self.configureImageDisplay()
     }
 
     func doGoTo() {
