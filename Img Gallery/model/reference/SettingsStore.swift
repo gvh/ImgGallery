@@ -35,8 +35,8 @@ final class SettingsStore: ObservableObject {
 
         defaults.register(defaults: [
             Keys.labelAlignment: 1,
-            Keys.secondsBetweenChanges: "30",
-            Keys.secondsBetweenCountdown: "10",
+            Keys.secondsBetweenChanges: 30,
+            Keys.secondsBetweenCountdown: 10,
             Keys.ignoreFoldersContaining: "xxx",
             Keys.userName: "kittie",
             Keys.passWord: "boobies",
@@ -71,14 +71,14 @@ final class SettingsStore: ObservableObject {
         }
     }
 
-    var secondsBetweenChanges: String {
+    var secondsBetweenChanges: Double {
         set { defaults.set(newValue, forKey: Keys.secondsBetweenChanges) }
-        get { defaults.string(forKey: Keys.secondsBetweenChanges)! }
+        get { defaults.double(forKey: Keys.secondsBetweenChanges) }
     }
 
-    var secondsBetweenCountdown: String {
+    var secondsBetweenCountdown: Double {
         set { defaults.set(newValue, forKey: Keys.secondsBetweenCountdown) }
-        get { defaults.string(forKey: Keys.secondsBetweenCountdown)! }
+        get { defaults.double(forKey: Keys.secondsBetweenCountdown) }
     }
 
     var ignoreFoldersContainingSet: Set<String> = Set<String>()

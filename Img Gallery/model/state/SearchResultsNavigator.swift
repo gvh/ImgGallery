@@ -68,16 +68,16 @@ class SearchResultsNavigator: ObservableObject {
 
     func togglePlayPause() {
         let appData = AppData.sharedInstance
-        if appData.imageDisplay.isTimerActive {
-            appData.stopTimer()
+        if Heartbeat.sharedInstance.isTimerActive {
+            Heartbeat.sharedInstance.stopTimer()
             appData.isTimerDesired = false
         } else {
-            appData.startTimer(navigator: self)
+            Heartbeat.sharedInstance.startTimer(delegate: self)
             appData.isTimerDesired = true
         }
     }
 
-    func onSubscriptionTimer() {
+    func onImageChangeTimer() {
         currentPosition = getRandomPosition()
         self.configureDisplay()
         readImageIfNeeded()
@@ -187,5 +187,15 @@ extension SearchResultsNavigator : FolderNavigator {
         print("new search result: \(currentSearchResult?.imageFolder.noPrefixName ?? "none")")
     }
 
+
+}
+
+extension SearchResultsNavigator : HeartbeatDelegate {
+
+    func onBeat() {
+        let position = self.getRandomPosition()
+        let file = currentSearchResult!.imageFolder.files[position]
+        setCurrentFile(file: file)
+    }
 
 }

@@ -20,7 +20,6 @@ struct HistoryView: View {
                 ScrollView(.vertical) {
                     Text("Browsing History")
                     LazyVGrid(columns: columns) {
-                        HistoryRandomRowView()
                         ForEach(histories.items, id: \.self) { history in
                             HistoryImageRowView(file: history.file, fileSequence: -3, fileCount: histories.items.count)
                         }

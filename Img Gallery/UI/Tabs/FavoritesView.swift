@@ -20,7 +20,6 @@ struct FavoritesView: View {
                 ScrollView(.vertical) {
                     Text("Favorites")
                     LazyVGrid(columns: columns) {
-                        FavoritesRandomRowView()
                         ForEach(favorites.items, id: \.self) { favorite in
                             FavoritesImageRowView(file: favorite.file, fileSequence: -3, fileCount: favorites.items.count)
                         }

@@ -17,11 +17,11 @@ struct SettingsView: View {
                 Section(header: Text("Refresh Settings")) {
                     HStack {
                         Text("Seconds Between Changes")
-                        TextField("Seconds Between Changes", text: $settings.secondsBetweenChanges)
+                        NumberEntryField(value: $settings.secondsBetweenChanges)
                     }
                     HStack {
                         Text("Seconds Between Countdown")
-                        TextField("Seconds Between Countdown", text: $settings.secondsBetweenCountdown)
+                        NumberEntryField(value: $settings.secondsBetweenCountdown)
                     }
                 }
                 Section(header: Text("Display Settings")) {

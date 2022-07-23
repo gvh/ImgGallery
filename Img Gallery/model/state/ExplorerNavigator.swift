@@ -90,13 +90,6 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
         self.readImageIfNeeded()
     }
 
-    func getRandomFile() -> ImageFile? {
-        let position = self.getRandomPosition()
-        let file = currentFolder.files[position]
-        setCurrentFile(file: file)
-        return file
-    }
-
     func getRandomPosition() -> Int {
         let totalItems: Int = currentFolder.files.count
         guard totalItems > 0 else { return -1 }
@@ -117,9 +110,24 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
     }
 
     func togglePlayPause() {
+        let appData = AppData.sharedInstance
+        if Heartbeat.sharedInstance.isTimerActive {
+            Heartbeat.sharedInstance.stopTimer()
+            appData.isTimerDesired = false
+        } else {
+            Heartbeat.sharedInstance.startTimer(delegate: self)
+            appData.isTimerDesired = true
+        }
     }
 
-    func onSubscriptionTimer() {
+}
+
+extension ExplorerNavigator : HeartbeatDelegate {
+
+    func onBeat() {
+        let position = self.getRandomPosition()
+        let file = currentFolder.files[position]
+        setCurrentFile(file: file)
     }
-    
+
 }

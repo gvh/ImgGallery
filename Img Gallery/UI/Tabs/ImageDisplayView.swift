@@ -26,8 +26,30 @@ struct ImageDisplayView: View {
                         AppData.sharedInstance.folderNavigator?.doPrevResult()
                     }
                     Spacer()
+                    if Heartbeat.sharedInstance.isTimerActive {
+                        Button("Stop") {
+                            AppData.sharedInstance.fileNavigator?.togglePlayPause()
+                        }
+                    } else {
+                        Button("Random") {
+                            AppData.sharedInstance.fileNavigator?.togglePlayPause()
+                        }
+                    }
+                    Spacer()
                     Button("Next Result >>") {
                         AppData.sharedInstance.folderNavigator?.doNextResult()
+                    }
+                }
+            } else {
+                HStack {
+                    if Heartbeat.sharedInstance.isTimerActive {
+                        Button("Stop") {
+                            AppData.sharedInstance.fileNavigator?.togglePlayPause()
+                        }
+                    } else {
+                        Button("Random") {
+                            AppData.sharedInstance.fileNavigator?.togglePlayPause()
+                        }
                     }
                 }
             }
@@ -36,6 +58,7 @@ struct ImageDisplayView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .overlay(NameOverlayView(), alignment: SettingsStore.alignmentDecode(alignmentChoice: settings.alignment))
+                    .overlay(TimeRemainingView(), alignment: SettingsStore.alignmentDecode(alignmentChoice: .bottomTrailing))
                     .padding(15)
                     .gesture(DragGesture(minimumDistance: 3.0, coordinateSpace: .local)
                         .onEnded { value in

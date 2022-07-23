@@ -24,7 +24,7 @@ class ImageDisplay : ObservableObject {
     var fileCount: Int = -2
 
     var isTimerActive: Bool = false
-    var countDownSeconds: Int = 0
+    var countDownSeconds: Double = 0
 
     init() {
         id = ImageDisplay.nextId
@@ -40,6 +40,13 @@ class ImageDisplay : ObservableObject {
             self.fileSequence = fileSequence
             self.fileCount = fileCount
             self.countDownSeconds = 0
+        }
+    }
+
+    func setTimerActive(value: Bool) {
+        DispatchQueue.main.async {
+            self.objectWillChange.send()
+            self.isTimerActive = value
         }
     }
 

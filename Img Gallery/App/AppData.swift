@@ -55,10 +55,8 @@ final class AppData {
     
     static let themeColor = UIColor(red: 27.0/255.0, green: 65.0/255.0, blue: 93.0/255.0, alpha: 1.0)
 
-//    weak var imageReadDelegate: ImageReadDelegate?
-    var timer: RefreshTimer = RefreshTimer()
+    var timer: Heartbeat = Heartbeat()
 
-//    var isTimerActive: Bool = false
     var isTimerDesired: Bool = false
     var wasTimerActive: Bool = false
 
@@ -73,15 +71,7 @@ final class AppData {
         print("cloud db initialized")
     }
 
-    func startTimer(navigator: FileNavigator) {
-        timer.startTimer(viewer: navigator)
-        self.imageDisplay.isTimerActive = true
-    }
 
-    func stopTimer() {
-        timer.stopTimer()
-        self.imageDisplay.isTimerActive = false
-    }
 
     func setFileNavigator() {
 

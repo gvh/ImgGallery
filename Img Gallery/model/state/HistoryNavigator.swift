@@ -104,25 +104,18 @@ class HistoryNavigator: FileNavigator, ObservableObject {
     func togglePlayPause() {
         let appData = AppData.sharedInstance
         if appData.imageDisplay.isTimerActive {
-            appData.stopTimer()
+            Heartbeat.sharedInstance.stopTimer()
             appData.isTimerDesired = false
         } else {
-            appData.startTimer(navigator: self)
+            Heartbeat.sharedInstance.startTimer(delegate: self)
             appData.isTimerDesired = true
         }
     }
 
-    func onSubscriptionTimer() {
+    func onImageChangeTimer() {
         currentPosition = getRandomPosition()
         self.configureImageDisplay()
         readImageIfNeeded()
-    }
-
-    func getRandomFile() -> ImageFile? {
-        let position = self.getRandomPosition()
-        let file = AppData.sharedInstance.histories.items[position].file
-        setCurrentFile(file: file)
-        return file
     }
 
     func getRandomPosition() -> Int {
@@ -130,4 +123,14 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         guard totalItems > 0 else { return -1 }
         return Int.random(in: 0..<totalItems)
     }
+}
+
+extension HistoryNavigator : HeartbeatDelegate {
+
+    func onBeat() {
+        let position = self.getRandomPosition()
+        let file = AppData.sharedInstance.histories.items[position].file
+        setCurrentFile(file: file)
+    }
+
 }

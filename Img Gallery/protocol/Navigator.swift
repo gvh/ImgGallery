@@ -25,9 +25,7 @@ protocol FileNavigator {
 
     func doGoTo(file: ImageFile)
 
-// to app
     func togglePlayPause()
-    func onSubscriptionTimer()
 
     func doSave()
 }

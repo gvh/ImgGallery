@@ -13,81 +13,102 @@ import Combine
 class Heartbeat {
     static var sharedInstance: Heartbeat = Heartbeat()
 
-    var subscription: AnyCancellable?
-    var progress: AnyCancellable?
+    var imageChangeTimer: AnyCancellable?
+    var progressTimer: AnyCancellable?
 
-    var fileNavigator: FileNavigator?
+    var delegate: HeartbeatDelegate?
 
-    var remainingSecondsBeforeExpire: Int = 0
+    var remainingSecondsBeforeExpire: Double = 0
     var stopRequested: Bool = false
 
-    func startTimer(fileNavigator: FileNavigator) {
+    var isTimerActive: Bool {
+        get { return progressTimer != nil }
+    }
+
+    func startTimer(delegate: HeartbeatDelegate) {
+        print("Starting timer")
         self.stopRequested = false
-        self.fileNavigator = fileNavigator
-        self.createSubscriptionTimer()
+        self.delegate = delegate
+        self.createImageChangeTimer()
+        AppData.sharedInstance.imageDisplay.isTimerActive = true
     }
 
     func stopTimer() {
+        print("stopping timer")
         self.stopRequested = true
+        AppData.sharedInstance.imageDisplay.isTimerActive = false
     }
 
     func removeAllTimers() {
+        print("removing all timers")
         self.removeProgressTimer()
-        self.removeSubscriptionTimer()
-        self.fileNavigator = nil
+        self.removeImageChangeTimer()
+        self.delegate = nil
         self.stopRequested = false
     }
 
-    func createSubscriptionTimer() {
-        self.subscription = Timer.publish(every: Double(AppData.sharedInstance.settingsStore.secondsBetweenChanges)!, on: .main, in: .default)
+    func createImageChangeTimer() {
+        print("About to create image change timer")
+        self.imageChangeTimer = Timer.publish(every: AppData.sharedInstance.settingsStore.secondsBetweenChanges, on: .main, in: .default)
             .autoconnect()
             .sink { _ in
+                print("Fire image change timer")
                 if self.stopRequested {
                     self.removeAllTimers()
                     return
                 }
 
                 if AppData.sharedInstance.settingsStore.secondsBetweenChanges == 0 {
-                    _ = self.viewer!.onSubscriptionTimer()
+                    print("Image change Beat no progress timer")
+                    self.delegate?.onBeat()
                 } else {
+                    print("Image change Beat with progress timer")
                     self.removeProgressTimer()
-                    _ = self.fileNavigator!.onSubscriptionTimer()
+                    self.delegate?.onBeat()
                     self.createProgressTimer()
                 }
             }
         self.createProgressTimer()
+        print("Created image change timer")
     }
 
-    func removeSubscriptionTimer() {
-        self.subscription?.cancel()
-        self.subscription = nil
+    func removeImageChangeTimer() {
+        print("Remove image change timer")
+        self.imageChangeTimer?.cancel()
+        self.imageChangeTimer = nil
         self.remainingSecondsBeforeExpire = 0
     }
 
     func createProgressTimer() {
         if AppData.sharedInstance.settingsStore.secondsBetweenChanges > 0 {
+            print("Create progress timer")
             self.remainingSecondsBeforeExpire = AppData.sharedInstance.settingsStore.secondsBetweenChanges
-            self.progress = Timer.publish(every: Double(AppData.sharedInstance.settingsStore.secondsBetweenCountdown), on: .main, in: .default)
+            self.progressTimer = Timer.publish(every: Double(AppData.sharedInstance.settingsStore.secondsBetweenCountdown), on: .main, in: .default)
                 .autoconnect()
                 .sink { _ in
+                    print("Fire progress timer: \(self.remainingSecondsBeforeExpire)")
                     if self.stopRequested {
                         self.removeAllTimers()
                         return
                     }
 
                     self.remainingSecondsBeforeExpire -= AppData.sharedInstance.settingsStore.secondsBetweenCountdown
-                    _ = self.viewer!.onProgress(timer: self)
+                    AppData.sharedInstance.imageDisplay.countDownSeconds = self.remainingSecondsBeforeExpire
                     if self.remainingSecondsBeforeExpire <= 0 {
+                        print("Complete progress timer")
                         self.removeProgressTimer()
                     }
                 }
         } else {
-            self.progress = nil
+            print("Do not create progress timer")
+            self.progressTimer = nil
         }
     }
 
     func removeProgressTimer() {
-        self.progress?.cancel()
-        self.progress = nil
+        print("Remove progress timer")
+        self.progressTimer?.cancel()
+        self.progressTimer = nil
     }
 }
+
