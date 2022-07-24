@@ -75,9 +75,11 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
     }
 
     func setCurrentFile(file: ImageFile) {
-        DispatchQueue.main.async {
-            self.currentPosition = self.currentFolder.files.firstIndex (where: { $0 == file } )!
-            self.readImageIfNeeded()
+        if self.currentFolder.files.count > 0 {
+            DispatchQueue.main.async {
+                self.currentPosition = self.currentFolder.files.firstIndex (where: { $0 == file } )!
+                self.readImageIfNeeded()
+            }
         }
     }
 

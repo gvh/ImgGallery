@@ -76,6 +76,8 @@ class HistoryNavigator: FileNavigator, ObservableObject {
 
     func setCurrentFile(file: ImageFile) {
         currentPosition = AppData.sharedInstance.histories.items.firstIndex (where: { $0.file == file } )!
+        let totalFiles = getTotalFiles()
+        AppData.sharedInstance.imageDisplay.configure(file: file, fileSequence: currentPosition, fileCount: totalFiles)
         readImageIfNeeded()
     }
 

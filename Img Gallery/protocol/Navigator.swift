@@ -11,23 +11,20 @@ import Foundation
 protocol FileNavigator {
 
     func getTotalFiles() -> Int
+    func getRandomPosition() -> Int
 
     func getCurrentFilePosition() -> Int
-    func setCurrentFilePosition(position: Int)
-
     func getCurrentFile() -> ImageFile?
-    func setCurrentFile(file: ImageFile)
 
-    func getRandomPosition() -> Int
+    func setCurrentFile(file: ImageFile)
 
     func doPrev()
     func doNext()
 
+    func doSave()
     func doGoTo(file: ImageFile)
 
     func togglePlayPause()
-
-    func doSave()
 }
 
 protocol FolderNavigator {

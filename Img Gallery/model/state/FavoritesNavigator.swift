@@ -21,7 +21,6 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
         print("new favorites navigator: \(currentPosition)")
         self.readImageIfNeeded()
         self.configureImageDisplay()
-        self.readImageIfNeeded()
     }
 
     func configureImageDisplay() {
@@ -59,6 +58,7 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
 
         withAnimation(.default) {
             ImageLoader.readImage(file: currentFile!) { file in
+                print(file.getFullPath() + " read")
                 AppData.sharedInstance.imageDisplay.updateImage(file: file)
             }
         }
@@ -78,15 +78,11 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     func setCurrentFile(file: ImageFile) {
         currentPosition = AppData.sharedInstance.favorites.items.firstIndex (where: { $0.file == file } )!
         readImageIfNeeded()
+        self.configureImageDisplay()
     }
 
     func getCurrentFilePosition() -> Int {
         return currentPosition
-    }
-
-    func setCurrentFilePosition(position: Int) {
-        currentPosition = position
-        readImageIfNeeded()
     }
 
     func doGoTo(file: ImageFile) {
@@ -111,12 +107,6 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
             Heartbeat.sharedInstance.startTimer(delegate: self)
             appData.isTimerDesired = true
         }
-    }
-
-    func onImageChangeTimer() {
-        currentPosition = getRandomPosition()
-        self.configureImageDisplay()
-        readImageIfNeeded()
     }
 
     func getRandomPosition() -> Int {

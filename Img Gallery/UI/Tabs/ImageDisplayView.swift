@@ -41,6 +41,7 @@ struct ImageDisplayView: View {
                     }
                 }
             } else {
+                Spacer()
                 HStack {
                     if Heartbeat.sharedInstance.isTimerActive {
                         Button("Stop") {
@@ -52,6 +53,7 @@ struct ImageDisplayView: View {
                         }
                     }
                 }
+                Spacer()
             }
             HStack {
                 Image(uiImage: imageDisplay.image)
@@ -77,7 +79,12 @@ struct ImageDisplayView: View {
         }
         .onAppear() {
             AppData.sharedInstance.fileNavigator?.setCurrentFile(file: file)
-            imageDisplay.updateImage(file: file)
+            file.getDisplayImage(fileSequence: imageDisplay.fileSequence, fileCount: imageDisplay.fileCount)
+        }
+        .onChange(of: imageDisplay.fileSequence) {_ in
+            print("in on change")
+            AppData.sharedInstance.fileNavigator?.setCurrentFile(file: file)
+            file.getDisplayImage(fileSequence: imageDisplay.fileSequence, fileCount: imageDisplay.fileCount)
         }
     }
 }

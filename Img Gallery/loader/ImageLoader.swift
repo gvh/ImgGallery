@@ -12,6 +12,7 @@ class ImageLoader {
 
     static func readImage(file: ImageFile, completionHandler: @escaping ((_ file: ImageFile) -> Void)) {
         if file.imageReady {
+            print(file.getFullPath() + " image already downloaded calling completion handler")
             completionHandler(file)
             return
         }
@@ -39,12 +40,18 @@ class ImageLoader {
                 }
             }
 
+            print(file.getFullPath() + " about to read download from url " + url.absoluteString)
+
             guard let data = data else { return }
             DispatchQueue.main.async {
+                print(file.getFullPath() + " about to process download from url " + url.absoluteString)
+
                 let uiImage = UIImage(data: data)
                 if uiImage != nil {
+                    print(file.getFullPath() + " setting image")
                     file.setImage(uiImage!)
                     AppData.sharedInstance.imageDisplay.updateImage(file: file)
+                    print(file.getFullPath() + " setting image calling completion handler")
                     completionHandler(file)
                 } else {
                     let imageMissingForFile = "imageMissing.forFile".localizedWithComment(comment: "message in image loader")

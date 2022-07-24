@@ -149,11 +149,14 @@ final class ImageFile: ObservableObject {
     }
 
     func getDisplayImage(fileSequence: Int, fileCount: Int) {
-
+        print("in get display image")
         if self.imageReady {
+            print("in get display image : image is ready")
             AppData.sharedInstance.imageDisplay.configure(file: self, fileSequence: fileSequence, fileCount: fileCount)
         } else {
+            print("in get display image : image is not ready; about to read")
             ImageLoader.readImage(file: self) { _ in
+                print("in get display image : image is not ready; read and about to configure")
                 AppData.sharedInstance.imageDisplay.configure(file: self, fileSequence: fileSequence, fileCount: fileCount)
             }
         }

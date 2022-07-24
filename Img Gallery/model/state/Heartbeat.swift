@@ -54,6 +54,7 @@ class Heartbeat {
             .sink { _ in
                 print("Fire image change timer")
                 if self.stopRequested {
+                    print("change image timer stop requested")
                     self.removeAllTimers()
                     return
                 }
@@ -86,17 +87,21 @@ class Heartbeat {
             self.progressTimer = Timer.publish(every: Double(AppData.sharedInstance.settingsStore.secondsBetweenCountdown), on: .main, in: .default)
                 .autoconnect()
                 .sink { _ in
-                    print("Fire progress timer: \(self.remainingSecondsBeforeExpire)")
+                    print("Fire progress timer: \(self.remainingSecondsBeforeExpire) seconds")
                     if self.stopRequested {
+                        print("progress timer stop requested")
                         self.removeAllTimers()
                         return
                     }
 
                     self.remainingSecondsBeforeExpire -= AppData.sharedInstance.settingsStore.secondsBetweenCountdown
                     AppData.sharedInstance.imageDisplay.countDownSeconds = self.remainingSecondsBeforeExpire
+                    print("countdown time changed to \(self.remainingSecondsBeforeExpire) seconds")
                     if self.remainingSecondsBeforeExpire <= 0 {
                         print("Complete progress timer")
                         self.removeProgressTimer()
+                    } else {
+                        print("Continue progress timer")
                     }
                 }
         } else {
