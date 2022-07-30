@@ -20,6 +20,8 @@ xcuserdata/
 # Xcode build files -
 DerivedData/
 build/
+Build/
+I/
 
 *.hmap
 *.ipa
