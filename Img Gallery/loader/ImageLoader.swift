@@ -10,12 +10,13 @@ import Combine
 
 class ImageLoader {
 
-    static func readImage(file: ImageFile, completionHandler: @escaping ((_ file: ImageFile) -> Void)) {
-        if file.imageReady {
-            print(file.getFullPath() + " image already downloaded calling completion handler")
-            completionHandler(file)
+    static func readImage(file: ImageFile, completionHandler: @escaping ((_ image: UIImage) -> Void)) {
+        if file.imageStatus == .DownloadComplete {
+            print("image already downloaded calling completion handler" + file.getFullPath())
+            completionHandler(file.image)
             return
         }
+        let filePath = file.getFullPath()
         let url = file.imageUrl
         let urlRequest: URLRequest = URLRequest(url: url)
         let session = AppData.sharedInstance.session
@@ -32,7 +33,6 @@ class ImageLoader {
 
             if let httpResponse = response as? HTTPURLResponse {
                 if httpResponse.statusCode != 200 {
-                    let filePath = file.getFullPath()
                     let errorForFile = "error.for.file".localizedWithComment(comment: "message in message in image loader")
                     let status = "status".localizedWithComment(comment: "message in message in image loader")
                     print("\(errorForFile) : \(filePath) \(status) : \(httpResponse.statusCode)")
@@ -40,19 +40,17 @@ class ImageLoader {
                 }
             }
 
-            print(file.getFullPath() + " about to read download from url " + url.absoluteString)
+            print("about to read download url for \(filePath)")
 
             guard let data = data else { return }
             DispatchQueue.main.async {
-                print(file.getFullPath() + " about to process download from url " + url.absoluteString)
+                print("about to process download url for \(filePath)")
 
                 let uiImage = UIImage(data: data)
                 if uiImage != nil {
-                    print(file.getFullPath() + " setting image")
-                    file.setImage(uiImage!)
-                    AppData.sharedInstance.imageDisplay.updateImage(file: file)
                     print(file.getFullPath() + " setting image calling completion handler")
-                    completionHandler(file)
+                    completionHandler(uiImage!)
+                    AppData.sharedInstance.imageDisplay.updateImage()
                 } else {
                     let imageMissingForFile = "imageMissing.forFile".localizedWithComment(comment: "message in image loader")
                     print("\(imageMissingForFile) \n\(file.getFullPath())")

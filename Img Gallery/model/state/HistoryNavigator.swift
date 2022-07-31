@@ -19,16 +19,20 @@ class HistoryNavigator: FileNavigator, ObservableObject {
     init() {
         self.currentPosition = 0
         print("new history navigator: \(currentPosition)")
-        self.readImageIfNeeded()
         self.configureImageDisplay()
-        self.readImageIfNeeded()
     }
 
     func configureImageDisplay() {
-        let file = getCurrentFile()
-        guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.histories.items.count)
-        AppData.sharedInstance.imageDisplay.updateImage(file: file!)
+        let currentFile = getCurrentFile()
+        guard currentFile != nil else { return }
+        AppData.sharedInstance.imageDisplay.configure(file: currentFile!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.histories.items.count)
+
+        guard currentFile?.image == nil else { return }
+        withAnimation(.default) {
+            ImageLoader.readImage(file: currentFile!) { file in
+                AppData.sharedInstance.imageDisplay.updateImage()
+            }
+        }
     }
 
     func doPrevResult() {
@@ -51,19 +55,6 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         print("do go to")
     }
 
-    private func readImageIfNeeded() {
-        let currentFile = getCurrentFile()
-
-        guard currentFile != nil else { return }
-        guard currentFile?.image == nil else { return }
-
-        withAnimation(.default) {
-            ImageLoader.readImage(file: currentFile!) { file in
-                AppData.sharedInstance.imageDisplay.updateImage(file: file)
-            }
-        }
-    }
-
     func getTotalFiles() -> Int {
         return AppData.sharedInstance.histories.items.count
     }
@@ -78,7 +69,7 @@ class HistoryNavigator: FileNavigator, ObservableObject {
         currentPosition = AppData.sharedInstance.histories.items.firstIndex (where: { $0.file == file } )!
         let totalFiles = getTotalFiles()
         AppData.sharedInstance.imageDisplay.configure(file: file, fileSequence: currentPosition, fileCount: totalFiles)
-        readImageIfNeeded()
+        configureImageDisplay()
     }
 
     func getCurrentFilePosition() -> Int {
@@ -87,7 +78,7 @@ class HistoryNavigator: FileNavigator, ObservableObject {
 
     func setCurrentFilePosition(position: Int) {
         currentPosition = position
-        readImageIfNeeded()
+        configureImageDisplay()
     }
 
     func doGoTo(file: ImageFile) {
@@ -117,7 +108,6 @@ class HistoryNavigator: FileNavigator, ObservableObject {
     func onImageChangeTimer() {
         currentPosition = getRandomPosition()
         self.configureImageDisplay()
-        readImageIfNeeded()
     }
 
     func getRandomPosition() -> Int {

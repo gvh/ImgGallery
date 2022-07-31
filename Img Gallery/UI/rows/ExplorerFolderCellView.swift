@@ -1,5 +1,5 @@
 //
-//  ExplorerFolderRowView.swift
+//  ExplorerFolderCellView.swift
 //  Img Gallery
 //
 //  Created by Gardner von Holt on 6/24/22.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ExplorerFolderRowView: View {
+struct ExplorerFolderCellView: View {
     @EnvironmentObject var explorerNavigator: ExplorerNavigator
     @ObservedObject var subFolder: ImageFolder
 

@@ -19,13 +19,19 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
         self.currentPosition = currentPosition
         print("new explorer navigator: \(currentFolder.noPrefixName) : \(currentPosition)")
         self.configureImageDisplay()
-        self.readImageIfNeeded()
     }
 
     func configureImageDisplay() {
-        let file = getCurrentFile()
-        guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: currentFolder.files.count)
+        let currentFile = getCurrentFile()
+        guard currentFile != nil else { return }
+        AppData.sharedInstance.imageDisplay.configure(file: currentFile!, fileSequence: currentPosition, fileCount: currentFolder.files.count)
+        DispatchQueue.main.async {
+            withAnimation(.default) {
+                ImageLoader.readImage(file: currentFile!) { file in
+                    AppData.sharedInstance.imageDisplay.updateImage()
+                }
+            }
+        }
     }
 
     func doPrevResult() {
@@ -48,18 +54,6 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
         print("do go to")
     }
 
-    private func readImageIfNeeded() {
-        let currentFile = getCurrentFile()
-        guard currentFile != nil else { return }
-        DispatchQueue.main.async {
-            withAnimation(.default) {
-                ImageLoader.readImage(file: currentFile!) { file in
-                    AppData.sharedInstance.imageDisplay.updateImage(file: file)
-                }
-            }
-        }
-    }
-
     func getTotalFiles() -> Int {
         return currentFolder.subFolderValues.count
     }
@@ -78,7 +72,7 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
         if self.currentFolder.files.count > 0 {
             DispatchQueue.main.async {
                 self.currentPosition = self.currentFolder.files.firstIndex (where: { $0 == file } )!
-                self.readImageIfNeeded()
+                self.configureImageDisplay()
             }
         }
     }
@@ -89,7 +83,7 @@ class ExplorerNavigator: FileNavigator, ObservableObject {
 
     func setCurrentFilePosition(position: Int) {
         currentPosition = position
-        self.readImageIfNeeded()
+        self.configureImageDisplay()
     }
 
     func getRandomPosition() -> Int {

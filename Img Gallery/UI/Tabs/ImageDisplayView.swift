@@ -15,7 +15,8 @@ struct ImageDisplayView: View {
     @EnvironmentObject var imageDisplay: ImageDisplay
     @EnvironmentObject var folderDisplay: FolderDisplay
 
-    @ObservedObject var file: ImageFile
+    @StateObject var fileNavigator: FileNavigator
+    @ObservedObject var file: ImageDisplay
 
     var body: some View {
         VStack {

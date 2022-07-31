@@ -19,15 +19,22 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
     init() {
         self.currentPosition = 0
         print("new favorites navigator: \(currentPosition)")
-        self.readImageIfNeeded()
         self.configureImageDisplay()
     }
 
     func configureImageDisplay() {
-        let file = getCurrentFile()
-        guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.configure(file: file!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.favorites.items.count)
-        AppData.sharedInstance.imageDisplay.updateImage(file: file!)
+        let currentFile = getCurrentFile()
+        guard currentFile != nil else { return }
+        AppData.sharedInstance.imageDisplay.configure(file: currentFile!, fileSequence: currentPosition, fileCount: AppData.sharedInstance.favorites.items.count)
+
+        guard currentFile?.image == nil else { return }
+
+        withAnimation(.default) {
+            ImageLoader.readImage(file: currentFile!) { file in
+                print(currentFile!.getFullPath() + " read")
+                AppData.sharedInstance.imageDisplay.updateImage()
+            }
+        }
     }
 
     func doPrevResult() {
@@ -50,20 +57,6 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
         print("do go to")
     }
 
-    private func readImageIfNeeded() {
-        let currentFile = getCurrentFile()
-
-        guard currentFile != nil else { return }
-        guard currentFile?.image == nil else { return }
-
-        withAnimation(.default) {
-            ImageLoader.readImage(file: currentFile!) { file in
-                print(file.getFullPath() + " read")
-                AppData.sharedInstance.imageDisplay.updateImage(file: file)
-            }
-        }
-    }
-
     func getTotalFiles() -> Int {
         return AppData.sharedInstance.favorites.items.count
     }
@@ -77,7 +70,6 @@ class FavoritesNavigator: FileNavigator, ObservableObject {
 
     func setCurrentFile(file: ImageFile) {
         currentPosition = AppData.sharedInstance.favorites.items.firstIndex (where: { $0.file == file } )!
-        readImageIfNeeded()
         self.configureImageDisplay()
     }
 

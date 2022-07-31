@@ -25,35 +25,27 @@ class SearchResultsNavigator: ObservableObject {
         self.currentSearchResultPosition = 0
 
         print("new search results navigator: \(currentPosition)")
-        readImageIfNeeded()
         self.configureDisplay()
-        self.readImageIfNeeded()
     }
 
     private func configureDisplay() {
-        let file = getCurrentFile()
-        guard file != nil else { return }
-        AppData.sharedInstance.imageDisplay.configure(file: file!,
+        let currentFile = getCurrentFile()
+        guard currentFile != nil else { return }
+        AppData.sharedInstance.imageDisplay.configure(file: currentFile!,
                                                       fileSequence: currentPosition,
                                                       fileCount: currentSearchResult!.imageFolder.files.count)
+
+        guard currentFile?.image == nil else { return }
+        withAnimation(.default) {
+            ImageLoader.readImage(file: currentFile!) { file in
+                AppData.sharedInstance.imageDisplay.updateImage()
+            }
+        }
     }
 
 
     func doGoTo() {
         print("do go to")
-    }
-
-    private func readImageIfNeeded() {
-        let currentFile = getCurrentFile()
-
-        guard currentFile != nil else { return }
-        guard currentFile?.image == nil else { return }
-
-        withAnimation(.default) {
-            ImageLoader.readImage(file: currentFile!) { file in
-                AppData.sharedInstance.imageDisplay.updateImage(file: file)
-            }
-        }
     }
 
     func doSave() {
@@ -80,7 +72,6 @@ class SearchResultsNavigator: ObservableObject {
     func onImageChangeTimer() {
         currentPosition = getRandomPosition()
         self.configureDisplay()
-        readImageIfNeeded()
     }
 
     func setResults(results: [SearchResult]) {
@@ -101,7 +92,6 @@ class SearchResultsNavigator: ObservableObject {
     }
 
     private func setPosition() {
-        self.readImageIfNeeded()
         self.configureDisplay()
     }
 
@@ -120,7 +110,7 @@ extension SearchResultsNavigator : FileNavigator {
     func setCurrentFile(file: ImageFile) {
         if currentSearchResult != nil {
             currentPosition = currentSearchResult!.imageFolder.files.firstIndex (where: { $0 == file } )!
-            readImageIfNeeded()
+            self.configureDisplay()
         }
     }
 

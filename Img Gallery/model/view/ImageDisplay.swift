@@ -9,6 +9,12 @@
 import Foundation
 import SwiftUI
 
+enum DisplayStatus: Int {
+    case Placeholder = 1
+    case Image = 2
+    case Broken = 3
+}
+
 class ImageDisplay : ObservableObject {
     static var nextId: Int = 1
     var id: Int
@@ -17,6 +23,8 @@ class ImageDisplay : ObservableObject {
 
     var name: String = ""
     var image: UIImage = UIImage(systemName: "film")!
+
+    var imageStatus: DisplayStatus = .Placeholder
 
     var parentDirectoryName: String = ""
     var directoryName: String = ""
@@ -31,15 +39,28 @@ class ImageDisplay : ObservableObject {
         ImageDisplay.nextId += 1
     }
 
+    func configure(fileNavigator: FileNavigator) {
+        if let file = fileNavigator.getCurrentFile() {
+            let fileSequence = fileNavigator.getCurrentFilePosition()
+            let fileCount = fileNavigator.getTotalFiles()
+            self.configure(file: file, fileSequence: fileSequence, fileCount: fileCount)
+        }
+    }
+
     func configure(file: ImageFile, fileSequence: Int, fileCount: Int)  {
         DispatchQueue.main.async {
-            self.objectWillChange.send()
-            self.currentFile = file
-            self.directoryName = file.textDirectoryName
-            self.parentDirectoryName = file.parentFolder.noPrefixName
-            self.fileSequence = fileSequence
-            self.fileCount = fileCount
-            self.countDownSeconds = 0
+            if self.currentFile != file {
+                print("new configured for \(file.name)")
+                self.objectWillChange.send()
+                self.currentFile = file
+                self.directoryName = file.textDirectoryName
+                self.parentDirectoryName = file.parentFolder.noPrefixName
+                self.fileSequence = fileSequence
+                self.fileCount = fileCount
+                self.countDownSeconds = 0
+            } else {
+                print("reconfigured for \(self.currentFile.name)")
+            }
         }
     }
 
@@ -50,10 +71,15 @@ class ImageDisplay : ObservableObject {
         }
     }
 
-    func updateImage(file: ImageFile) {
+    func updateImage() {
         DispatchQueue.main.async {
-            self.objectWillChange.send()
-            self.image = file.image
+            guard self.imageStatus != .Image else { return }
+
+            if self.imageStatus == .Placeholder && self.currentFile.imageStatus == .DownloadComplete {
+                self.objectWillChange.send()
+                self.image = self.currentFile.image
+                self.imageStatus = .Image
+            }
         }
     }
 }

@@ -31,6 +31,7 @@ final class SettingsStore: ObservableObject {
     let objectWillChange = PassthroughSubject<Void, Never>()
 
     init(defaults: UserDefaults = .standard) {
+        print("creating settings store")
         self.defaults = defaults
 
         defaults.register(defaults: [

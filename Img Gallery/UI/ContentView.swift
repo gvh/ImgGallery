@@ -65,7 +65,11 @@ struct ContentView: View {
         .environmentObject(favoritesNavigator)
         .environmentObject(historyNavigator)
         .environmentObject(searchResultsNavigator)
-
+        .onAppear() {
+            print("in contentview onappear")
+            AppData.sharedInstance.fileNavigator = self.explorerNavigator
+            AppData.sharedInstance.folderNavigator = nil
+        }
         .onChange(of: selectedTab) { newValue in
             switch newValue {
             case 1:
@@ -86,11 +90,9 @@ struct ContentView: View {
 
             case 5:
                 AppData.sharedInstance.fileNavigator = nil
-                AppData.sharedInstance.folderNavigator = nil
 
             default:
                 AppData.sharedInstance.fileNavigator = nil
-                AppData.sharedInstance.folderNavigator = nil
 
             }
         }

@@ -19,6 +19,13 @@ enum FileContents: Int {
     case video = 2
 }
 
+enum ImageStatus: Int {
+    case NotDownloaded = 1
+    case DownloadStarted = 2
+    case DownloadComplete = 3
+    case DownloadFailed = 4
+}
+
 final class ImageFile: ObservableObject {
     static var nextId: Int = 1
     var id: Int
@@ -30,9 +37,10 @@ final class ImageFile: ObservableObject {
     private(set) var key: String
 
     private(set) var image: UIImage
+
     private(set) var fileContents: FileContents
     private(set) var isDummyEntry: Bool = false
-    private(set) var imageReady = false
+    private(set) var imageStatus: ImageStatus = .NotDownloaded
 
     var isFavorite: Bool = false
     var favorite: Favorite?
@@ -43,6 +51,7 @@ final class ImageFile: ObservableObject {
     var favoriteID: String? {
         return favorite == nil ? nil : favorite?.favoriteID
     }
+
 
     var imageDisplay: ImageDisplay?
 
@@ -100,12 +109,12 @@ final class ImageFile: ObservableObject {
         return fileName
     }
 
-    func setImage(_ image: UIImage) {
+    func setImage(image: UIImage) {
         DispatchQueue.main.async {
             self.objectWillChange.send()
         }
         self.image = image
-        self.imageReady = true
+        self.imageStatus = .DownloadComplete
     }
 
     var imageUrl: URL {
@@ -134,31 +143,26 @@ final class ImageFile: ObservableObject {
         return parentPath
     }
 
-    func generateThumbnail(url: URL) {
-        do {
-            let asset = AVURLAsset(url: url)
-            let imageGenerator = AVAssetImageGenerator(asset: asset)
-            imageGenerator.appliesPreferredTrackTransform = true
-            let cgImage = try imageGenerator.copyCGImage(at: CMTimeMake(value: 10, timescale: 1), actualTime: nil)
-            let image = UIImage(cgImage: cgImage)
-            self.setImage(image)
-        } catch {
-            let message = "generateThumbnail.createfailed".localizedWithComment(comment: "error in file access") + error.localizedDescription
-            print(message)
-        }
-    }
-
     func getDisplayImage(fileSequence: Int, fileCount: Int) {
-        print("in get display image")
-        if self.imageReady {
-            print("in get display image : image is ready")
+        switch self.imageStatus {
+        case .DownloadComplete:
+            print("in get display image : image is ready for \(self.name)")
             AppData.sharedInstance.imageDisplay.configure(file: self, fileSequence: fileSequence, fileCount: fileCount)
-        } else {
-            print("in get display image : image is not ready; about to read")
+
+        case .NotDownloaded:
+            print("in get display image : image is not ready; about to read for \(self.name)")
+            imageStatus = .DownloadStarted
             ImageLoader.readImage(file: self) { _ in
-                print("in get display image : image is not ready; read and about to configure")
+                self.imageStatus = .DownloadComplete
+                print("in get display image : image is not ready; read and about to configure for \(self.name)")
                 AppData.sharedInstance.imageDisplay.configure(file: self, fileSequence: fileSequence, fileCount: fileCount)
             }
+
+        case .DownloadStarted:
+            print("no redundant read needed for \(self.name)")
+
+        case .DownloadFailed:
+            print("previous error reading image, ignore request for \(self.name)")
         }
     }
 

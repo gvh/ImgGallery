@@ -18,7 +18,7 @@ final class AppData {
     var folderDisplay = FolderDisplay()
     var navigationDisplay = NavigationDisplay()
 
-    var fileNavigator: FileNavigator?
+//    var fileNavigator: FileNavigator?
     var folderNavigator: FolderNavigator?
 
     var serverName: String = ""

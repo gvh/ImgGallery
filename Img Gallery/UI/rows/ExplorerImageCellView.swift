@@ -1,5 +1,5 @@
 //
-//  ExplorerImageRowView.swift
+//  ExplorerImageCellView.swift
 //  Img Gallery
 //
 //  Created by Gardner von Holt on 6/26/22.
@@ -8,9 +8,10 @@
 
 import SwiftUI
 
-struct ExplorerImageRowView: View {
+struct ExplorerImageCellView: View {
     @EnvironmentObject var explorerNavigator: ExplorerNavigator
-    @ObservedObject var file: ImageFile
+    @State var file: ImageFile
+    @State var imageDisplay = ImageDisplay()
     @State var fileSequence: Int
     @State var fileCount: Int
 
@@ -19,14 +20,14 @@ struct ExplorerImageRowView: View {
             NavigationLink{
                 ImageDisplayView(file: file)
             } label : {
-                Image(uiImage: file.image)
+                Image(uiImage: imageDisplay.image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }
         }
         .onAppear() {
             explorerNavigator.setCurrentFile(file: file)
-            file.getDisplayImage(fileSequence: fileSequence, fileCount: fileCount)
+            imageDisplay.configure(fileNavigator: explorerNavigator)
         }
     }
 }

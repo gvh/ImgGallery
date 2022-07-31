@@ -14,7 +14,7 @@ struct ExplorerFolderView: View {
         VStack {
             List {
                 ForEach(folder.subFolderValues) { subFolder in
-                    ExplorerFolderRowView(subFolder: subFolder)
+                    ExplorerFolderCellView(subFolder: subFolder)
                 }
             }
         }
